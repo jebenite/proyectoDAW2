@@ -1,0 +1,51 @@
+[
+    {
+        "paciente": "Julio Voltaje",
+        "enfermedad": "Fiebre",
+        "centroMedico": "Acacias",
+        "labDestino": "Biotecnol",
+        "examenes": ["radiacion", "ultravioleta", "magneto"]
+    },
+    {
+        "paciente": "Joycelyn Ormaza",
+        "enfermedad": "Tifoidea",
+        "centroMedico": "Acacias",
+        "labDestino": "Biotecnol",
+        "examenes": ["radiacion", "ultravioleta", "magneto"]
+    },
+    {
+        "paciente": "Yuleen Lopez",
+        "enfermedad": "Fiebre",
+        "centroMedico": "Acacias",
+        "labDestino": "Biotecnologias",
+        "examenes": ["radiacion", "ultravioleta", "magneto"]
+    },
+    {
+        "paciente": "Joycelyn Ormaza",
+        "enfermedad": "Colera",
+        "centroMedico": "Acacias",
+        "labDestino": "Biotecnol",
+        "examenes": ["radiacion", "ultravioleta", "magneto"]
+    },
+    {
+        "paciente": "Yuleen Lopez",
+        "enfermedad": "Fiebre",
+        "centroMedico": "Acacias",
+        "labDestino": "Biotecnologias",
+        "examenes": ["radiacion", "ultravioleta", "magneto"]
+    },
+    {
+        "paciente": "Joycelyn Ormaza",
+        "enfermedad": "Fiebre",
+        "centroMedico": "Acacias",
+        "labDestino": "Biotecnol",
+        "examenes": ["radiacion", "ultravioleta", "magneto"]
+    },
+    {
+        "paciente": "Yuleen Lopez",
+        "enfermedad": "Gripe",
+        "centroMedico": "Acacias",
+        "labDestino": "Biotecnologias",
+        "examenes": ["radiacion", "ultravioleta", "magneto"]
+    }
+]

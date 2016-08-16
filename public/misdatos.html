@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Salud Primero</title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- Bootstrap -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/master.css" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/misdatos.css" media="screen" title="no title" charset="utf-8">
+	
+    <!-- Google font -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+
+    <!-- Font-awesome -->
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+</head>
+<body>
+    <header >
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">
+                        S<span class="fa fa-flask fa-lg" aria-hidden="true"></span>P
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class=""><a href="sucursales.html">Cambiar de centro</a></li>
+                        <li class=""><a href="misexamenes.html">Mis exámenes</a></li>
+                        <li class="action"><a href="#">Mis datos</a></li>
+                        <li class=""><a href="index.html">Cerrar sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- ************** cabecera************* -->
+       
+            <section id="cabecera"  align="center">
+                
+                <h1>Salud Primero S.A.</h1>
+                <p>Gestión de Resultados de Exámenes Médicos.</p>
+				<h2>Mis datos</h2>
+			</section>
+	
+	</header>
+	<section class="container" id="formulario">
+	<form>
+		
+	 <div class="row">
+	 <fieldset>
+		<div class="col-sm-6"  align="left">
+		
+		<img id="preview" align="left">  </img>
+		<div>
+			<input type="file" name="image_file" id="image_file" onchange="fileSelected();" value=""/>
+		</div>
+		
+	  </div>
+		<div  class="col-sm-6">
+		
+		<div class="form-group row">
+			
+			<label for="nombre" class="col-sm-2 form-control-label">Nombres</label>
+			<div class="col-sm-10">
+			  <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
+			</div>
+			
+		</div>
+		<div class="form-group row">
+			<label for="apellido" class="col-sm-2 form-control-label">Apellidos</label>
+			<div class="col-sm-10">
+			  <input type="text" class="form-control" id="apellido" placeholder="Apellidos" required>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="ced" class="col-sm-2 form-control-label">Cédula</label>
+			<div class="col-sm-10">
+			  <input type="number" class="form-control" id="ced" placeholder="Cédula" required>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="dir" class="col-sm-2 form-control-label">Dirección</label>
+			<div class="col-sm-10">
+			  <input type="text" class="form-control" id="dir" placeholder="Dirección" >
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="telf" class="col-sm-2 form-control-label">Teléfono</label>
+			<div class="col-sm-10">
+			  <input type="number" class="form-control" id="telf" placeholder="Teléfono" required>
+			</div>
+		</div>
+	  <div class="form-group row">
+		<label for="inputEmail3" class="col-sm-2 form-control-label">Email</label>
+		<div class="col-sm-10">
+		  <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+		</div>
+	  </div>
+	 
+	  
+  
+  </div>
+  
+	  
+	  </fieldset> 
+  </div>
+<button  class="btn btn-default" onclick="pregunta()">Guardar</button>
+</form>
+  
+  <button class="btn btn-default" type="submit" name="button" id="botonEditar">Editar</button>
+  
+	</section>
+	<footer>
+        <section class="container">
+            <div class="row">
+                <nav class="nav-footer">
+                    <ul>
+                        <li><a href="#"><span class="fa fa-facebook-f fa-lg" aria-hidden="true"></span></a></li>
+                        <li><a href="#"><span class="fa fa-twitter fa-lg" aria-hidden="true"></span></a></li>
+                        <li><a href="#"><span class="fa fa-google-plus fa-lg" aria-hidden="true"></span></a></li>
+                        <li><a href="#"><span class="fa fa-instagram fa-lg" aria-hidden="true"></span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+    </footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/misdatos.js" charset="utf-8"></script>
+   
+</body>
+
+</html>
