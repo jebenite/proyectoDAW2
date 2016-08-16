@@ -141,7 +141,7 @@
                                         </table>
                                       </div>
                                     </div>
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target=#{{sucursal._id}} href="#">Detalles</button>
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target=#l href="#">Detalles</button>
                                 </div>
 
 
@@ -159,36 +159,70 @@
 
 
           </div> <!-- end col-sm-10 -->
-          <div ng-repeat="sucursal in sucursales" class="modal fade" id={{sucursal._id}} tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-              <div class="modal-dialog" role="document">
-                  <div class="modal-content">
 
-                    <div class="content-slide">
-                <div id="slider" class="flexslider">
-                <!-- Imagenes Grandes -->
-                  <ul class="slides">
-                    <li ng-repeat= "img in sucursal.galeria track by $index">
-                      <img ng-src={{img}} />
+                    <h2 align="center">Galería<h2>
+                    <div class="content-slide" >
+                    <div id="slider" class="flexslider">
+                    <!-- Imagenes Grandes -->
+                    <ul class="slides" >
+                      <li >
+                        <img id="pic" src="assets/img/galeria1.jpg" />
+
+                      </li>
+                    <li >
+                      <img id="pic" src="assets/img/galeria1.jpg" />
+
+                    </li>
+                    <li >
+                      <img id="pic" src="assets/img/galeria1.jpg" />
+
+                    </li>
+                    <li >
+                      <img id="pic" src="assets/img/galeria1.jpg" />
+
+                    </li>
+                    <li >
+                      <img id="pic" src="assets/img/galeria1.jpg" />
+
                     </li>
 
 
 
 
                     <!-- items mirrored twice, total of 12 -->
-                  </ul>
-                </div>
+                    </ul>
+                    </div>
 
-                <div id="carousel" class="flexslider">
-                <!-- Imagenes Miniaturas -->
-                  <ul class="slides">
-                    <li ng-repeat= "img in sucursal.galeria track by $index">
-                      <img ng-src={{img}} />
+                    <div id="carousel" class="flexslider">
+                    <!-- Imagenes Miniaturas -->
+                    <ul class="slides">
+                      <li >
+                        <img id="pic" src="assets/img/galeria1.jpg" />
+
+                      </li>
+
+                    <li >
+                      <img id="pic" src="assets/img/galeria1.jpg" />
+
+                    </li>
+                    <li >
+                      <img id="pic" src="assets/img/galeria1.jpg" />
+
+                    </li>
+                    <li >
+                      <img id="pic" src="assets/img/galeria1.jpg" />
+
+                    </li>
+                    <li >
+                      <img id="pic" src="assets/img/galeria1.jpg" />
+
                     </li>
 
 
-                  </ul>
-                </div>
-              </div> <!-- contiene al flexslide -->
+                    </ul>
+                    </div>
+                    </div> <!-- contiene al flexslide -->
+
                   </div>
               </div>
           </div>

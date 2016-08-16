@@ -3,6 +3,17 @@
    This stylesheet contains print the main styles.
    ---------------------------------------------------------*/
 
+div#slider.flexslider{
+  width: 50%;
+  height: 10%;
+  margin: 0 auto;
+  margin-bottom: 2%
+}
+div#carousel.flexslider{
+  width: 50%;
+
+  margin: 0 auto;
+}
 body {
     /*font-family: 'Open Sans', sans-serif;*/
     /*font-family: 'Lato', sans-serif;*/
