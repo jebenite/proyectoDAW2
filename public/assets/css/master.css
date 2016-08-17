@@ -14,6 +14,10 @@ div#carousel.flexslider{
 
   margin: 0 auto;
 }
+#map {
+        height: 100%;
+      }
+
 body {
     /*font-family: 'Open Sans', sans-serif;*/
     /*font-family: 'Lato', sans-serif;*/

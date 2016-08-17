@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Salud Primero</title>
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcoBX8FRfrJVOw-nk7KjU3MC7maC3AJYE&signed_in=true"
+            async defer></script>
     <!-- Bootstrap -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href='assets/css/rotating-card.css' rel='stylesheet' />
@@ -142,7 +143,8 @@
                                         </table>
                                       </div>
                                     </div>
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target=#{{sucursal._id}} href="#">Detalles</button>
+
+                                    <button  type="button" class="btn btn-success" data-toggle="modal" ng-click="mapa(sucursal.direccionMapa,sucursal._id)" data-target=#{{sucursal._id}} href="#">Detalles</button>
                                 </div>
 
 
@@ -227,6 +229,7 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
 
+
                                   <div class="panel panel-default">
                                     <div class="panel-heading">
                                       <h3 class="panel-title">Examenes </h3>
@@ -245,7 +248,20 @@
                                     </div>
                                   </div>
 
-                            </div>
+
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                      <h3 class="panel-title">Mapa </h3>
+                                    </div>
+                                    <div class="panel-body"align="center" >
+                                        <div id="map{{sucursal._id}}" style="width:300px;height:300px" ></div>
+
+
+                                    </div>
+                                  </div>
+                                </div >
+
+
                         </div>
                     </div>
 
@@ -275,6 +291,7 @@
                 </nav>
             </div>
         </section>
+
     </footer>
 
     <!-- Scripts -->
@@ -282,57 +299,62 @@
 
     <script src="controllers/controller.js"></script>
     <script type="text/javascript">
-    $().ready(function(){
-        $('[rel="tooltip"]').tooltip();
+            $().ready(function(){
+                $('[rel="tooltip"]').tooltip();
 
-    });
-    $('#carousel').flexslider({
-        animation: "slide",
-        controlNav: false,
-        animationLoop: false,
-        slideshow: false,
-        itemWidth: 120,
-        itemMargin: 30,
-        asNavFor: '#slider'
-    });
 
-    $('#slider').flexslider({
-        animation: "slide",
-        controlNav: false,
-        animationLoop: false,
-        slideshow: false,
-        sync: "#carousel"
-    });
+            });
 
-    // ANIMACION PARA TABS
-    var hashTagActive = "";
-    $(".scroll").click(function (event) {
-        if(hashTagActive != this.hash) {
-            event.preventDefault();
-            // calcular lugar destino
-            var dest = 0;
-            if ($(this.hash).offset().top > $(document).height() - $(window).height()) {
-                dest = $(document).height() - $(window).height();
-            } else {
-                dest = $(this.hash).offset().top;
+
+
+            $('#carousel').flexslider({
+                animation: "slide",
+                controlNav: false,
+                animationLoop: false,
+                slideshow: false,
+                itemWidth: 120,
+                itemMargin: 30,
+                asNavFor: '#slider'
+            });
+
+            $('#slider').flexslider({
+                animation: "slide",
+                controlNav: false,
+                animationLoop: false,
+                slideshow: false,
+                sync: "#carousel"
+            });
+
+            // ANIMACION PARA TABS
+            var hashTagActive = "";
+            $(".scroll").click(function (event) {
+                if(hashTagActive != this.hash) {
+                    event.preventDefault();
+                    // calcular lugar destino
+                    var dest = 0;
+                    if ($(this.hash).offset().top > $(document).height() - $(window).height()) {
+                        dest = $(document).height() - $(window).height();
+                    } else {
+                        dest = $(this.hash).offset().top;
+                    }
+                    // ir al destino
+                    $('html,body').animate({
+                        scrollTop: dest
+                    }, 750, 'swing');
+                    hashTagActive = this.hash;
+                }
+            });
+            function rotateCard(btn){
+                var $card = $(btn).closest('.card-container');
+                console.log($card);
+                if($card.hasClass('hover')){
+                    $card.removeClass('hover');
+                } else {
+                    $card.addClass('hover');
+                }
             }
-            // ir al destino
-            $('html,body').animate({
-                scrollTop: dest
-            }, 750, 'swing');
-            hashTagActive = this.hash;
-        }
-    });
-    function rotateCard(btn){
-        var $card = $(btn).closest('.card-container');
-        console.log($card);
-        if($card.hasClass('hover')){
-            $card.removeClass('hover');
-        } else {
-            $card.addClass('hover');
-        }
-    }
 </script>
+
 </body>
 
 </html>
