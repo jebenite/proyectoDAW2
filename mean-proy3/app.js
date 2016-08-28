@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var hbs = require('express-handlebars');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -30,8 +31,13 @@ db.once('open', function() {
 var app = express();
 
 // view engine setup
+app.engine('hbs', hbs({
+    extname: 'hbs',
+    defaultLayout: 'main',
+    layoutsDir: __dirname + '/views/layouts'
+}));
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'hbs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -52,12 +58,10 @@ var auth = function(req, res, next) {
     //console.log("este es un middleware");
     if (req.session["rol"] != "paciente") {
         res.sendStatus(401);
-
         return;
     }
     if (req.session["rol"] != "operario") {
         res.sendStatus(401);
-
         return;
     }
     next();
