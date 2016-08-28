@@ -11,7 +11,7 @@
     <!-- Bootstrap -->
     <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
     <link href="stylesheets/master.css" rel="stylesheet">
-	<link href="stylesheets/barraDeEstado.css" rel="stylesheet"  >
+    <link href="stylesheets/barraDeEstado.css" rel="stylesheet">
 
     <!-- Google font -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -22,14 +22,14 @@
     <!-- Font-awesome -->
     <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
     <style>
-    #lista{
-      padding-left: 0;
-    }
-  </style>
+        #lista {
+            padding-left: 0;
+        }
+    </style>
 </head>
 
 <body ng-controller="Paciente">
-    <header >
+    <header>
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -57,105 +57,83 @@
         <!-- ************** cabecera************* -->
         <div class="container">
             <section id="cabecera" align="center">
-
                 <h1>Salud Primero S.A.</h1>
                 <p>Gestión de Resultados de Exámenes Médicos.</p>
-				<h2>Mis exámenes</h2>
-			</section>
-		</div>
-	</header>
+                <h2>Mis exámenes</h2>
+            </section>
+        </div>
+    </header>
 
-	<section class="container" id="contenido">
-		<div class="row">
-			<div class="col-sm-2">
-
-			</div>
-			<div class="col-sm-1">
-				Desde
-			</div>
-			<div class="col-sm-1">
-				<input type="date" name="fecha">
-			</div>
-			<div class="col-sm-3">
-
-			</div>
-			<div class="col-sm-1">
-				Hasta
-			</div>
-			<div class="col-sm-1">
-				<input type="date" name="fecha">
-			</div>
-
-		</div>
-		<button id="boton" class="btn btn-default">Filtrar</button>
-	</section>
-	<section class="container" id="tabla">
-	<div class="table-responsive">
-		<table class="table table-striped"  >
-                    <thead >
-                        <tr id="listaEncabezado">
-                            <td>Muestra</td>
-                            <td>Examenes  </td>
-                            <td>Fecha </td>
-                            <td>Estado</td>
-                            <td>Descarga</td>
-                        </tr>
-                    </thead>
-                    <tbody id="cuerpoTabla">
+    <section class="container" id="contenido">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-1">Desde</div>
+            <div class="col-sm-1"><input type="date" name="fecha"></div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-1">Hasta </div>
+            <div class="col-sm-1"><input type="date" name="fecha"> </div>
+        </div>
+        <button id="boton" class="btn btn-default">Filtrar</button>
+    </section>
+    <section class="container" id="tabla">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr id="listaEncabezado">
+                        <td>Muestra</td>
+                        <td>Examenes </td>
+                        <td>Fecha </td>
+                        <td>Estado</td>
+                        <td>Descarga</td>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTabla">
                     <tr ng-repeat="paciente in pacientes">
-                      <td>{{paciente.tipo}}</td>
-                      <td >
-                        <ul id="lista">
-                        <li style="list-style:none" ng-repeat="examen in paciente.examenes_realizados">{{examen}}</li>
-                      </ul>
-                      </td>
-                      <td>{{paciente.fechaIngreso| date:"MM/dd/yyyy"}}</td>
-                      <td ng-if="paciente.estado == 'inicial'">
-                        <ol  class="progtrckr" data-progtrckr-steps="2" >
-                          <li class="progtrckr-done">Inicial</li>
-                          <li class="progtrckr-todo">Proceso</li>
-                          <li class="progtrckr-todo">Final</li>
-                        </ol>
-                      </td>
-                      <td ng-if="paciente.estado == 'enDesarrollo'">
-                        <ol  class="progtrckr" data-progtrckr-steps="2" >
-                          <li class="progtrckr-done">Inicial</li>
-                          <li class="progtrckr-done">Proceso</li>
-                          <li class="progtrckr-todo">Final</li>
-                        </ol>
-                      </td>
-                      <td ng-if="paciente.estado == 'terminado'">
-                        <ol  class="progtrckr" data-progtrckr-steps="2" >
-                          <li class="progtrckr-done">Inicial</li>
-                          <li class="progtrckr-done">Proceso</li>
-                          <li class="progtrckr-done">Final</li>
-                        </ol>
-                      </td>
-                      <td ng-if="paciente.estado == 'terminado'">
-                        <button class="btn " ng-click="PdfPorMuestra(paciente._id)">Descargar</button>
-                      </td>
-                      <td ng-if="paciente.estado == 'inicial'">
-                          <p>Descargar</p>
-                      </td>
-                      <td ng-if="paciente.estado == 'enDesarrollo'">
-                        <p>Descargar</p>
-                      </td>
+                        <td>{[{paciente.tipo}]}</td>
+                        <td>
+                            <ul id="lista">
+                                <li style="list-style:none" ng-repeat="examen in paciente.examenes_realizados">{[{examen}]}</li>
+                            </ul>
+                        </td>
+                        <td>{[{paciente.fechaIngreso| date:"MM/dd/yyyy"}]}</td>
+                        <td ng-if="paciente.estado == 'inicial'">
+                            <ol class="progtrckr" data-progtrckr-steps="2">
+                                <li class="progtrckr-done">Inicial</li>
+                                <li class="progtrckr-todo">Proceso</li>
+                                <li class="progtrckr-todo">Final</li>
+                            </ol>
+                        </td>
+                        <td ng-if="paciente.estado == 'enDesarrollo'">
+                            <ol class="progtrckr" data-progtrckr-steps="2">
+                                <li class="progtrckr-done">Inicial</li>
+                                <li class="progtrckr-done">Proceso</li>
+                                <li class="progtrckr-todo">Final</li>
+                            </ol>
+                        </td>
+                        <td ng-if="paciente.estado == 'terminado'">
+                            <ol class="progtrckr" data-progtrckr-steps="2">
+                                <li class="progtrckr-done">Inicial</li>
+                                <li class="progtrckr-done">Proceso</li>
+                                <li class="progtrckr-done">Final</li>
+                            </ol>
+                        </td>
+                        <td ng-if="paciente.estado == 'terminado'">
+                            <button class="btn " ng-click="PdfPorMuestra(paciente._id)">Descargar</button>
+                        </td>
+                        <td ng-if="paciente.estado == 'inicial'">
+                            <p>Descargar</p>
+                        </td>
+                        <td ng-if="paciente.estado == 'enDesarrollo'">
+                            <p>Descargar</p>
+                        </td>
                     </tr>
 
-                    </tbody>
-                </table>
-	</div>
-	</section>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
-
-
-
-
-
-
-
-
-	<footer>
+    <footer>
         <section class="container">
             <div class="row">
                 <nav class="nav-footer">
@@ -169,14 +147,14 @@
             </div>
         </section>
     </footer>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
     <script src="javascripts/bootstrap.min.js"></script>
     <script src="javascripts/main.js" charset="utf-8"></script>
     <script src="javascripts/master.js" charset="utf-8"></script>
-	<script src="javascripts/controllerPaciente.js" charset="utf-8"></script>
-  <script type="text/javascript" src="javascripts/pdfmake.js"></script>
+    <script src="javascripts/controllerPaciente.js" charset="utf-8"></script>
+    <script type="text/javascript" src="javascripts/pdfmake.js"></script>
     <script type="text/javascript" src="javascripts/vfs_fonts.js"></script>
 </body>
 

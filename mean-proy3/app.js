@@ -5,10 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var hbs = require('express-handlebars');
+var exphbs = require('express-handlebars');
+var hbsExtend = require('express-handlebars-extend');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var centrosMed = require('./routes/centrosMed');
 var laboratorios = require('./routes/laboratorios');
 var usuarios = require('./routes/usuarios');
@@ -16,28 +16,24 @@ var muestras = require('./routes/muestras');
 var examenes = require('./routes/examenes');
 var pacientes = require('./routes/pacientes');
 var session = require('express-session');
-mongoose.connect('mongodb://jebenite:180895@ds139665.mlab.com:39665/tareasdaw1', function(err) {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log("conexion exitosa");
-    }
-});
+mongoose.connect('mongodb://jebenite:180895@ds139665.mlab.com:39665/tareasdaw1');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     console.log("mongoose connection successful");
 });
+
 var app = express();
 
 // view engine setup
-app.engine('hbs', hbs({
+var hbs = hbsExtend(exphbs.create({
     extname: 'hbs',
     defaultLayout: 'main',
     layoutsDir: __dirname + '/views/layouts'
 }));
-app.set('views', path.join(__dirname, 'views'));
+app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -67,7 +63,7 @@ var auth = function(req, res, next) {
     next();
 };
 app.use('/', routes);
-app.use('/users', users);
+// app.use('/users', users);
 app.use('/centrosMed', /*auth*/ centrosMed);
 app.use('/laboratorios', /*auth*/ laboratorios);
 app.use('/login', usuarios);

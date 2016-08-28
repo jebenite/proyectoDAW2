@@ -14,13 +14,34 @@ router.get('/', function(req, res, next) {
         title: 'Express'
     });
 });
-router.get('/sucursales', function(req, res, next) {
-    res.render('sucursales', {
+
+//paciente
+router.get('/sucursal.ejs', function(req, res, next) {
+    res.render('sucursal', {
         title: 'Express'
     });
 });
-router.get('/sucursal.ejs', function(req, res, next) {
-    res.render('sucursal', {
+
+router.get('/sucursales.ejs', function(req, res, next) {
+    res.render('sucursales', {
+        title: 'Express', layout: false
+    });
+});
+router.get('/misdatos', function(req, res, next) {
+    res.render('misdatos', {
+        title: 'Express', layout: false
+    });
+});
+router.get('/misexamenes.ejs', function(req, res, next) {
+    res.render('misexamenes', {
+        title: 'Express', layout: false
+    });
+});
+
+
+//operario
+router.get('/muestra-crear.ejs', function(req, res, next) {
+    res.render('muestra-crear', {
         title: 'Express'
     });
 });
@@ -30,30 +51,7 @@ router.get('/ingresomuestra.ejs', function(req, res, next) {
         title: 'Express'
     });
 });
-router.get('/listaDeResultados.ejs', function(req, res, next) {
-    res.render('listaDeResultados', {
-        title: 'Express'
-    });
-});
 
-//paciente
-router.get('/misdatos.ejs', function(req, res, next) {
-    res.render('misdatos', {
-        title: 'Express'
-    });
-});
-router.get('/misexamenes.ejs', function(req, res, next) {
-    res.render('misexamenes', {
-        title: 'Express'
-    });
-});
-router.get('/muestra-crear.ejs', function(req, res, next) {
-    res.render('muestra-crear', {
-        title: 'Express'
-    });
-});
-
-//operario
 router.get('/pacientes.ejs', function(req, res, next) {
     res.render('pacientes', {
         title: 'Express'
@@ -89,11 +87,21 @@ router.get('/prueba-estadistica2.php', function(req, res, next) {
 });
 
 //laborator
-router.get('/lista-muestras', function(req, res, next) {
+router.get('/lista-muestras', function(req, res, next) { /*bk*/
     res.render('lista-muestras', {
         title: 'Express'
     });
 });
 
+router.get('/listaDeResultados.ejs', function(req, res, next) {
+    res.render('listaDeResultados', {
+        title: 'Express'
+    });
+});
+
+
+router.get('/mmm', function(req, res){
+    res.render('example', {title: 'express-hbs'})
+});
 
 module.exports = router;
