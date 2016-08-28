@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Salud Primero</title>
+
+    <!-- stylesheets -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/master.css" rel="stylesheet">
+
+
+    <!-- Google font -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+
+    <!-- Font-awesome -->
+    <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.ejs">
+                        S<span class="fa fa-flask fa-lg" aria-hidden="true"></span>P
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class=""><a href="pacientes.ejs">Pacientes</a></li>
+                        <li class="action"><a href="muestras-index.ejs">Muestras</a></li>
+                        <li class=""><a href="estadisticas.ejs">Estadísticas</a></li>
+                        <li class=""><a href="index.ejs">Cerrar sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="container containerMin">
+        <h1>Registro de Muestra</h1>
+        <button id ="btnNuevoPaciente" class="btn btn-success" onclick = "location='/paciente-crear.ejs'">Nuevo Paciente</button>
+    </section>
+    <section class="container containerMin" id="content">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form id="muestraCreateForm">
+                <div class="form-group">
+                    <label for="centro medico">Cédula del Paciente</label>
+                    <select name="cedula" class="form-control" id="inputcedula">
+                        <option selected disabled>-Seleccionar-</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inpuPaciente">Nombres del Paciente</label>
+                    <input name="nombres" type="text" class="form-control" id="inputPaciente" required="" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="inpuPaciente">Apellidos del Paciente</label>
+                    <input name="apellidos" type="text" class="form-control" id="inputPacienteap" required="" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="centro medico">Centro Médico</label>
+                    <select name="centromedico" class="form-control" id="inputCentroMedico">
+                        <option selected disabled>-Seleccionar-</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="centro medico">Laboratorio de Destino</label>
+                    <select name="laboratorio" class="form-control" id="inpuLaboratorio">
+                        <option selected disabled>-Seleccionar-</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inputmuestra">Tipo de Muestra</label>
+                    <select name="muestra" class="form-control" id="inputmuestra">
+                        <option  disabled>-Seleccionar-</option>
+                        <option selected>Sangre</option>
+                        <option>Orina</option>
+                        <option>Heces</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inpuExamenes">Examenes a Realizar</label>
+                    <div id="examenes-realizar">
+
+                    </div>
+                </div>
+                <div>
+                    <input id="codigo_barras" name="codigobarras" hidden>
+                    <button id="btn-generar-codigo-barras" class="btn" type="button">Generar codigo de barras</button>
+                    <br/><br/>
+                    <table id="contenedor-codigo-barras">
+                        <tr>
+                            <td style='padding:10px; text-align:center; font-size:15px; font-family:Arial,Helvetica;'>
+                            </td>
+                            <td>
+                                <img id="imagen-codigo-barras" src='http://barcode.tec-it.com/barcode.ashx?data=ABC-abc-1234&code=Code128&dpi=96' alt='Barcode Generator TEC-IT'/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <button class="btn btn-default" onclick = "location='/muestras-index.ejs'">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+        <div class="col-md-2"> </div>
+    </section>
+    <footer>
+        <section class="container">
+            <div class="row">
+                <nav class="nav-footer">
+                    <ul>
+                        <li><a href="#"><span class="fa fa-facebook-f fa-lg" aria-hidden="true"></span></a></li>
+                        <li><a href="#"><span class="fa fa-twitter fa-lg" aria-hidden="true"></span></a></li>
+                        <li><a href="#"><span class="fa fa-google-plus fa-lg" aria-hidden="true"></span></a></li>
+                        <li><a href="#"><span class="fa fa-instagram fa-lg" aria-hidden="true"></span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="javascripts/bootstrap.min.js"></script>
+    <script src="javascripts/main.js" charset="utf-8"></script>
+    <script src="javascripts/master.js" charset="utf-8"></script>
+    <script>
+    $( ).ready(function() {
+
+        //Carga las cedulas de los Pacientes.
+        var url = "/pacientes/enlistarPacientes";
+        var data = $( "#inputcedula" ).serialize();
+        $.ajax({
+                type: 'GET',
+                url: url,
+                data: data,
+
+                success: function(respuesta){
+                    respuesta.forEach(function(item){
+                    var $option = $("<option></option>");
+                    $option.text(item.cedula);
+                    $("#inputcedula").append($option);
+                    })
+                    $("#inputcedula").change(function(){
+                        respuesta.forEach(function(item){
+                            if($("#inputcedula").val()==item.cedula){
+                                $("#inputPaciente").val(item.nombres); 
+                            }
+                        })
+                        
+                    })
+                    $("#inputcedula").change(function(){
+                        respuesta.forEach(function(item){
+                            if($("#inputcedula").val()==item.cedula){
+                                $("#inputPacienteap").val(item.apellidos); 
+                            }
+                        })
+                        
+                    })
+                }
+        });
+
+        //Cargar los Centros Medicos.
+        var url = "/centrosMed";
+        var data = $( "#inputCentroMedico" ).serialize();
+        $.ajax({
+                type: 'GET',
+                url: url,
+                data: data,
+
+                success: function(respuesta){
+                    respuesta.forEach(function(item){
+                    var $option = $("<option></option>");
+                    $option.text(item.nombre);
+                    $("#inputCentroMedico").append($option);
+                    })
+                    //Cuando cambio un Centro Medico.
+                    $("#inputCentroMedico").change(function(){
+                        respuesta.forEach(function(item){
+                            if($("#inputCentroMedico").val()==item.nombre){
+
+                                if($("#inputmuestra").val()=="Sangre"){
+
+                                    $('#examenes-realizar').empty();
+                                    for(i=0;i<item.descripcion.Sangre.length;i++){
+                                        var text = item.descripcion.Sangre[i];
+                                        $('#examenes-realizar').append('<input name="examenesrealizar" type="checkbox" /> ' + text + '<br />'); 
+                                    }
+
+                                }else if($("#inputmuestra").val()=="Orina"){
+
+                                    $('#examenes-realizar').empty();
+                                    for(i=0;i<item.descripcion.Orina.length;i++){
+                                        var text = item.descripcion.Orina[i];
+                                        $('#examenes-realizar').append('<input name="examenesrealizar" type="checkbox" /> ' + text + '<br />'); 
+                                    }
+
+                                }else if($("#inputmuestra").val()=="Heces"){
+
+                                    $('#examenes-realizar').empty();
+                                    for(i=0;i<item.descripcion.Heces.length;i++){
+                                        var text = item.descripcion.Heces[i];
+                                        $('#examenes-realizar').append('<input name="examenesrealizar" type="checkbox" /> ' + text + '<br />'); 
+                                    }
+
+                                }
+                                
+                            }
+                        })
+                        
+                    })
+                    //Cuando cambio el tipo de Muestra.
+                    $("#inputmuestra").change(function(){
+                        respuesta.forEach(function(item){
+                            if($("#inputCentroMedico").val()==item.nombre){
+
+                                if($("#inputmuestra").val()=="Sangre"){
+
+                                    $('#examenes-realizar').empty();
+                                    for(i=0;i<item.descripcion.Sangre.length;i++){
+                                        var text = item.descripcion.Sangre[i];
+                                        $('#examenes-realizar').append('<input type="checkbox" /> ' + text + '<br />'); 
+                                    }
+
+                                }else if($("#inputmuestra").val()=="Orina"){
+
+                                    $('#examenes-realizar').empty();
+                                    for(i=0;i<item.descripcion.Orina.length;i++){
+                                        var text = item.descripcion.Orina[i];
+                                        $('#examenes-realizar').append('<input type="checkbox" /> ' + text + '<br />'); 
+                                    }
+
+                                }else if($("#inputmuestra").val()=="Heces"){
+
+                                    $('#examenes-realizar').empty();
+                                    for(i=0;i<item.descripcion.Heces.length;i++){
+                                        var text = item.descripcion.Heces[i];
+                                        $('#examenes-realizar').append('<input type="checkbox" /> ' + text + '<br />'); 
+                                    }
+
+                                }
+                                
+                            }
+                        })
+                        
+                    })
+                }
+        });
+
+        //Cargar los Laboratorios
+        var url = "/Laboratorios";
+        var data = $( "#inpuLaboratorio" ).serialize();
+        $.ajax({
+                type: 'GET',
+                url: url,
+                data: data,
+
+                success: function(respuesta){
+                    respuesta.forEach(function(item){
+                    var $option = $("<option></option>");
+                    $option.text(item.nombre);
+                    $("#inpuLaboratorio").append($option);
+                    })
+                }
+        });
+    });
+
+    //Generar Codigo de Barras para la Muestra.
+    $("#btn-generar-codigo-barras").click(function(){
+        var codigo_barras = generatePassword();
+        $("#codigo_barras").val(codigo_barras);
+        document.getElementById("imagen-codigo-barras").src = "http://barcode.tec-it.com/barcode.ashx?data=" + codigo_barras + "&code=Code128&dpi=96";
+        $('#contenedor-codigo-barras').show();
+    });
+    
+    //Guardar la Muestra en la base de Datos.
+    $("#muestraCreateForm").submit(function(e){
+        if($("#inputcedula").val()==null || $("#inputCentroMedico").val()==null || $("#inpuLaboratorio").val()==null  || $("#codigo_barras").val()==""){
+            alert("Por Favor llene todos los campos!!");
+        }else{
+            e.preventDefault();
+            var url = "/muestras";
+            var data = $("#muestraCreateForm").serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+
+                success: function(respuesta){
+
+                  window.location = "muestras-index.ejs";
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{			"rowa": [
+								{"tipo":"Exámen de Sangre","fecha":"09/09/09","estado":"fase3"}
+								
+					],
+			"rowb": [
+								{"tipo":"Exámen de Heces","fecha":"09/09/09","estado":"fase1"}
+					],
+			"rowc": [
+								{"tipo":"Exámen de Orina","fecha":"09/09/09","estado":"fase2"}
+					]
+}

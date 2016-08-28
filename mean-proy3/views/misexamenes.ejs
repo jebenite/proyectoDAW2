@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="PacienteController">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Salud Primero</title>
+
+    <!-- Bootstrap -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/master.css" rel="stylesheet">
+	<link href="stylesheets/barraDeEstado.css" rel="stylesheet"  >
+
+    <!-- Google font -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+
+    <!-- Font-awesome -->
+    <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
+    <style>
+    #lista{
+      padding-left: 0;
+    }
+  </style>
+</head>
+
+<body ng-controller="Paciente">
+    <header >
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.ejs">
+                        S<span class="fa fa-flask fa-lg" aria-hidden="true"></span>P
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class=""><a href="sucursales.ejs">Cambiar de centro</a></li>
+                        <li class="action"><a href="#">Mis exámenes</a></li>
+                        <li class=""><a href="misdatos.ejs">Mis datos</a></li>
+                        <li class=""><a href="index.ejs">Cerrar sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- ************** cabecera************* -->
+        <div class="container">
+            <section id="cabecera" align="center">
+
+                <h1>Salud Primero S.A.</h1>
+                <p>Gestión de Resultados de Exámenes Médicos.</p>
+				<h2>Mis exámenes</h2>
+			</section>
+		</div>
+	</header>
+
+	<section class="container" id="contenido">
+		<div class="row">
+			<div class="col-sm-2">
+
+			</div>
+			<div class="col-sm-1">
+				Desde
+			</div>
+			<div class="col-sm-1">
+				<input type="date" name="fecha">
+			</div>
+			<div class="col-sm-3">
+
+			</div>
+			<div class="col-sm-1">
+				Hasta
+			</div>
+			<div class="col-sm-1">
+				<input type="date" name="fecha">
+			</div>
+
+		</div>
+		<button id="boton" class="btn btn-default">Filtrar</button>
+	</section>
+	<section class="container" id="tabla">
+	<div class="table-responsive">
+		<table class="table table-striped"  >
+                    <thead >
+                        <tr id="listaEncabezado">
+                            <td>Muestra</td>
+                            <td>Examenes  </td>
+                            <td>Fecha </td>
+                            <td>Estado</td>
+                            <td>Descarga</td>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTabla">
+                    <tr ng-repeat="paciente in pacientes">
+                      <td>{{paciente.tipo}}</td>
+                      <td >
+                        <ul id="lista">
+                        <li style="list-style:none" ng-repeat="examen in paciente.examenes_realizados">{{examen}}</li>
+                      </ul>
+                      </td>
+                      <td>{{paciente.fechaIngreso| date:"MM/dd/yyyy"}}</td>
+                      <td ng-if="paciente.estado == 'inicial'">
+                        <ol  class="progtrckr" data-progtrckr-steps="2" >
+                          <li class="progtrckr-done">Inicial</li>
+                          <li class="progtrckr-todo">Proceso</li>
+                          <li class="progtrckr-todo">Final</li>
+                        </ol>
+                      </td>
+                      <td ng-if="paciente.estado == 'enDesarrollo'">
+                        <ol  class="progtrckr" data-progtrckr-steps="2" >
+                          <li class="progtrckr-done">Inicial</li>
+                          <li class="progtrckr-done">Proceso</li>
+                          <li class="progtrckr-todo">Final</li>
+                        </ol>
+                      </td>
+                      <td ng-if="paciente.estado == 'terminado'">
+                        <ol  class="progtrckr" data-progtrckr-steps="2" >
+                          <li class="progtrckr-done">Inicial</li>
+                          <li class="progtrckr-done">Proceso</li>
+                          <li class="progtrckr-done">Final</li>
+                        </ol>
+                      </td>
+                      <td ng-if="paciente.estado == 'terminado'">
+                        <button class="btn " ng-click="PdfPorMuestra(paciente._id)">Descargar</button>
+                      </td>
+                      <td ng-if="paciente.estado == 'inicial'">
+                          <p>Descargar</p>
+                      </td>
+                      <td ng-if="paciente.estado == 'enDesarrollo'">
+                        <p>Descargar</p>
+                      </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+	</div>
+	</section>
+
+
+
+
+
+
+
+
+
+	<footer>
+        <section class="container">
+            <div class="row">
+                <nav class="nav-footer">
+                    <ul>
+                        <li><a href="#"><span class="fa fa-facebook-f fa-lg" aria-hidden="true"></span></a></li>
+                        <li><a href="#"><span class="fa fa-twitter fa-lg" aria-hidden="true"></span></a></li>
+                        <li><a href="#"><span class="fa fa-google-plus fa-lg" aria-hidden="true"></span></a></li>
+                        <li><a href="#"><span class="fa fa-instagram fa-lg" aria-hidden="true"></span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+    </footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <script src="javascripts/bootstrap.min.js"></script>
+    <script src="javascripts/main.js" charset="utf-8"></script>
+    <script src="javascripts/master.js" charset="utf-8"></script>
+	<script src="javascripts/controllerPaciente.js" charset="utf-8"></script>
+  <script type="text/javascript" src="javascripts/pdfmake.js"></script>
+    <script type="text/javascript" src="javascripts/vfs_fonts.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<html>
+	<head>
+		<title>Prueba estadistica</title><!--
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+		<script type="text/javascript" src="javascripts/jquery.js"></script>
+		<script type="text/javascript" src="javascripts/chartJS/Chart.min.js"></script>	
+	</head>
+    <style>
+        .caja{
+            margin: auto;
+            max-width: 250px;
+            padding: 20px;
+            border: 1px solid #BDBDBD;
+        }
+        .caja select{
+            width: 100%;
+            font-size: 16px;
+            padding: 5px;
+        }
+        .resultados{
+            margin: auto;
+            margin-top: 40px;
+            width: 1000px;
+        }
+    </style>	
+	<body>
+	    <div class="caja">
+	        <select onChange="mostrarResultados(this.value);"> 
+	            <option value="Enero">primero</option>
+	            <option value="Febrero">segundo</option>
+	            <option value="Marzo">tercero</option>
+	        </select>
+	    </div>
+	    <div class="resultados"><canvas id="grafico"></canvas></div>
+	</body>
+	<script>
+            $(document).ready();  
+           $(document).ready(mostrarResultados(2015));  
+                function mostrarResultados(año){
+                    $.ajax({
+                        type:'GET',                        
+                        data:'año=2000',
+                        success:function(data){/*
+
+                            var valores = eval(data);
+
+                            var e   = valores[0];
+                            var f   = valores[1];
+                            var m   = valores[2];
+                            var a   = valores[3];
+                            var ma  = valores[4];
+                            var j   = valores[5];
+                            var jl  = valores[6];
+                            var ag  = valores[7];
+                            var s   = valores[8];
+                            var o   = valores[9];
+                            var n   = valores[10];
+                            var d   = valores[11];*/	
+                                
+                            var Datos = {
+                                    labels : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],/*
+                                    datasets : [
+                                        {
+                                            fillColor : 'rgba(91,228,146,0.6)', //COLOR DE LAS BARRAS
+                                            strokeColor : 'rgba(57,194,112,0.7)', //COLOR DEL BORDE DE LAS BARRAS
+                                            highlightFill : 'rgba(73,206,180,0.6)', //COLOR "HOVER" DE LAS BARRAS
+                                            highlightStroke : 'rgba(66,196,157,0.7)', //COLOR "HOVER" DEL BORDE DE LAS BARRAS[50, 80, 20, 35, 60, 90, 100, 10, 30, 45, 75, 65]
+                                            data : [50, 80, 20, 35, 60, 90, 100, 10, 30, 45, 75, 65]
+                                        }
+                                    ]*/
+                                    
+									datasets: [{
+									fillColor: 'rgba(91,228,146,0.6)',
+									strokeColor: 'rgba(57,194,112,0.7)',
+                                    highlightFill : 'rgba(73,206,180,0.6)', //COLOR "HOVER" DE LAS BARRAS
+                                    highlightStroke : 'rgba(66,196,157,0.7)', //COLOR "HOVER" DEL BORDE	
+									pointColor: "rgba(220,220,220,1)",
+									pointStrokeColor: "#fff",
+									data: [50, 80, 20, 35, 60, 90, 100, 10, 30, 45, 75, 65]
+									 }, {
+									fillColor: "rgba(252,147,65,0.5)",
+									strokeColor: "rgba(255,255,255,1)",
+                                    highlightFill : 'rgba(73,206,180,0.6)', //COLOR "HOVER" DE LAS BARRAS
+                                    highlightStroke : 'rgba(66,196,157,0.7)', //COLOR "HOVER" DEL BORDE
+									pointColor: "rgba(173,173,173,1)",
+									pointStrokeColor: "#fff",
+									data: [100, 80, 40, 35, 70, 50, 40, 30, 70, 45, 75, 95]
+									 }]               
+                             }
+
+                            var contexto = document.getElementById('grafico').getContext('2d');
+                            window.Barra = new Chart(contexto).Bar(Datos, { responsive : true });/*
+                            var ctx = document.getElementById("grafico");
+							var scatterChart = new Chart(ctx, {
+							    type: 'line',
+							    data: {
+							        datasets: [{
+							            label: 'Scatter Dataset',
+							            data: [{
+							                x: -10,
+							                y: 0
+							            }, {
+							                x: 0,
+							                y: 10
+							            }, {
+							                x: 10,
+							                y: 5
+							            }]
+							        }]
+							    },
+							    options: {
+							        scales: {
+							            xAxes: [{
+							                type: 'linear',
+							                position: 'bottom'
+							            }]
+							        }
+							    }
+							});*/
+
+                        }
+                    });
+                    return false;
+                }
+    </script>
+</html>

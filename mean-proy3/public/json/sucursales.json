@@ -1,0 +1,27 @@
+{
+	"sucursales":{
+		"sucursalGuayaquil":[
+			{"sucursal1": "Centro Kennedy Norte"},
+			{"sucursal1": "Centro Guasmo Sur"},
+			{"sucursal1": "Centro Bahia"}
+			
+			
+		],
+		"sucursalQuito":[
+			{"sucursal2": "Centro Mitad del mundo"},
+			{"sucursal2": "Centro Cumbaya"},
+			{"sucursal2": "Centro Panecillo"}
+			
+			
+		],
+		"sucursalCuenca":[
+			{"sucursal3": "Centro Ricaurte"},
+			{"sucursal3": "Centro Tarqui"},
+			{"sucursal3": "Centro Santa Ana"}
+			
+			
+		]
+	}
+}
+
+
