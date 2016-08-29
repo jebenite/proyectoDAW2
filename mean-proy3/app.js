@@ -16,6 +16,8 @@ var muestras = require('./routes/muestras');
 var examenes = require('./routes/examenes');
 var pacientes = require('./routes/pacientes');
 var session = require('express-session');
+
+// mongo ds139665.mlab.com:39665/tareasdaw1 -u jebenite -p 180895 <-mongoshell
 mongoose.connect('mongodb://jebenite:180895@ds139665.mlab.com:39665/tareasdaw1');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -25,10 +27,10 @@ db.once('open', function() {
 
 var app = express();
 
-// view engine setup
+// view engine setup handlebars
 var hbs = hbsExtend(exphbs.create({
     extname: 'hbs',
-    defaultLayout: 'main',
+    defaultLayout: 'layout',
     layoutsDir: __dirname + '/views/layouts'
 }));
 app.engine('hbs', hbs.engine);

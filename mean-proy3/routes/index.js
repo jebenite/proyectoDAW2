@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
 //paciente
 router.get('/sucursal.ejs', function(req, res, next) {
     res.render('sucursal', {
-        title: 'Express'
+        title: 'Express', layout: false
     });
 });
 
@@ -71,21 +71,8 @@ router.get('/estadisticas.ejs', function(req, res, next) {
 //laborator
 router.get('/lista-muestras', function(req, res, next) { /*bk*/
     res.render('lista-muestras', {
-        title: 'Express'
+        title: 'Lista de Muestras'
     });
 });
-
-router.get('/listaDeResultados.ejs', function(req, res, next) {
-    res.render('listaDeResultados', {
-        title: 'Express'
-    });
-});
-
-router.get('/ingresomuestra.ejs', function(req, res, next) { /*supuesto ingreso*/
-    res.render('ingresomuestra', {
-        title: 'Express'
-    });
-});
-
 
 module.exports = router;
