@@ -1,14 +1,14 @@
-var express = require('express');
-var router = express.Router();
-var mongoose = require('mongoose');
-var Muestra = require('../models/Muestra.js');
+// var express = require('express');
+// var router = express.Router();
+// var mongoose = require('mongoose');
+// var Muestra = require('../models/Muestra.js');
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    console.log("query get de muestra con exito");
-});
-module.exports = router;
+// var db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//     console.log("query get de muestra con exito");
+// });
+// module.exports = router;
 
 
 function definirRangosBusqueda() {

@@ -1,4 +1,4 @@
-var MuestraModel = require('../models/MuestraModel.js');
+var MuestraModel = require('../models/Muestra.js');
 
 /**
  * MuestraController.js

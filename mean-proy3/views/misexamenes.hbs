@@ -92,18 +92,18 @@
                         <td>{[{paciente.tipo}]}</td>
                         <td>
                             <ul id="lista">
-                                <li style="list-style:none" ng-repeat="examen in paciente.examenes_realizados">{[{examen}]}</li>
+                                <li style="list-style:none" ng-repeat="examen in examenes">{[{examen}]}</li>
                             </ul>
                         </td>
                         <td>{[{paciente.fechaIngreso| date:"MM/dd/yyyy"}]}</td>
-                        <td ng-if="paciente.estado == 'inicial'">
+                        <td ng-if="paciente.estado == 'enviado'">
                             <ol class="progtrckr" data-progtrckr-steps="2">
                                 <li class="progtrckr-done">Inicial</li>
                                 <li class="progtrckr-todo">Proceso</li>
                                 <li class="progtrckr-todo">Final</li>
                             </ol>
                         </td>
-                        <td ng-if="paciente.estado == 'enDesarrollo'">
+                        <td ng-if="paciente.estado == 'recibido'">
                             <ol class="progtrckr" data-progtrckr-steps="2">
                                 <li class="progtrckr-done">Inicial</li>
                                 <li class="progtrckr-done">Proceso</li>
@@ -120,11 +120,11 @@
                         <td ng-if="paciente.estado == 'terminado'">
                             <button class="btn " ng-click="PdfPorMuestra(paciente._id)">Descargar</button>
                         </td>
-                        <td ng-if="paciente.estado == 'inicial'">
-                            <p>Descargar</p>
+                        <td ng-if="paciente.estado == 'enviado'">
+                            <p>Ingresado</p>
                         </td>
-                        <td ng-if="paciente.estado == 'enDesarrollo'">
-                            <p>Descargar</p>
+                        <td ng-if="paciente.estado == 'recibido'">
+                            <p>En Proceso</p>
                         </td>
                     </tr>
 

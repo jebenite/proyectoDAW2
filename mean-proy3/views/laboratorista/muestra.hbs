@@ -44,23 +44,36 @@
                 <label for="codBarras">Codigo</label>
                 <input type="text" class="form-control" id="codBarras" disabled>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="estado-group">
                 <label for="codBarras">Estado</label>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                        Enviado
-                    </label>
+                <input type="text" class="form-control" id="estado" disabled>
+                <button class="form-control btn btn-success" type="button" name="button" id="notificar">
+                    Notificar Envio
+                </button>
+            </div>
+            <div id="estadoRadios" class="form-group" style="display: none">
+                <label for="codBarras">Estado</label>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <button class="form-control btn btn-success" type="button" name="button" id="cancelar">
+                            Cancelar
+                        </button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="form-control btn btn-success" type="button" name="button" id="guardar">
+                            Guardar
+                        </button>
+                    </div>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" >
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="recibido" >
                         Recibido
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" >
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="inconveniente" >
                         Hubo un inconveniente
                     </label>
                 </div>
@@ -74,9 +87,41 @@
                 <input type="text" class="form-control" id="lab" disabled>
             </div>
             <h2>Examenes</h2>
-            <div class="" id="examenes">
+            {{#each examenes}}
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">
+                        {{this.nombre}}
+                    </div>
+                    <!-- List group -->
+                    <ul class="list-group">
+                        {{#each this.resultados}}
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        {{this.parametro}}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {{this.unidad}}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {{this.resultado}}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {{this.val_ref}}
+                                    </div>
+                                </div>
+                            </li>
+                        {{/each}}
+                        {{#if this.resultados}}
+                        {{else}}
+                            <button class="btn btn-success" type="button" name="button">Ingresar Resultados</button>
+                        {{/if}}
 
-            </div>
+                    </ul>
+                </div>
+            {{/each}}
+
         </div>
     </div>
 </div>
@@ -85,12 +130,41 @@
     <script type="text/javascript">
         $(document).ready(function() {
             var path = '/muestrase/{{muestra_id}}'
-            $.getJSON(path, function( muestra) {
+            $.getJSON(path, function(muestra) {
                 console.log(muestra);
                 $("#codBarras").val(muestra.cod_barras);
+                $("#estado").val(muestra.estado);
                 $("#tipo").val(muestra.tipo);
                 $("#lab").val(muestra.lab_asignado);
+                if (muestra.estado == "terminado") {
+                    $("#notificar").hover(function() {
+                        $(this).text('Examenes terminados');
+                        $(this).click(function(event) {
+                            event.preventDefault()
+                        });
+                    }, function() {
+                        $(this).text('Notificar Envio');
+                        $("#estado-group").show();
+                        $("#estadoRadios").hide();
+                    });
+                }
+                console.log(muestra.examenes.length);
+                // var examenes = muestra.examenes;
+                // $(examenes).each(function(index, examen) {
+                //     <label for="codBarras">Estado</label>
+                //     <input type="text" class="form-control" id="estado" disabled>
+                //     $("#examenes").append()
+                // });
             })
+        });
+        $(document).on('click', '#notificar', function(event) {
+            event.preventDefault();
+            $("#estado-group").hide();
+            $("#estadoRadios").show();
+        });
+        $("#cancelar").click(function(event) {
+            $("#estado-group").show();
+            $("#estadoRadios").hide();
         });
     </script>
 {{/extend}}

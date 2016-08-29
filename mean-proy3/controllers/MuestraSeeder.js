@@ -1,5 +1,5 @@
-var MuestraModel = require('../models/MuestraModel.js');
-var muestrasSeed = require('./muestras.json');
+var MuestraModel = require('../models/Muestra.js');
+var muestrasSeed = require('../seeds/muestras.json');
 /**
  * MuestraSeeder.js
  *

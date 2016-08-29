@@ -10,12 +10,10 @@ PacienteController.config(function($interpolateProvider) {
 
 PacienteController.controller('Paciente', ['$scope', '$http', function($scope, $http) {
     console.log("Hello World from controller");
-
     var refresh = function() {
         $http.get('/muestras/cedula').success(function(response) {
-
             $scope.pacientes = response;
-
+            $scope.examenes = ["hola", "mundo", "todo", "dinamico"];
         });
     };
 

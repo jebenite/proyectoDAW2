@@ -27,10 +27,6 @@
         </div>
     </nav>
 </header>
-{{!-- <section align="center">
-    <h1>Salud Primero S.A.</h1>
-    <p>Gestión de Resultados de Exámenes Médicos.</p>
-</section> --}}
 <div class="container" id="tabla1">
     <section align="center">
         <h3>Lista de Muestras</h3><br>
@@ -59,7 +55,7 @@
             $.getJSON("/muestrase", function(data) {
                 // console.log(data);
                 $(data).each(function(key, muestra) {
-                    var $btn = $('<a class="btn btn-default btn-xs">Ver Examenes</a>');
+                    var $btn = $('<a class="btn btn-primary btn-sm">Ver Examenes</a>');
                     $btn.attr('href', '/laboratorista/muestras/' + muestra._id);
                     var $tr = $("<tr>");
                     $tr.append($('<td>').text(muestra.cod_barras).attr('id', 'cod_barras'))

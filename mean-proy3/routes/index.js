@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var muestraSeeder = require('../seeds/MuestraSeeder.js');
+var muestraSeeder = require('../controllers/MuestraSeeder.js');
 var laboratorista = require('./laboratorista.js');
 
 /* GET llena de datos la collecion Muestras. */
@@ -39,7 +39,7 @@ router.get('/sucursales.ejs', function(req, res, next) {
         title: 'Express', layout: false
     });
 });
-router.get('/misdatos', function(req, res, next) {
+router.get('/misdatos.ejs', function(req, res, next) {
     res.render('misdatos', {
         title: 'Express', layout: false
     });

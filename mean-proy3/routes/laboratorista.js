@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var MuestraController = require('../controllers/MuestraController.js');
 
-var MuestraModel = require('../models/MuestraModel.js');
+var MuestraModel = require('../models/Muestra.js');
 
 /*
  * GET
@@ -18,7 +18,8 @@ router.get('/', function (req, res) {
             });
         }
         res.render('laboratorista/lista-muestras', {
-            title: 'Lista de Muestras'
+            title: 'Lista de Muestras',
+            mues: Muestras
         });
     });
 });
@@ -46,7 +47,8 @@ router.get('/muestras/:id', function (req, res) {
         }
         res.render('laboratorista/muestra', {
             title: 'Detalle de examenes',
-            muestra_id: id
+            muestra_id: id,
+            examenes: Muestra.examenes
         });
     });
 });
