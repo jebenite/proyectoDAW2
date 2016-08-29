@@ -4,7 +4,7 @@
         "tipo": "sangre",
         "lab_asignado": "CanoMED",
         "cod_barras": "abc001",
-        "cedula": "1234500001",
+        "cedula": "0953653417",
         "centro_medico": "Centro Caridad Del Cobre",
         "examenes": [
             {
@@ -300,7 +300,7 @@
         "tipo": "sangre",
         "lab_asignado": "BernaLab",
         "cod_barras": "abc019",
-        "cedula": "1234500010",
+        "cedula": "0953653417",
         "centro_medico": "Centro Salud Gratis",
         "examenes":[
             {
@@ -332,7 +332,7 @@
         ]
     },
     {
-        "estado": "terminado,",
+        "estado": "enviado",
         "tipo": "sangre",
         "lab_asignado": "CanoMED",
         "cod_barras": "abc088",

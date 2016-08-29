@@ -13,7 +13,6 @@ PacienteController.controller('Paciente', ['$scope', '$http', function($scope, $
     var refresh = function() {
         $http.get('/muestras/cedula').success(function(response) {
             $scope.pacientes = response;
-            $scope.examenes = ["hola", "mundo", "todo", "dinamico"];
         });
     };
 

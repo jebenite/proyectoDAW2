@@ -92,7 +92,7 @@
                         <td>{[{paciente.tipo}]}</td>
                         <td>
                             <ul id="lista">
-                                <li style="list-style:none" ng-repeat="examen in examenes">{[{examen}]}</li>
+                                <li style="list-style:none" ng-repeat="examen in paciente.examenes">{[{examen.nombre}]}</li>
                             </ul>
                         </td>
                         <td>{[{paciente.fechaIngreso| date:"MM/dd/yyyy"}]}</td>
