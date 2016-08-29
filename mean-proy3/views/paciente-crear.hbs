@@ -12,7 +12,6 @@
     <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
     <link href="stylesheets/master.css" rel="stylesheet">
 
-
     <!-- Google font -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
@@ -42,8 +41,8 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class=""><a href="pacientes.ejs">Pacientes</a></li>
-                        <li class="action"><a href="muestras-index.ejs">Muestras</a></li>
+                        <li class="action"><a href="pacientes.ejs">Pacientes</a></li>
+                        <li class=""><a href="muestras-index.ejs">Muestras</a></li>
                         <li class=""><a href="estadisticas.ejs">Estadísticas</a></li>
                         <li class=""><a href="index.ejs">Cerrar sesión</a></li>
                     </ul>
@@ -53,24 +52,33 @@
     </header>
 
     <section class="container containerMin">
-        <div class="row" id="create-search">
-            <div class="col-md-6" id="muestra-create">
-                <a href="muestra-crear.ejs">
-                    <span class="fa fa-plus-circle fa-3x"></span>
-                    <span id="text" class="fa">Registrar nueva muestra</span>
-                </a>
-            </div>
-            <div class="col-md-6" id="muestra-search">
-                <input class="form-control" type="text" name="search" value="" placeholder="buscar">
-            </div>
-        </div>
+        <h1>Registro de Paciente</h1>
     </section>
     <section class="container containerMin" id="content">
-        <table class="table table-hover" id="tableMuestras">
-            
-        </table>
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form id="pacienteCreateForm">
+                <div class="form-group">
+                    <label for="inputcedula">Cédula</label>
+                    <input name="cedula" type="text" onkeypress="return valida(event)" maxlength="10" class="form-control" id="inputcedula" required="">
+                </div>
+                <div class="form-group">
+                    <label for="inpuPaciente">Nombres</label>
+                    <input name="nombres" type="text" class="form-control" id="inputNombres" required="">
+                </div>
+                <div class="form-group">
+                    <label for="inpuPaciente">Apellidos</label>
+                    <input name="apellidos" type="text" class="form-control" id="inputApellidos" required="">
+                </div>
+                <div class="form-group">
+                    <label for="inpuPaciente">E-mail</label>
+                    <input name="correo" type="email" class="form-control" id="inputEmail" required="">
+                </div>
+                <button type="submit" class="btn btn-default">Guardar</button>
+            </form>
+        </div>
+        <div class="col-md-2"> </div>
     </section>
-
     <footer>
         <section class="container">
             <div class="row">
@@ -91,41 +99,23 @@
     <script src="javascripts/main.js" charset="utf-8"></script>
     <script src="javascripts/master.js" charset="utf-8"></script>
     <script>
-        $( ).ready(function() {
+        $("#pacienteCreateForm").submit(function(e) {
+            e.preventDefault();
+            var url = "/pacientes";
+            var data = $("#pacienteCreateForm").serialize();
 
-        //Carga todas las muetras de los Pacientes.
-        var url = "/muestras";
-        var data = $( "#tableMuestras" ).serialize();
-        $.ajax({
-                type: 'GET',
+            $.ajax({
+                type: 'POST',
                 url: url,
                 data: data,
 
-                success: function(respuesta){
-                    /*respuesta.forEach(function(item){
-                    var $option = $("<option></option>");
-                    $option.text(item.cedula);
-                    $("#inputcedula").append($option);
-                    })
-                    $("#inputcedula").change(function(){
-                        respuesta.forEach(function(item){
-                            if($("#inputcedula").val()==item.cedula){
-                                $("#inputPaciente").val(item.nombres); 
-                            }
-                        })
-                        
-                    })
-                    $("#inputcedula").change(function(){
-                        respuesta.forEach(function(item){
-                            if($("#inputcedula").val()==item.cedula){
-                                $("#inputPacienteap").val(item.apellidos); 
-                            }
-                        })
-                        
-                    })*/
+                success: function(respuesta) {
+                    window.location = "pacientes.ejs";
                 }
+            });
         });
     </script>
+
 </body>
 
 </html>

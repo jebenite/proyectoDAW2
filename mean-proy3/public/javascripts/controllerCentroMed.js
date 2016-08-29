@@ -1,6 +1,7 @@
 // Controller de sucursales view
 var myApp = angular.module('myApp', []);
 
+//fix conflic angularjs - handlebars simbols
 myApp.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{');
     $interpolateProvider.endSymbol('}]}');

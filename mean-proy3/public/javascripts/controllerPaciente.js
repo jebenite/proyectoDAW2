@@ -1,6 +1,7 @@
 //Controller de misexamenes view
 
 var PacienteController = angular.module('PacienteController', []);
+
 //fix conflic angularjs - handlebars simbols
 PacienteController.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{');
