@@ -1,0 +1,96 @@
+{{#extend "stylesheets"}}
+    <link href="/stylesheets/sucursal.css" rel="stylesheet">
+    <link href="/stylesheets/listaDeResultados.css" rel="stylesheet">
+{{/extend}}
+
+<header>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.ejs">
+                    SaludPrimero<span class="fa fa-flask fa-lg" aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class=""><a href="/laboratorista">Lista de resultados</a></li>
+                    <li class="action"><a href="#">Ingresar resultados</a></li>
+                    <li class=""><a href="index.ejs">Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+{{!-- <section align="center">
+    <h1>Salud Primero S.A.</h1>
+    <p>Gestión de Resultados de Exámenes Médicos.</p>
+</section> --}}
+<div class="container" id="muestra">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <section align="center">
+                <h3>Muestra</h3>
+            </section>
+            <a href="/laboratorista" class="btn btn-success btn-sm">Regresar</a>
+            <br><br>
+            <div class="form-group">
+                <label for="codBarras">Codigo</label>
+                <input type="text" class="form-control" id="codBarras" disabled>
+            </div>
+            <div class="form-group">
+                <label for="codBarras">Estado</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                        Enviado
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" >
+                        Recibido
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" >
+                        Hubo un inconveniente
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="codBarras">Tipo De Muestra</label>
+                <input type="text" class="form-control" id="tipo" disabled>
+            </div>
+            <div class="form-group">
+                <label for="codBarras">Laboratorio Destino</label>
+                <input type="text" class="form-control" id="lab" disabled>
+            </div>
+            <h2>Examenes</h2>
+            <div class="" id="examenes">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#extend "scripts"}}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var path = '/muestrase/{{muestra_id}}'
+            $.getJSON(path, function( muestra) {
+                console.log(muestra);
+                $("#codBarras").val(muestra.cod_barras);
+                $("#tipo").val(muestra.tipo);
+                $("#lab").val(muestra.lab_asignado);
+            })
+        });
+    </script>
+{{/extend}}

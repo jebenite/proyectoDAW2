@@ -1,5 +1,17 @@
 var express = require('express');
 var router = express.Router();
+var muestraSeeder = require('../seeds/MuestraSeeder.js');
+var laboratorista = require('./laboratorista.js');
+
+/* GET llena de datos la collecion Muestras. */
+router.get('/seed', function(req, res, next) {
+    muestraSeeder.seed(req, res);
+});
+/* GET limpia la tabla muestras. */
+router.get('/dbreset', function(req, res, next) {
+    muestraSeeder.dbreset(req, res);
+});
+
 
 /* GET home page. */
 router.get('/index.ejs', function(req, res, next) {
@@ -68,11 +80,7 @@ router.get('/estadisticas.ejs', function(req, res, next) {
 });
 
 
-//laborator
-router.get('/lista-muestras', function(req, res, next) { /*bk*/
-    res.render('lista-muestras', {
-        title: 'Lista de Muestras'
-    });
-});
+//laboratorista
+router.use('/laboratorista', require('./laboratorista.js'))
 
 module.exports = router;

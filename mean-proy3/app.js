@@ -9,16 +9,18 @@ var exphbs = require('express-handlebars');
 var hbsExtend = require('express-handlebars-extend');
 
 var routes = require('./routes/index');
-var centrosMed = require('./routes/centrosMed');
-var laboratorios = require('./routes/laboratorios');
-var usuarios = require('./routes/usuarios');
-var muestras = require('./routes/muestras');
-var examenes = require('./routes/examenes');
-var pacientes = require('./routes/pacientes');
+// var centrosMed = require('./routes/centrosMed');
+// var laboratorios = require('./routes/laboratorios');
+// var usuarios = require('./routes/usuarios');
+// var muestras = require('./routes/muestras');
+// var examenes = require('./routes/examenes');
+// var pacientes = require('./routes/pacientes');
+
 var session = require('express-session');
 
 // mongo ds139665.mlab.com:39665/tareasdaw1 -u jebenite -p 180895 <-mongoshell
-mongoose.connect('mongodb://jebenite:180895@ds139665.mlab.com:39665/tareasdaw1');
+// mongoose.connect('mongodb://jebenite:180895@ds139665.mlab.com:39665/tareasdaw1');
+mongoose.connect('mongodb://sp_bdd:1234@ds019076.mlab.com:19076/sp_bdd');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -65,13 +67,15 @@ var auth = function(req, res, next) {
     next();
 };
 app.use('/', routes);
-// app.use('/users', users);
-app.use('/centrosMed', /*auth*/ centrosMed);
-app.use('/laboratorios', /*auth*/ laboratorios);
-app.use('/login', usuarios);
-app.use('/pacientes', pacientes);
-app.use('/muestras', muestras);
-app.use('/examenes' /*, auth*/ , examenes);
+app.use('/muestrase', require('./routes/muestrasE.js'));
+
+// app.use('/centrosMed', /*auth*/ centrosMed);
+// app.use('/laboratorios', /*auth*/ laboratorios);
+// app.use('/login', usuarios);
+// app.use('/pacientes', pacientes);
+// app.use('/muestras', muestras);
+// app.use('/examenes' /*, auth*/ , examenes);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -88,7 +92,8 @@ if (app.get('env') === 'development') {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
-            error: err
+            error: err,
+            layout: false
         });
     });
 }
@@ -99,7 +104,8 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
-        error: {}
+        error: {},
+        layout: false
     });
 });
 
