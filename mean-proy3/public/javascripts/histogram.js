@@ -1,123 +1,204 @@
-// var express = require('express');
-// var router = express.Router();
-// var mongoose = require('mongoose');
-// var Muestra = require('../models/Muestra.js');
-
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function() {
-//     console.log("query get de muestra con exito");
-// });
-// module.exports = router;
-
 
 function definirRangosBusqueda() {
-    var pri_reporte = document.getElementById("pri-reporte");
-    if (pri_reporte.checked) {
-        $("#acordeon").hide(1000);
-    } else {
-        $("#acordeon").show(1000);
-    }
+  var pri_reporte = document.getElementById("pri-reporte");
+  if (pri_reporte.checked) {
+    $("#acordeon").hide(1000);
+  }else {      
+    $("#acordeon").show(1000);
+  }  
 }
 
-function procesar() {
-    var rep = document.getElementById("grafico");
-    rep.parentNode.removeChild(rep);
-    var pri_reporte = document.getElementById("pri-reporte");
-    var graph = document.getElementById("graph");
-    rep = document.createElement("canvas");
-    rep.id = "grafico";
-    graph.appendChild(rep);
-    if (pri_reporte.checked) {
-        $.ajax({
-            type: 'GET',
-            success: function() {
-                var v1 = 30;
-                var v2 = 50;
-                var v3 = 10;
-                var v4 = 20;
-                var datos = [{
-                    value: v1,
-                    color: "#2EFE2E",
-                    highlight: "rgba(73,206,180,0.6)",
-                    label: "CanoMED"
-                }, {
-                    value: v2,
-                    color: "#B40404",
-                    highlight: "rgba(73,206,180,0.6)",
-                    label: "BernaLab"
-                }, {
-                    value: v3,
-                    color: "#FFFF00",
-                    highlight: "rgba(73,206,180,0.6)",
-                    label: "LabPeñafiel"
-                }, {
-                    value: v4,
-                    color: "#0489B1",
-                    highlight: "rgba(73,206,180,0.6)",
-                    label: "EcuaLab"
-                }];
-                var contexto = document.getElementById("grafico").getContext("2d");
-                window.Barra = new Chart(contexto).Pie(datos);
-            }
-        });
-    } else {
-        $.ajax({
-            type: 'GET',
-            success: function() {
-                var datos = {
-                    type: 'doughnut',
-                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                    datasets: [{
-                        fillColor: 'rgba(91,228,146,0.6)',
-                        strokeColor: 'rgba(57,194,112,0.7)',
-                        highlightFill: 'rgba(73,206,180,0.6)', //COLOR "HOVER" DE LAS BARRAS
-                        highlightStroke: 'rgba(66,196,157,0.7)', //COLOR "HOVER" DEL BORDE
-                        pointColor: "rgba(220,220,220,1)",
-                        pointStrokeColor: "#fff",
-                        data: [50, 80, 20, 35, 60, 90, 100, 10, 30, 45, 75, 65]
-                    }, {
-                        fillColor: "rgba(252,147,65,0.5)",
-                        strokeColor: "rgba(255,255,255,1)",
-                        highlightFill: 'rgba(73,206,180,0.6)', //COLOR "HOVER" DE LAS BARRAS
-                        highlightStroke: 'rgba(66,196,157,0.7)', //COLOR "HOVER" DEL BORDE
-                        pointColor: "rgba(173,173,173,1)",
-                        pointStrokeColor: "#fff",
-                        data: [90, 56, 34, 35, 67, 12, 2, 30, 3, 4, 16, 1]
-                    }, {
-                        fillColor: "rgba(252,147,65,0.5)",
-                        strokeColor: "rgba(255,255,255,1)",
-                        highlightFill: 'rgba(73,206,180,0.6)', //COLOR "HOVER" DE LAS BARRAS
-                        highlightStroke: 'rgba(66,196,157,0.7)', //COLOR "HOVER" DEL BORDE
-                        pointColor: "rgba(173,173,173,1)",
-                        pointStrokeColor: "#fff",
-                        data: [78, 19, 3, 17, 18, 2, 26, 59, 88, 56, 24, 12]
-                    }, {
-                        fillColor: "rgba(252,147,65,0.5)",
-                        strokeColor: "rgba(255,255,255,1)",
-                        highlightFill: 'rgba(73,206,180,0.6)', //COLOR "HOVER" DE LAS BARRAS
-                        highlightStroke: 'rgba(66,196,157,0.7)', //COLOR "HOVER" DEL BORDE
-                        pointColor: "rgba(173,173,173,1)",
-                        pointStrokeColor: "#fff",
-                        data: [100, 80, 40, 35, 70, 50, 40, 30, 70, 45, 75, 95]
-                    }]
+function aleatorio(inferior, superior){
+  numPosibilidades = superior - inferior;
+  aleat = Math.random() * numPosibilidades;
+  aleat = Math.floor(aleat);
+  return parseInt(inferior) + aleat;
+}
+
+function colorAleatorio() {
+  var hexadecimal = new Array("0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F");
+  color_aleatorio = "#";
+  for (i=0; i<6; i++) {
+    posarray = aleatorio(0, hexadecimal.length);
+    color_aleatorio += hexadecimal[posarray];
+  }
+  return color_aleatorio;
+}
+
+function nombresLaboratorios() {
+  var url = '/laboratorios';
+  $.ajax({
+    type: 'GET',
+    url: url,
+    success: function(laboratorios) {         
+      $.each(laboratorios, function(i, item) {        
+        total.push(item.nombre);        
+      });      
+    }    
+  });  
+}
+
+function reporteEstadisticoPastel() {
+  var url1 = '/laboratorios';
+  var url2 = '/muestras';
+  $.ajax({
+    type: 'GET',
+    url: url1,
+    success: function(laboratorios) {
+      $.ajax({
+        type: 'GET',
+        url: url2,
+        success: function(muestras) {
+          var muestrasXLaboratorio = [];
+          var nombresLab = [];          
+          var datos = [];
+          var contador = 0;
+          $.each(laboratorios, function(i, laboratorio) {
+            nombresLab.push(laboratorio.nombre);
+          });
+
+          console.log('Nombres de todos los laboratorios: ' + nombresLab);
+          $.each(nombresLab, function(j, nombreLab) {
+            $.each(muestras, function(k, muestra) {
+              if (muestra.lab_asignado == nombreLab) {
+                contador++;
+              }
+            });
+            console.log('Total de muestras en el laboratorio ' + nombreLab + ': ' + contador);
+            muestrasXLaboratorio.push(contador);
+            contador = 0;
+          });
+          $.each(muestrasXLaboratorio, function(i, muestraXLab) {
+            var conteo = muestraXLab;
+            datos.push({value: conteo, color: colorAleatorio(), 
+              highlight: 'rgba(73,206,180,0.6)', label: nombresLab[i]});
+          });
+          var contexto = document.getElementById("grafico").getContext("2d");
+          window.Pie = new Chart(contexto).Pie(datos);
+        }
+      });
+    }
+  });
+}
+
+function reporteEstadisticoBarra() {
+  var url1 = '/laboratorios';
+  var url2 = '/muestras';
+  $.ajax({
+    type:'GET',
+    url: url1,
+    success: function(laboratorios) {
+
+      $.ajax({
+        type:'GET',
+        url: url2,
+        success: function(muestras) {          
+          var nombresLab = [];          
+          var datos = [];
+          var data = [];
+          var datasets = [];
+          var totEne = 0, totFeb = 0, totMar = 0, totAbr = 0, totMay = 0, totJun = 0, totJul = 0, 
+            totAgo = 0, totSep = 0, totOct = 0, totNov = 0, totDic = 0;          
+
+          $.each(laboratorios, function(i, laboratorio) {
+            nombresLab.push(laboratorio.nombre);
+          });
+
+          $.each(nombresLab, function(j, nombreLab) {
+            var color = colorAleatorio();
+            $.each(muestras, function(k, muestra) {
+              if (muestra.lab_asignado == nombreLab) {
+                var fDesde = $('#fecha-desde option:selected').val();
+                var fHasta = $('#fecha-hasta option:selected').val();
+                var periodo = $('#periodo').val();
+                var fecha = new Date(muestra.fechaIngreso);
+                var mes = fecha.getMonth() + 1;
+                var año = fecha.getFullYear();
+                console.log(fDesde);
+                console.log(fHasta);
+                console.log(año);
+                console.log(periodo);
+                console.log(fecha);
+                if ((mes == "1" && (mes >= fDesde && mes <= fHasta)) && año == periodo) {
+                  totEne++;
+                }else if ((mes == "2" && (mes >= fDesde && mes <= fHasta)) && año == periodo) {
+                  totFeb++;
+                }else if ((mes == "3" && (mes >= fDesde && mes <= fHasta)) && año == periodo) {
+                  totMar++;
+                }else if ((mes == "4" && (mes >= fDesde && mes <= fHasta)) & año == periodo) {
+                  totAbr++;
+                }else if ((mes == "5" && (mes >= fDesde && mes <= fHasta)) & año == periodo) {
+                  totMay++;
+                }else if ((mes == "6" && (mes >= fDesde && mes <= fHasta)) & año == periodo) {
+                  totJun++;
+                }else if ((mes == "7" && (mes >= fDesde && mes <= fHasta)) & año == periodo) {
+                  totJul++;
+                }else if ((mes == "8" && (mes >= fDesde && mes <= fHasta)) && año == periodo) {
+                  totAgo++;
+                }else if ((mes == "9" && (mes >= fDesde && mes <= fHasta)) && año == periodo) {
+                  totSep++;
+                }else if ((mes == "10" && (mes >= fDesde && mes <= fHasta)) && año == periodo) {
+                  totOct++;
+                }else if ((mes == "11" && (mes >= fDesde && mes <= fHasta)) && año == periodo) {
+                  totNov++;
+                }else if ((mes == "12" && (mes >= fDesde && mes <= fHasta)) && año == periodo) {
+                  totDic++;
                 }
-                var contexto = document.getElementById('grafico').getContext('2d');
-                window.Barra = new Chart(contexto).Bar(datos, {
-                    responsive: true
-                });
-            }
-        });
+              }
+            });
+            data = [totEne, totFeb, totMar, totAbr, totMay, totJun,
+              totJul, totAgo, totSep, totOct, totNov, totDic];            
+
+            totEne = 0;
+            totFeb = 0;
+            totMar = 0;
+            totAbr = 0;
+            totMay = 0;
+            totJun = 0;
+            totJul = 0;
+            totAgo = 0;
+            totSep = 0;
+            totOct = 0;
+            totNov = 0;
+            totDic = 0;
+
+            datasets.push({
+              fillColor: color,
+              strokeColor: color,
+              highlightFill: 'rgba(66,196,156,0.7)', //COLOR "HOVER" DE LAS BARRAS
+              highlightStroke: 'rgba(69,199,159,0.9)', //COLOR "HOVER" DEL BORDE 
+              pointColor: colorAleatorio(),
+              pointStrokeColor: "#fff",
+              data: data
+            });
+          }); 
+
+          datos = {
+            type: 'doughnut',
+            labels : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            datasets: datasets
+          }
+          var contexto = document.getElementById('grafico').getContext('2d');
+          window.Barra = new Chart(contexto).Bar(datos, { responsive : true });
+        }
+      });
     }
-    return false;
+  });  
 }
 
-router.get('/generar-reporte', function(req, res) {
-    console.log('I received a get request');
-    Muestra.find({
-        cedula: req.session["cedula"]
-    }, function(err, docs) {
-        res.json(docs);
-        alert("finalizado con exito");
-    });
+$("#boton").click(function() {
+  var rep = document.getElementById("grafico");
+  rep.parentNode.removeChild(rep);
+  var pri_reporte = document.getElementById("pri-reporte");
+  var graph = document.getElementById("graph");  
+  rep = document.createElement("canvas");  
+  rep.id = "grafico";
+  graph.appendChild(rep);
+  if (pri_reporte.checked) {
+    reporteEstadisticoPastel();
+  }else {
+    reporteEstadisticoBarra();     
+  }
+  return false;
 });
+
