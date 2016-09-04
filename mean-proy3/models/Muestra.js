@@ -15,7 +15,7 @@ var MuestraSchema = new mongoose.Schema({
     cod_barras: String,
     cedula: String,
     centro_medico: String,
-    'examenes': [{
+    examenes: [{
         'nombre': String,
         'resultados': [{
             parametro: String,

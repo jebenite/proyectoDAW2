@@ -9,7 +9,7 @@ var nodemailer = require('nodemailer');
 router.get('/enlistarPacientes', function(req, res) {
     console.log('I received a get request');
     Usuario.find({ rol: "paciente" }, function(err, docs) {
-        console.log(docs);
+        
         res.json(docs);
     });
 });

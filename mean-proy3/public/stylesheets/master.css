@@ -22,7 +22,7 @@ body {
     /*font-family: 'Open Sans', sans-serif;*/
     /*font-family: 'Lato', sans-serif;*/
     font-family: "PT Sans", Arial, serif;/*le cambie la letra*/
-    padding-top: 70px;
+    padding-top: 5%;
 }
 body, html {
     height: 100%;
@@ -216,18 +216,18 @@ section.jumbotron {
     margin-left: 200px;
     margin-bottom: 25px;
     display: none;
-    
+
 }
 #btn-generar-codigo-barras {
     position: relative;
     text-align: center;
     font-family: "Open Sans";
     font-size: 125%;
-    width: 50%; 
+    width: 50%;
     opacity: .4;
     color: black;
     border-color: black;
-    background: white;  
+    background: white;
 }
 
 /* Modal */
@@ -247,7 +247,7 @@ section.jumbotron {
 }
 #btnNuevoPaciente {
     margin-top: 10px;
-    
+
 }
 
 /* ---------------------------------------------------------
@@ -279,7 +279,7 @@ section#pacientes>header {
 footer {
     padding: 2em 1em;
     background-color: #00a99d;
-    text-align: center
+    text-align: center;
 }
 .nav-footer>ul{padding: 0;}
 footer p{color:#fff}
@@ -354,7 +354,8 @@ footer p{color:#fff}
 /*Login Modal Desktop device*/
 @media screen and (min-width: 768px) {
     .modal-dialog {
-        width: 600px;
-        margin: 10em auto;
+        width: 50%;
+        margin: 3% auto;
     }
+
 }

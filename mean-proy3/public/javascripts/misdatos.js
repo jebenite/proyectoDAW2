@@ -16,17 +16,12 @@ function fileSelected() {
 
 $(document).ready(function() {
 
-    $("button.btn.btn-default").hide();
-    $("#botonEditar").show();
-    $("#botonEditar").click(function() {
 
-        $('fieldset').attr('disabled', false)
         $('input#ced.form-control').attr('disabled', true);
-        $("button.btn.btn-default").show();
-        $("#botonEditar").hide();
-    });
 
-    $('fieldset').attr('disabled', true)
+
+
+  
     var listaTelefonos = $('<ul class="list-inline"></ul>');
 
     $.getJSON("/pacientes", function(jsonResp) {
