@@ -36,22 +36,21 @@ router.get('/:id', function(req, res) {
         res.json(docs);
     });
 });
-function la(req){
-  var arra=[];
+function ArrayExams(req){
+  var arreglo=[];
   var i =0;
-  console.log(req.body.numExams);
   if(req.body.numExams==1){
-    arra.push({nombre:req.body.examenesrealizar});
+    arreglo.push({nombre:req.body.examenesrealizar});
   }
   else{
-    
+
     for(i = 0;i<req.body.numExams;i++){
 
-      arra.push({nombre:req.body.examenesrealizar[i]});
+      arreglo.push({nombre:req.body.examenesrealizar[i]});
     }
   }
 
-  return arra;
+  return arreglo;
 }
 router.post('/', function(req, res) {
 
@@ -59,7 +58,7 @@ router.post('/', function(req, res) {
     Muestra.create({
 
 
-        examenes: la(req),
+        examenes: ArrayExams(req),
 
         tipo: req.body.muestra,
         lab_asignado: req.body.laboratorio,
