@@ -15,7 +15,7 @@ $(document).ready(function() {
     });
 
     $("#tableMuestras").find("th").css("text-align", "center");
-    $.getJSON('json/muestras.json', function( data ) {
+    /*$.getJSON('json/muestras.json', function( data ) {
         $(data).each(function(index, item) {
             var $row = $("<tr/>").append($("<td/>").text(index+1));
             $row.append($("<td/>").text(item.paciente));
@@ -31,7 +31,7 @@ $(document).ready(function() {
 
             $("#tableMuestras tbody").append($row);
         });
-    });
+    });*/
 
     $(document).on("click", "#tableMuestras tbody tr button.btn-danger", function(event) {
         $(this).parent().parent().remove();
