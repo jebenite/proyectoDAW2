@@ -52,29 +52,51 @@ function reporteEstadisticoPastel() {
           var muestrasXLaboratorio = [];
           var nombresLab = [];          
           var datos = [];
-          var contador = 0;
+          var datos_principales = [];
+          var datasets = [];
+          var juego_colores = [];
+          var contador = 0;          
           $.each(laboratorios, function(i, laboratorio) {
             nombresLab.push(laboratorio.nombre);
           });
 
-          console.log('Nombres de todos los laboratorios: ' + nombresLab);
           $.each(nombresLab, function(j, nombreLab) {
             $.each(muestras, function(k, muestra) {
               if (muestra.lab_asignado == nombreLab) {
                 contador++;
               }
             });
-            console.log('Total de muestras en el laboratorio ' + nombreLab + ': ' + contador);
+
             muestrasXLaboratorio.push(contador);
             contador = 0;
           });
-          $.each(muestrasXLaboratorio, function(i, muestraXLab) {
-            var conteo = muestraXLab;
-            datos.push({value: conteo, color: colorAleatorio(), 
-              highlight: 'rgba(73,206,180,0.6)', label: nombresLab[i]});
+
+          $.each(nombresLab, function(l, nombreLab) {
+            juego_colores.push(colorAleatorio());
           });
+
+          $.each(nombresLab, function(m, nombreLab) {
+            datasets.push({
+              label: nombreLab,
+              data: muestrasXLaboratorio,
+              backgroundColor: juego_colores,
+              borderColor: juego_colores,
+              borderWidth: 1
+            });
+          });
+
+          data = {
+            labels: nombresLab,
+            datasets: datasets
+          }          
+
+          datos = {
+            type: 'pie',
+            data: data
+          }
+
           var contexto = document.getElementById("grafico").getContext("2d");
-          window.Pie = new Chart(contexto).Pie(datos);
+          var chart = new Chart(contexto, datos);
         }
       });
     }
@@ -95,6 +117,8 @@ function reporteEstadisticoBarra() {
         success: function(muestras) {          
           var nombresLab = [];          
           var datos = [];
+          var datos_principales = [];
+          var datos_secundarios = [];
           var data = [];
           var datasets = [];
           var totEne = 0, totFeb = 0, totMar = 0, totAbr = 0, totMay = 0, totJun = 0, totJul = 0, 
@@ -146,8 +170,9 @@ function reporteEstadisticoBarra() {
                 }
               }
             });
-            data = [totEne, totFeb, totMar, totAbr, totMay, totJun,
-              totJul, totAgo, totSep, totOct, totNov, totDic];            
+
+            datos_secundarios = [totEne, totFeb, totMar, totAbr, totMay, totJun,
+              totJul, totAgo, totSep, totOct, totNov, totDic];
 
             totEne = 0;
             totFeb = 0;
@@ -163,26 +188,99 @@ function reporteEstadisticoBarra() {
             totDic = 0;
 
             datasets.push({
+              label: nombreLab,
+              data: datos_secundarios,
+              backgroundColor: [color, color, color, color, color, color, color, color, color, color, color, color],
+              borderColor: [color, color, color, color, color, color, color, color, color, color, color, color],
+              borderWidth: 1
+              /*
               fillColor: color,
               strokeColor: color,
               highlightFill: 'rgba(66,196,156,0.7)', //COLOR "HOVER" DE LAS BARRAS
               highlightStroke: 'rgba(69,199,159,0.9)', //COLOR "HOVER" DEL BORDE 
               pointColor: colorAleatorio(),
-              pointStrokeColor: "#fff",
-              data: data
+              pointStrokeColor: "#fff"*/
             });
-          }); 
+          });
 
-          datos = {
-            type: 'doughnut',
-            labels : ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+          datos_principales = {              
+            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
             datasets: datasets
           }
+
+          datos = {
+            type: 'bar',            
+            data: datos_principales
+          }
+
           var contexto = document.getElementById('grafico').getContext('2d');
-          window.Barra = new Chart(contexto).Bar(datos, { responsive : true });
+          var chart = new Chart(contexto, datos);
+          
         }
       });
     }
+  });  
+}
+
+function pruebaBarra() {
+  var ctx = document.getElementById("grafico");
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          datasets: [{
+              label: '# of Votes',
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          },
+          {
+              label: '# of articles',
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          }          
+        ]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
+      }
   });  
 }
 
@@ -197,8 +295,8 @@ $("#boton").click(function() {
   if (pri_reporte.checked) {
     reporteEstadisticoPastel();
   }else {
-    reporteEstadisticoBarra();     
+    reporteEstadisticoBarra();
+    //pruebaBarra();
   }
   return false;
 });
-

@@ -79,14 +79,17 @@
         </form>
         <div class="row">
             <div class="col-sm-9">
-                <div id="graph"><canvas id="grafico"></canvas></div>
+                <div id="graph">
+                    <canvas id="grafico" height="500" weight="500"></canvas>
+                </div>
             </div>
             <div class="col-sm-3">
                 <aside id="acordeon">
                     <div class="panel panel-primary" id="borde" role="tablist" aria-multiselectable="true">
                         <div class="panel-heading" role="tab" id="headingTwo">
                             <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="jebenite.github.io/proyecto/sucursales.ejs#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Indique el rango de meses:</a>
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="jebenite.github.io/proyecto/sucursales.ejs#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Indique el rango de meses:
+                            </a>
                         </h4>
                         </div>
                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
@@ -153,7 +156,8 @@
         </section>
     </footer>
     <script type="text/javascript" src="javascripts/jquery.js"></script>
-    <script type="text/javascript" src="javascripts/chartJS/Chart.min.js"></script>
+    <!--<script type="text/javascript" src="javascripts/chartJS/Chart.min.js"></script>-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="javascripts/bootstrap.min.js"></script>

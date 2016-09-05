@@ -3,6 +3,7 @@ var router = express.Router();
 var muestraSeeder = require('../controllers/MuestraSeeder.js');
 var laboratorista = require('./laboratorista.js');
 
+// seders
 /* GET llena de datos la collecion Muestras. */
 router.get('/seed', function(req, res, next) {
     muestraSeeder.seed(req, res);
@@ -11,6 +12,7 @@ router.get('/seed', function(req, res, next) {
 router.get('/dbreset', function(req, res, next) {
     muestraSeeder.dbreset(req, res);
 });
+
 
 
 /* GET home page. */
@@ -26,6 +28,9 @@ router.get('/', function(req, res, next) {
         title: 'Express', layout: false
     });
 });
+
+
+
 
 //paciente
 router.get('/sucursal.ejs', function(req, res, next) {
@@ -51,6 +56,8 @@ router.get('/misexamenes.ejs', function(req, res, next) {
 });
 
 
+
+
 //operario
 router.get('/pacientes.ejs', function(req, res, next) {
     res.render('pacientes', {
@@ -73,7 +80,7 @@ router.get('/muestra-crear.ejs', function(req, res, next) {
     });
 });
 
-router.get('/estadisticas.ejs', function(req, res, next) {
+router.get('/estadisticas', function(req, res, next) {
     res.render('estadisticas', {
         title: 'Estadisticas', layout: false
     });
