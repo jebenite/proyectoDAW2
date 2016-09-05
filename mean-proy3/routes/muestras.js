@@ -36,29 +36,32 @@ router.get('/:id', function(req, res) {
         res.json(docs);
     });
 });
-function ArrayExams(req){
-  var arreglo=[];
-  var i =0;
-  if(req.body.numExams==1){
-    arreglo.push({nombre:req.body.examenesrealizar});
-  }
-  else{
-
-    for(i = 0;i<req.body.numExams;i++){
-
-      arreglo.push({nombre:req.body.examenesrealizar[i]});
-    }
-  }
-
-  return arreglo;
-}
+// function ArrayExams(req){
+//   var arreglo=[];
+//   var i =0;
+//   if(req.body.numExams==1){
+//     arreglo.push({nombre:req.body.examenesrealizar});
+//   }
+//   else{
+//
+//     for(i = 0;i<req.body.numExams;i++){
+//
+//       arreglo.push({nombre:req.body.examenesrealizar[i]});
+//     }
+//   }
+//   examenesrealizar.forEach(examen){
+//
+//   }
+//
+//   return arreglo;
+// }
 router.post('/', function(req, res) {
-
+    // var examenes =
     console.log('I received a post request');
     Muestra.create({
 
 
-        examenes: ArrayExams(req),
+        examenes: examenesrealizar,
 
         tipo: req.body.muestra,
         lab_asignado: req.body.laboratorio,

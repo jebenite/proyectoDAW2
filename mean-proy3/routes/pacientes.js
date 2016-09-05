@@ -6,22 +6,15 @@ var Usuario = require('../models/Usuario.js');
 var generator = require('generate-password');
 var nodemailer = require('nodemailer');
 
+//lista los usuarios pacientes
 router.get('/enlistarPacientes', function(req, res) {
     console.log('I received a get request');
     Usuario.find({ rol: "paciente" }, function(err, docs) {
-
         res.json(docs);
     });
 });
-/*router.get('/examenPorPaciente/:id', function(req, res) {
 
-    var id = req.params["id"];
-    Muestra.findById(id, function(err, docs) {
-
-        res.json(docs);
-    });
-});*/
-
+//borra un usuario paciente
 router.delete('/:id', function(req, res) {
     console.log('I received a delete request');
     Usuario.findOneAndRemove({ cedula: req.param("id") }, function(err) {
@@ -31,6 +24,7 @@ router.delete('/:id', function(req, res) {
     });
 });
 
+//crear paciente
 router.post('/', function(req, res) {
     var password = generator.generate({
         length: 8,
@@ -81,6 +75,7 @@ router.post('/', function(req, res) {
     })
 });
 
+//modificar UN usuario paciente
 router.put('/modificar/:id', function(req, res) {
 
     var cedula = req.body.cedula;
@@ -108,6 +103,7 @@ router.put('/modificar/:id', function(req, res) {
     });
 });
 
+//lista UN paciente por cedula
 router.get('/', function(req, res) {
     console.log('I received a get request');
     Usuario.find({ cedula: req.session["cedula"] }, function(err, docs) {
@@ -116,6 +112,7 @@ router.get('/', function(req, res) {
     });
 });
 
+//modificar UN paciente con SESSION
 router.put('/', function(req, res) {
 
     var cedula = req.body.cedula;

@@ -245,13 +245,13 @@
                         $("#errorLogin").text(respuesta.mensaje);
                     } else {
                         if (respuesta.usuario.rol == "paciente") {
-                            window.location = "sucursales.ejs";
+                            window.location = "/paciente";
                         }
                         if (respuesta.usuario.rol == "operario") {
-                            window.location = "pacientes.ejs";
+                            window.location = "/operario";
                         }
                         if (respuesta.usuario.rol == "laboratorista") {
-                            window.location = "lista-muestras";
+                            window.location = "/laboratorista";
                         }
                     }
                     //  window.location = "sucursales.ejs";

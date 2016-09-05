@@ -289,18 +289,24 @@
             } else {
                 e.preventDefault();
                 var url = "/muestras";
-                var data = $("#muestraCreateForm").serialize()+'&'+$.param({numExams:$('input:checkbox:checked').size()});;
+                var data = $("#muestraCreateForm").serialize();
+                var examens = [
+                    {nombre: "hemenoragra"},
+                    {nombre: "otro"},
+                    {nombre: "espera"},
+                ];
+                data.examens = examens;
 
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    data: data,
-
-                    success: function(respuesta) {
-
-                        window.location = "muestras-index.ejs";
-                    }
-                });
+                // $.ajax({
+                //     type: 'POST',
+                //     url: url,
+                //     data: data,
+                //
+                //     success: function(respuesta) {
+                //
+                //         window.location = "muestras-index.ejs";
+                //     }
+                // });
             }
         });
     </script>

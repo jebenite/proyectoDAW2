@@ -44,7 +44,7 @@
                 <label for="codBarras">Codigo</label>
                 <input type="text" class="form-control" id="codBarras" disabled>
             </div>
-            <div class="form-group" id="estado-group">
+            <div id="estado-group" class="form-group">
                 <label for="codBarras">Estado</label>
                 <input type="text" class="form-control" id="estado" disabled>
                 <button class="form-control btn btn-success" type="button" name="button" id="notificar">
@@ -54,26 +54,26 @@
             <div id="estadoRadios" class="form-group" style="display: none">
                 <label for="codBarras">Estado</label>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-xs-6" style="padding-rigth: 4px">
                         <button class="form-control btn btn-success" type="button" name="button" id="cancelar">
                             Cancelar
                         </button>
                     </div>
-                    <div class="col-sm-6">
-                        <button class="form-control btn btn-success" type="button" name="button" id="guardar">
+                    <div class="col-xs-6" style="padding-left: 4px">
+                        <button class="form-control btn btn-success" type="button" name="button" id="guardar-notif">
                             Guardar
                         </button>
                     </div>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="recibido" >
+                        <input type="radio" name="optionsRadios" id="optRecibido" value="recibido" >
                         Recibido
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="inconveniente" >
+                        <input type="radio" name="optionsRadios" id="optInconveniente" value="inconveniente" >
                         Hubo un inconveniente
                     </label>
                 </div>
@@ -88,13 +88,29 @@
             </div>
             <h2>Examenes</h2>
             {{#each examenes}}
-                <div class="panel panel-default">
+                <div class="panel panel-success">
                     <!-- Default panel contents -->
                     <div class="panel-heading">
                         {{this.nombre}}
                     </div>
                     <!-- List group -->
                     <ul class="list-group">
+                        <li class="list-group-item">
+                            <div class="row" >
+                                <div class="col-xs-3">
+                                    <strong>Parametro</strong>
+                                </div>
+                                <div class="col-xs-3">
+                                    <strong>Unidad</strong>
+                                </div>
+                                <div class="col-xs-3">
+                                    <strong>Resultado</strong>
+                                </div>
+                                <div class="col-xs-3">
+                                    <strong>Val_ref</strong>
+                                </div>
+                            </div>
+                        </li>
                         {{#each this.resultados}}
                             <li class="list-group-item">
                                 <div class="row">
@@ -113,15 +129,12 @@
                                 </div>
                             </li>
                         {{/each}}
-                        {{#if this.resultados}}
-                        {{else}}
-                            <button class="btn btn-success" type="button" name="button">Ingresar Resultados</button>
-                        {{/if}}
-
                     </ul>
                 </div>
             {{/each}}
-
+            {{#if flagIngresar}}
+                <button class="btn btn-success" type="button" name="button">Ingresar Resultados</button>
+            {{/if}}
         </div>
     </div>
 </div>
@@ -148,23 +161,30 @@
                         $("#estadoRadios").hide();
                     });
                 }
-                console.log(muestra.examenes.length);
-                // var examenes = muestra.examenes;
-                // $(examenes).each(function(index, examen) {
-                //     <label for="codBarras">Estado</label>
-                //     <input type="text" class="form-control" id="estado" disabled>
-                //     $("#examenes").append()
-                // });
+                console.log("cant extamenes: "+muestra.examenes.length);
             })
-        });
-        $(document).on('click', '#notificar', function(event) {
-            event.preventDefault();
-            $("#estado-group").hide();
-            $("#estadoRadios").show();
-        });
-        $("#cancelar").click(function(event) {
-            $("#estado-group").show();
-            $("#estadoRadios").hide();
+            $(document).on('click', '#notificar', function(event) {
+                event.preventDefault();
+                $("#estado-group").hide();
+                $("#estadoRadios").show();
+            });
+            $("#cancelar").click(function(event) {
+                $("#estado-group").show();
+                $("#estadoRadios").hide();
+            });
+            $("#guardar-notif").click(function(event) {
+                var inputEstado = $('input[name=optionsRadios]:checked').val();
+                $.ajax({
+                    url: '/muestrase/{{muestra_id}}',
+                    type: 'PUT',
+                    data: {estado: inputEstado},
+                    success: function(response) {
+                        $("#estado").val(response.estado);
+                        $("#estado-group").show();
+                        $("#estadoRadios").hide();
+                    }
+                });
+            });
         });
     </script>
 {{/extend}}

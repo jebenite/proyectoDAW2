@@ -39,6 +39,7 @@ module.exports = {
                     message: 'No such Muestra'
                 });
             }
+            console.log('muestra desde MuestrasE');
             return res.json(Muestra);
         });
     },

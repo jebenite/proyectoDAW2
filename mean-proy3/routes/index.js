@@ -14,41 +14,12 @@ router.get('/dbreset', function(req, res, next) {
 
 
 /* GET home page. */
-router.get('/index.ejs', function(req, res, next) {
-    res.render('index', {
-        title: 'Express', layout: false
-    });
-});
-
-/* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('index', {
         title: 'Express', layout: false
     });
 });
 
-//paciente
-router.get('/sucursal.ejs', function(req, res, next) {
-    res.render('sucursal', {
-        title: 'Express', layout: false
-    });
-});
-
-router.get('/sucursales.ejs', function(req, res, next) {
-    res.render('sucursales', {
-        title: 'Express', layout: false
-    });
-});
-router.get('/misdatos.ejs', function(req, res, next) {
-    res.render('misdatos', {
-        title: 'Express', layout: false
-    });
-});
-router.get('/misexamenes.ejs', function(req, res, next) {
-    res.render('misexamenes', {
-        title: 'Express', layout: false
-    });
-});
 
 
 //operario
@@ -82,5 +53,7 @@ router.get('/estadisticas.ejs', function(req, res, next) {
 
 //laboratorista
 router.use('/laboratorista', require('./laboratorista.js'))
+// router.use('/operario', require('./operario.js'))
+router.use('/paciente', require('./paciente.js'))
 
 module.exports = router;

@@ -9,6 +9,7 @@ var exphbs = require('express-handlebars');
 var hbsExtend = require('express-handlebars-extend');
 
 var routes = require('./routes/index');
+
 var centrosMed = require('./routes/centrosMed');
 var laboratorios = require('./routes/laboratorios');
 var usuarios = require('./routes/usuarios');
@@ -66,7 +67,9 @@ var auth = function(req, res, next) {
     }
     next();
 };
+
 app.use('/', routes);
+
 app.use('/muestrase', require('./routes/muestrasE.js'));
 
 app.use('/centrosMed', /*auth*/ centrosMed);
