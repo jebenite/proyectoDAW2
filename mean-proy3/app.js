@@ -13,7 +13,7 @@ var centrosMed = require('./routes/centrosMed');
 var laboratorios = require('./routes/laboratorios');
 var usuarios = require('./routes/usuarios');
 var muestras = require('./routes/muestras');
-var examenes = require('./routes/examenes');
+
 var pacientes = require('./routes/pacientes');
 
 var session = require('express-session');
@@ -74,7 +74,7 @@ app.use('/laboratorios', /*auth*/ laboratorios);
 app.use('/login', usuarios);
 app.use('/pacientes', pacientes);
 app.use('/muestras', muestras);
-app.use('/examenes' /*, auth*/ , examenes);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

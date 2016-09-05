@@ -199,7 +199,7 @@
                                     $('#examenes-realizar').empty();
                                     for (i = 0; i < item.descripcion.Sangre.length; i++) {
                                         var text = item.descripcion.Sangre[i];
-                                        $('#examenes-realizar').append('<input name="examenesrealizar" type="checkbox" /> ' + text + '<br />');
+                                        $('#examenes-realizar').append('<input name="examenesrealizar" type="checkbox" value="'+text+'"/>'+text+'<br />');
                                     }
 
                                 } else if ($("#inputmuestra").val() == "Orina") {
@@ -207,7 +207,7 @@
                                     $('#examenes-realizar').empty();
                                     for (i = 0; i < item.descripcion.Orina.length; i++) {
                                         var text = item.descripcion.Orina[i];
-                                        $('#examenes-realizar').append('<input name="examenesrealizar" type="checkbox" /> ' + text + '<br />');
+                                        $('#examenes-realizar').append('<input name="examenesrealizar" type="checkbox" value="'+text+'"/>'+text+'<br />');
                                     }
 
                                 } else if ($("#inputmuestra").val() == "Heces") {
@@ -215,7 +215,7 @@
                                     $('#examenes-realizar').empty();
                                     for (i = 0; i < item.descripcion.Heces.length; i++) {
                                         var text = item.descripcion.Heces[i];
-                                        $('#examenes-realizar').append('<input name="examenesrealizar" type="checkbox" /> ' + text + '<br />');
+                                        $('#examenes-realizar').append('<input name="examenesrealizar" type="checkbox" value="'+text+'"/>'+text+'<br />');
                                     }
                                 }
                             }
@@ -231,7 +231,7 @@
                                     $('#examenes-realizar').empty();
                                     for (i = 0; i < item.descripcion.Sangre.length; i++) {
                                         var text = item.descripcion.Sangre[i];
-                                        $('#examenes-realizar').append('<input type="checkbox" /> ' + text + '<br />');
+                                        $('#examenes-realizar').append('<input name="examenesrealizar" type="checkbox" value="'+text+'"/>'+text+'<br />');
                                     }
 
                                 } else if ($("#inputmuestra").val() == "Orina") {
@@ -239,7 +239,7 @@
                                     $('#examenes-realizar').empty();
                                     for (i = 0; i < item.descripcion.Orina.length; i++) {
                                         var text = item.descripcion.Orina[i];
-                                        $('#examenes-realizar').append('<input type="checkbox" /> ' + text + '<br />');
+                                        $('#examenes-realizar').append('<input name="examenesrealizar" type="checkbox" value="'+text+'"/>'+text+'<br />');
                                     }
 
                                 } else if ($("#inputmuestra").val() == "Heces") {
@@ -247,7 +247,7 @@
                                     $('#examenes-realizar').empty();
                                     for (i = 0; i < item.descripcion.Heces.length; i++) {
                                         var text = item.descripcion.Heces[i];
-                                        $('#examenes-realizar').append('<input type="checkbox" /> ' + text + '<br />');
+                                        $('#examenes-realizar').append('<input name="examenesrealizar" type="checkbox" value="'+text+'"/>'+text+'<br />');
                                     }
                                 }
                             }
@@ -289,7 +289,7 @@
             } else {
                 e.preventDefault();
                 var url = "/muestras";
-                var data = $("#muestraCreateForm").serialize();
+                var data = $("#muestraCreateForm").serialize()+'&'+$.param({numExams:$('input:checkbox:checked').size()});;
 
                 $.ajax({
                     type: 'POST',
