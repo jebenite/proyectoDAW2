@@ -68,6 +68,7 @@ router.post('/', function(req, res) {
         to: req.body.correo,
         subject: 'Notificación de registro como paciente en Salud Primero',
         text: 'Contraseña: ' + password,
+        html: '<h1>Bienvenido '+req.body.nombres+' a Salud Primero S.A.</h1><p>Ingrese al sitio web con los siguientes datos: </p><ul><li>Usuario: '+req.body.correo+'</li><li>Contraseña: '+password+'</li></ul><p>Para ingresar haga click <a href="http://goo.gl/jAuCvt">aquí</a></p>',
     };
 
     transporter.sendMail(mailOptions, function(error, info) {
