@@ -4,7 +4,8 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
     res.render('pacientes/sucursales', {
-        title: 'Express'
+        title: 'Sucursales',
+        angular: ''
     });
 });
 router.get('/misdatos.ejs', function(req, res, next) {

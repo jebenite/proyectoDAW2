@@ -3,57 +3,37 @@ var router = express.Router();
 var muestraSeeder = require('../controllers/MuestraSeeder.js');
 var laboratorista = require('./laboratorista.js');
 
-/* GET llena de datos la collecion Muestras. */
-router.get('/seed', function(req, res, next) {
-    muestraSeeder.seed(req, res);
-});
-/* GET limpia la tabla muestras. */
-router.get('/dbreset', function(req, res, next) {
-    muestraSeeder.dbreset(req, res);
-});
-
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('index', {
-        title: 'Express', layout: false
+        title: 'Salud Primero'
     });
 });
 
-
-
-//operario
-router.get('/pacientes.ejs', function(req, res, next) {
-    res.render('pacientes', {
-        title: 'Pacientes', layout: false
-    });
-});
-router.get('/paciente-crear.ejs', function(req, res, next) {
-    res.render('paciente-crear', {
-        title: 'Crear Paciente', layout: false
-    });
-});
-router.get('/muestras-index.ejs', function(req, res, next) {
-    res.render('muestras-index', {
-        title: 'Muestras', layout: false
-    });
-});
-router.get('/muestra-crear.ejs', function(req, res, next) {
-    res.render('muestra-crear', {
-        title: 'Crear Muestra', layout: false
-    });
-});
-
-router.get('/estadisticas.ejs', function(req, res, next) {
-    res.render('estadisticas', {
-        title: 'Estadisticas', layout: false
-    });
-});
-
-
-//laboratorista
+/*
+ * View Routes
+ */
+router.use('/login', require('./usuarios.js'));
 router.use('/laboratorista', require('./laboratorista.js'))
-// router.use('/operario', require('./operario.js'))
+router.use('/operario', require('./operario.js'))
 router.use('/paciente', require('./paciente.js'))
+
+/*
+ * APIRest Routes
+ */
+router.use('/centrosMed', require('./APIRest/centrosMed.js'));
+router.use('/laboratorios', require('./APIRest/laboratorios.js'));
+router.use('/pacientes', require('./APIRest/pacientes.js'));
+router.use('/muestras', require('./APIRest/muestras.js'));
+
+
+// llena de datos la collecion Muestras.
+router.get('/seed', function(req, res, next) {
+    muestraSeeder.seed(req, res);
+});
+// limpia la tabla muestras.
+router.get('/dbreset', function(req, res, next) {
+    muestraSeeder.dbreset(req, res);
+});
 
 module.exports = router;
