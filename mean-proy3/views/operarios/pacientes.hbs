@@ -175,7 +175,9 @@
                 success: function(respuesta) {
                     console.log(respuesta);
                     respuesta.forEach(function(item) {
-                        var $btn = $('<a class="btn btn-primary btn-sm">Modificar</a>');
+                        //var $btn = $('<a class="btn btn-primary btn-sm">Modificar</a>');
+                        var $btn = $('<a><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a><a><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>');
+                        
                     $btn.attr('href', '#');
                     var $tr = $("<tr>");
                     $tr.append($('<td>').text(item.cedula).attr('id', 'cedula'))
