@@ -35,14 +35,37 @@
                     <span id="text" class="fa">Registrar nuevo paciente</span>
                 </a>
             </div>
-            <div class="col-md-6 form-group" id="muestra-search">
+            <!--div class="col-md-6 form-group" id="muestra-search">
                 <label for="centro medico">Cédula del Paciente</label>
                 <select class="form-control" id="inputcedula">
                     <option selected disabled>-Selecionar-</option>
                 </select>
-            </div>
+            </div-->
         </div>
     </section>
+
+    <div class="container" id="tabla1">
+        <section align="center">
+            <h3>Lista de Pacientes</h3><br>
+        </section>
+
+        <div class="table-responsive">
+            <table class="table table-striped" id="table">
+                <thead>
+                    <tr id="listaEncabezado">
+                        <td>Cédula</td>
+                        <td>Nombres</td>
+                        <td>Apellidos</td>
+                        <td>Dirección</td>
+                        <td>E-mail</td>
+                    </tr>
+                </thead>
+                <tbody id="tabla">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <section class="container containerMin" id="content">
         <!--table class="table table-hover" id="tableMuestras">
@@ -61,13 +84,13 @@
             </tbody>
         </table-->
 
-        <form id="formPaciente">
+        <!--form id="formPaciente">
             <div class="row">
                 <fieldset>
                     <div class="col-sm-6" align="left">
                         <img id="preview" align="left"> </img>
                         <div>
-                            <!--input type="file"  id="image_file" onchange="fileSelected();" value=""/ -->
+                            <input type="file"  id="image_file" onchange="fileSelected();" value=""/ >
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -110,19 +133,20 @@
                 </fieldset>
             </div>
             <button class="btn btn-default" type="submit" id="botonGuardar">Guardar</button>
-        </form>
-        <div class="col-sm-offset-3 col-sm-3">
+        </form-->
+        <!--div class="col-sm-offset-3 col-sm-3">
             <button class="btn btn-default" type="submit" name="button" id="botonEditar">Editar</button>
         </div>
         <div class="col-sm-3">
             <button class="btn btn-default" type="submit" name="button" id="botonEliminar">Eliminar</button>
-        </div>
+        </div-->
     </section>
 
 {{#extend "scripts"}}
     <script src="/javascripts/operario.js" charset="utf-8"></script>
     <script>
         $(document).ready(function() {
+            /*
             $("#formPaciente").hide();
             $("#botonEditar").hide();
             $("#botonEliminar").hide();
@@ -134,12 +158,13 @@
                 $("#botonGuardar").show();
                 $("#botonEditar").hide();
                 $("#botonEliminar").hide();
-            });
+            });*/
 
-            $('fieldset').attr('disabled', true);
+            //$('fieldset').attr('disabled', true);
             var url = "/pacientes/enlistarPacientes";
-            var data = $("#inputcedula").serialize();
-            var listaTelefonos = $('<ul class="list-inline"></ul>');
+            //var data = $("#inputcedula").serialize();
+            var data = $("#table").serialize();
+            //var listaTelefonos = $('<ul class="list-inline"></ul>');
 
             $.ajax({
                 type: 'GET',
@@ -147,12 +172,26 @@
                 data: data,
 
                 success: function(respuesta) {
+                    console.log(respuesta);
                     respuesta.forEach(function(item) {
-                        var $option = $("<option></option>");
+                        var $btn = $('<a class="btn btn-primary btn-sm">Modificar</a>');
+                    $btn.attr('href', '#');
+                    var $tr = $("<tr>");
+                    $tr.append($('<td>').text(item.cedula).attr('id', 'cedula'))
+                        .append($('<td>').text(item.nombres).attr('id', 'nombres'))
+                        .append($('<td>').text(item.apellidos).attr('id', 'apellidos'))
+                        .append($('<td>').text(item.direccion).attr('id', 'direccion'))
+                        .append($('<td>').text(item.correo).attr('id', 'email'))
+                        .append($('<td>').html($btn));
+
+                    $("#tabla").append($tr);
+                        /*var $option = $("<option></option>");
                         $option.text(item.cedula);
-                        $("#inputcedula").append($option);
+                        $("#inputcedula").append($option);*/
                     })
-                    $("#inputcedula").change(function() {
+
+
+                    /*$("#inputcedula").change(function() {
                         listaTelefonos.empty();
                         //$("#telefonos").empty();
                         respuesta.forEach(function(item) {
@@ -180,16 +219,32 @@
                                 //$("#inputPaciente").val(item.nombres);
                             }
                         })
-                    })
+                    })*/
 
-                    $("#inputcedula").change(function() {
+                    /*$("#inputcedula").change(function() {
                         respuesta.forEach(function(item) {
                             if ($("#inputcedula").val() == item.cedula) {
                                 //$("#inputPacienteap").val(item.apellidos);
                             }
                         })
-                    })
+                    })*/
+                    $("#table").DataTable({
+                        aoColumnDefs: [{
+                            "aTargets": [0],
+                            "bSortable": true
+                        }, {
+                            "aTargets": [2],
+                            "asSorting": ["asc"],
+                            "bSortable": true
+                        }, ],
+                        "language": {
+                            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                        }
+                    });
                 }
+
+
+
             });
 
 
