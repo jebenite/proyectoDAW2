@@ -1,4 +1,6 @@
-
+{{#extend "stylesheets"}}
+    <link href="/stylesheets/operario.css" rel="stylesheet">
+{{/extend}}
 <header>
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -17,7 +19,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li class=""><a href="/operario/pacientes">Pacientes</a></li>
-                    <li class="action"><a href="#">Muestras</a></li>
+                    <li class="action"><a href="/operario/muestras">Muestras</a></li>
                     <li class=""><a href="/operario/estadisticas">Estadísticas</a></li>
                     <li class=""><a href="/">Cerrar sesión</a></li>
                 </ul>
@@ -34,11 +36,34 @@
                 <span id="text" class="fa">Registrar nueva muestra</span>
             </a>
         </div>
-        <div class="col-md-6" id="muestra-search">
+        <!--div class="col-md-6" id="muestra-search">
             <input class="form-control" type="text" name="search" value="" placeholder="buscar">
-        </div>
+        </div-->
     </div>
 </section>
+<div class="container" id="tabla1">
+        <section align="center">
+            <h3>Lista de Muestras</h3><br>
+        </section>
+
+        <div class="table-responsive">
+            <table class="table table-striped" id="table">
+                <thead>
+                    <tr id="listaEncabezado">
+                        <td>Cédula</td>
+                        <td>Nombres</td>
+                        <td>Apellidos</td>
+                        <td>Centro Médico</td>
+                        <td>Exámenes</td>
+                        <td>Acción</td>
+                    </tr>
+                </thead>
+                <tbody id="tabla">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 <section class="container containerMin" id="content">
     <table class="table table-hover" id="tableMuestras">
 
@@ -51,7 +76,7 @@
         $().ready(function() {
             //Carga todas las muetras de los Pacientes.
             var url = "/muestras";
-            var data = $("#tableMuestras").serialize();
+            var data = $("#table").serialize();
             $.ajax({
                 type: 'GET',
                 url: url,
