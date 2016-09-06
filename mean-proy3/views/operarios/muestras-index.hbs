@@ -50,6 +50,7 @@
             <table class="table table-striped" id="table">
                 <thead>
                     <tr id="listaEncabezado">
+                        <td hidden>id</td>
                         <td>Cédula</td>
                         <td>Nombres</td>
                         <td>Apellidos</td>
@@ -92,12 +93,13 @@
                                     apellidos = item.apellidos;
                                 }
                             })
-                            console.log(nombres);
+    
                             var $btn = $('<a class="btn btn-primary btn-sm">Ver Examenes</a>');
                             $btn.attr('href', '/operario/muestras/' + muestra._id);
                             $btn.css('background-color', '#89bf00');
                             var $tr = $("<tr>");
-                            $tr.append($('<td>').text(muestra.cedula).attr('id', 'cedula'))
+                            $tr.append($('<td hidden>').text(muestra._id).attr('class', '_id'))
+                                .append($('<td>').text(muestra.cedula).attr('id', 'cedula'))
                                 .append($('<td>').text(nombres).attr('id', 'nombres'))
                                 .append($('<td>').text(apellidos).attr('id', 'apellidos'))
                                 .append($('<td>').text(muestra.centro_medico).attr('id', 'centro_medico'))
@@ -105,9 +107,26 @@
                                 .append('<td><button type="button" class="btn btn-default btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn btn-danger btn-xs" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button></td>');
                             $("#tabla").append($tr);
                         });
-                        $("#tabla").on("click", ".btn.btn-danger.btn-xs", function () {
-                            $(this).parent().parent().remove();
-                        });
+                        //Requerimiento ajax para eliminar muestras
+                            $("#tabla").on("click", ".btn.btn-danger.btn-xs", function (e) {
+                                $(this).parent().parent().remove();
+                                var id = $(this).parent().parent().children('td._id').text();
+                                e.preventDefault();
+                                console.log(id);
+                                //var url = "/pacientes/:"+id;
+                                var url = "/muestras/" + id;
+                                //var data = $("#formPaciente").serialize();
+                                
+                                $.ajax({
+                                    type: 'DELETE',
+                                    url: url,
+                                    data: data,
+                                    success: function(respuesta) {
+                                        //window.location = "/operario/muestras";
+                                    }
+                                });
+                                //window.location = "/operario/muestras";
+                            });
                         $("#table").DataTable({
                             aoColumnDefs: [{
                                 "aTargets": [0],
