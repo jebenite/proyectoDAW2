@@ -12,7 +12,25 @@ router.get('/enlistarPacientes', function(req, res) {
         res.json(docs);
     });
 });
-
+//obtiene todas las muestras por cedula
+router.get('/cedula', function(req, res) {
+    console.log('I received a get request');
+    Muestra.find({
+        cedula: req.session["cedula"]
+    }, function(err, docs) {
+        req.session.idMuestra = docs._id;
+        res.json(docs);
+    });
+});
+//obtiene una muestra para imprimir los resultados de los examenes
+router.get('/examen/:id', function(req, res) {
+    var id = req.params["id"];
+    console.log('I received a get request');
+    Muestra.findById(id, function(err, docs) {
+        // req.session.idMuestra=docs._id;
+        res.json(docs);
+    });
+});
 //borra un usuario paciente
 router.delete('/:id', function(req, res) {
     console.log('I received a delete request');

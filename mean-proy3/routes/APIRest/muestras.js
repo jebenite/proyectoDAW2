@@ -10,15 +10,6 @@ router.get('/', function(req, res) {
     });
 });
 
-router.get('/cedula', function(req, res) {
-    console.log('I received a get request');
-    Muestra.find({
-        cedula: req.session["cedula"]
-    }, function(err, docs) {
-        req.session.idMuestra = docs._id;
-        res.json(docs);
-    });
-});
 
 router.get('/todos', function(req, res) {
     console.log('I received a get request');
