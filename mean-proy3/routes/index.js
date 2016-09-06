@@ -104,10 +104,4 @@ router.get('/dbreset', function(req, res, next) {
     muestraSeeder.dbreset(req, res);
 });
 
-<<<<<<< HEAD
-//laboratorista
-router.use('/laboratorista', require('./laboratorista.js'))
-
-=======
->>>>>>> 9cf16ea46cd4be8cf642115fb2e5978ba6d7d93b
 module.exports = router;
