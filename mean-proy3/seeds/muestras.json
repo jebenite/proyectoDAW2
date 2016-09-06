@@ -1,5 +1,6 @@
 [
     {
+        "fechaIngreso": "2016-03-02",
         "estado": "terminado",
         "tipo": "sangre",
         "lab_asignado": "CanoMED",
@@ -23,6 +24,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-05-03",
         "estado": "terminado",
         "tipo": "sangre",
         "lab_asignado": "BernaLab",
@@ -41,6 +43,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-07-01",
         "estado": "terminado",
         "tipo": "sangre",
         "lab_asignado": "EcuaLab",
@@ -72,6 +75,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-08-01",
         "estado": "terminado",
         "tipo": "orina",
         "lab_asignado": "EcuaLab",
@@ -108,6 +112,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-04-10",
         "estado": "enviado",
         "tipo": "sangre",
         "lab_asignado": "BernaLab",
@@ -130,6 +135,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-02-21",
         "estado": "enviado",
         "tipo": "sangre",
         "lab_asignado": "BernaLab",
@@ -148,6 +154,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-02-13",
         "estado": "recibido",
         "tipo": "sangre",
         "lab_asignado": "EcuaLab",
@@ -166,6 +173,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-06-11",
         "estado": "recibido",
         "tipo": "sangre",
         "lab_asignado": "EcuaLab",
@@ -180,6 +188,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-05-05",
         "estado": "enviado",
         "tipo": "heces",
         "lab_asignado": "BernaLab",
@@ -194,6 +203,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-04-11",
         "estado": "enviado",
         "tipo": "heces",
         "lab_asignado": "BernaLab",
@@ -208,6 +218,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-03-11",
         "estado": "enviado",
         "tipo": "heces",
         "lab_asignado": "BernaLab",
@@ -222,6 +233,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-02-01",
         "estado": "enviado",
         "tipo": "heces",
         "lab_asignado": "BernaLab",
@@ -236,6 +248,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-03-01",
         "estado": "enviado",
         "tipo": "orina",
         "lab_asignado": "BernaLab",
@@ -250,6 +263,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-02-11",
         "estado": "enviado",
         "tipo": "orina",
         "lab_asignado": "BernaLab",
@@ -264,6 +278,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-07-07",
         "estado": "enviado",
         "tipo": "orina",
         "lab_asignado": "BernaLab",
@@ -278,6 +293,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-03-11",
         "estado": "enviado",
         "tipo": "sangre",
         "lab_asignado": "BernaLab",
@@ -296,6 +312,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-03-04",
         "estado": "enviado",
         "tipo": "sangre",
         "lab_asignado": "BernaLab",
@@ -314,6 +331,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-03-03",
         "estado": "enviado",
         "tipo": "sangre",
         "lab_asignado": "BernaLab",
@@ -332,6 +350,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-04-04",
         "estado": "enviado",
         "tipo": "sangre",
         "lab_asignado": "CanoMED",

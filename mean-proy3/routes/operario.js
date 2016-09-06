@@ -23,7 +23,7 @@ router.get('/muestra-crear.ejs', function(req, res, next) {
     });
 });
 
-router.get('/estadisticas.ejs', function(req, res, next) {
+router.get('/estadisticas', function(req, res, next) {
     res.render('operarios/estadisticas', {
         title: 'Estadisticas', layout: false
     });
