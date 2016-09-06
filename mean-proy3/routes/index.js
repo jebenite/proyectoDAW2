@@ -86,7 +86,6 @@ router.get('/estadisticas', function(req, res, next) {
     });
 });
 
-
 //laboratorista
 router.use('/laboratorista', require('./laboratorista.js'))
 

@@ -21,6 +21,8 @@
     <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 
     <!-- Font-awesome -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
     <link rel="stylesheet" href="stylesheets/histogram.css">
 </head>
@@ -64,7 +66,8 @@
         <h4>Estadísticas de:</h4>
     </article><br>
 
-    <hr>
+    <br>
+
     <section class="container" id="contenido">
         <form action="">
             <div class="row" id="filaDeRadios">
@@ -74,16 +77,12 @@
                 <div class="col-sm-6">
                     <input type="radio" id="seg-reporte" name="radio" onclick="definirRangosBusqueda();"> Muestras medicas mensuales
                 </div>
-            </div>
-
-        </form>
+            </div>               
         <div class="row">
-            <div class="col-sm-9">
-                <div id="graph">
-                    <canvas id="grafico" height="500" weight="500"></canvas>
-                </div>
-            </div>
             <div class="col-sm-3">
+                <canvas id="grafico" height="500" weight="500"></canvas>
+            </div>
+            <div class="col-sm-6">
                 <aside id="acordeon">
                     <div class="panel panel-primary" id="borde" role="tablist" aria-multiselectable="true">
                         <div class="panel-heading" role="tab" id="headingTwo">
@@ -95,50 +94,31 @@
                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-sm-5">
-                                      <select class="c-select" id="fecha-desde">
-            						    <option value="1" selected>Enero</option>
-            						    <option value="2">Febrero</option>
-            						    <option value="3">Marzo</option>
-    				                    <option value="4">Abril</option>
-                                        <option value="5">Mayo</option>
-                                        <option value="6">Junio</option>
-                                        <option value="7">Julio</option>
-                                        <option value="8">Agosto</option>
-                                        <option value="9">Septiembre</option>
-                                        <option value="10">Octubre</option>
-                                        <option value="11">Noviembre</option>
-                                        <option value="12">Diciembre</option>
-            					      </select>
-                                    </div>
-                                    <div class="col-sm-2"></div>
-                                    <div class="col-sm-5">
-                                      <select class="c-select" id="fecha-hasta">
-                                        <option value="1" selected>Enero</option>
-                                        <option value="2">Febrero</option>
-                                        <option value="3">Marzo</option>
-                                        <option value="4">Abril</option>
-                                        <option value="5">Mayo</option>
-                                        <option value="6">Junio</option>
-                                        <option value="7">Julio</option>
-                                        <option value="8">Agosto</option>
-                                        <option value="9">Septiembre</option>
-                                        <option value="10">Octubre</option>
-                                        <option value="11">Noviembre</option>
-                                        <option value="12">Diciembre</option>
-                                      </select>
-                                    </div>                                    
-                                </div>
+                                    <p>Fecha desde: <input type="date" id="fec-desde" value="11-01-2000"></p>
+                                    <p>Fecha hasta: <input type="date" id="fec-hasta" value="01-01-2000"></p>
                                 <div class="row">
-                                    <br>                                    
-                                    <input id="periodo" type="number" name="quantity" min="2000" max="3000">Ingrese el año
-                                </div>
+                                </div>                                
                             </div>
                         </div>
                     </div>
-                </aside>
+                </aside>                
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
                 <button id="boton" class="btn btn-default">Procesar</button>
             </div>
+            <div class="col-sm-1"></div>
+        </div> 
+        </form>
+        <div class="row">
+            <div id='graph' class="col-sm-12">                
+            </div>            
         </div>
     </section>
     <footer>
@@ -155,16 +135,16 @@
             </div>
         </section>
     </footer>
-    <script type="text/javascript" src="javascripts/jquery.js"></script>
     <!--<script type="text/javascript" src="javascripts/chartJS/Chart.min.js"></script>-->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js"></script>    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="javascripts/bootstrap.min.js"></script>
     <script src="javascripts/main.js" charset="utf-8"></script>
     <script src="javascripts/master.js" charset="utf-8"></script>
     <script src="javascripts/histogram.js" charset="utf-8"></script>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>    
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>   
 </body>
 
 </html>

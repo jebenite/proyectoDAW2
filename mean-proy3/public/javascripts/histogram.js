@@ -1,4 +1,9 @@
 
+$(function() {
+  $("#fec-desde").datepicker({ dateFormat: 'dd-mm-yy' });
+  $("#fec-hasta").datepicker({ dateFormat: 'dd-mm-yy' });
+});
+
 function definirRangosBusqueda() {
   var pri_reporte = document.getElementById("pri-reporte");
   if (pri_reporte.checked) {
@@ -8,7 +13,7 @@ function definirRangosBusqueda() {
   }  
 }
 
-function aleatorio(inferior, superior){
+function aleatorio(inferior, superior) {
   numPosibilidades = superior - inferior;
   aleat = Math.random() * numPosibilidades;
   aleat = Math.floor(aleat);
@@ -25,6 +30,17 @@ function colorAleatorio() {
   return color_aleatorio;
 }
 
+function listaColoresAleatorios(dimension) {
+  var listaColores = [];
+  var color = colorAleatorio();
+
+  for (var i = 0; i < dimension; i++) {
+    listaColores.push(color);
+  }
+
+  return listaColores;
+}
+
 function nombresLaboratorios() {
   var url = '/laboratorios';
   $.ajax({
@@ -36,6 +52,55 @@ function nombresLaboratorios() {
       });      
     }    
   });  
+}
+
+function obtenerRangoFechas() {
+  var fechaDesde = $('#fec-desde').val().split('-');
+  var fechaHasta = $('#fec-hasta').val().split('-');
+  fechaDesde = new Date(String(fechaDesde[1]) + '/' + String(fechaDesde[0]) + '/' + String(fechaDesde[2]));
+  fechaHasta = new Date(String(fechaHasta[1]) + '/' + String(fechaHasta[0]) + '/' + String(fechaHasta[2]));
+  console.log('f desde: ' + fechaDesde);
+  console.log('f hasta: ' + fechaHasta);  
+  var fechaTemporal = fechaDesde;
+  var label = [];
+
+  while(fechaTemporal <= fechaHasta) {    
+    var mes = fechaTemporal.getMonth() + 1;
+    var año = fechaTemporal.getFullYear();
+
+    if (mes < 10) {
+      label.push('0' + String(mes) + '-' + año);
+    }else {
+      label.push(String(mes) + '-' + año);
+    }
+
+    if ((Number(mes) + 1) >= 13) {
+      mes = 1;
+      año = Number(año) + 1;
+    }else {
+      mes = Number(mes) + 1;
+    }
+
+    if (mes < 10) {
+      fechaTemporal = new Date(String('0' + mes + '/01' + '/' + año));
+    }else {
+      fechaTemporal = new Date(String(mes + '/01/' + año));
+    }    
+  }
+  return label;
+}
+
+function obtenerListaInformacionXLaboratorio(lista) {
+  var items = [];
+  var fecha;
+
+  for (var i = 0; i < lista.length; i++) {
+    fecha = lista[i];
+    console.log({fecha: fecha, valor: 0});
+    items.push({fecha: fecha, valor: 0});
+  }
+
+  return items;
 }
 
 function reporteEstadisticoPastel() {
@@ -117,94 +182,65 @@ function reporteEstadisticoBarra() {
         success: function(muestras) {          
           var nombresLab = [];          
           var datos = [];
-          var datos_principales = [];
-          var datos_secundarios = [];
+          var datos_principales = [];          
           var data = [];
           var datasets = [];
-          var totEne = 0, totFeb = 0, totMar = 0, totAbr = 0, totMay = 0, totJun = 0, totJul = 0, 
-            totAgo = 0, totSep = 0, totOct = 0, totNov = 0, totDic = 0;          
+          var labels = [];
+          var rangoFechas = obtenerRangoFechas();          
+          var fechaDesde = $('#fec-desde').val().split('-');
+          var fechaHasta = $('#fec-hasta').val().split('-');          
+          fechaDesde = new Date(String(fechaDesde[1]) + '/' + String(fechaDesde[0]) + '/' + String(fechaDesde[2]));
+          fechaHasta = new Date(String(fechaHasta[1]) + '/' + String(fechaHasta[0]) + '/' + String(fechaHasta[2]));
 
           $.each(laboratorios, function(i, laboratorio) {
             nombresLab.push(laboratorio.nombre);
           });
 
           $.each(nombresLab, function(j, nombreLab) {
-            var color = colorAleatorio();
+            var datosXLaboratorio = [];
+            var color = colorAleatorio();            
+            var informacionXLaboratorio = obtenerListaInformacionXLaboratorio(rangoFechas);            
+
             $.each(muestras, function(k, muestra) {
-              if (muestra.lab_asignado == nombreLab) {
-                var fDesde = $('#fecha-desde option:selected').val();
-                var fHasta = $('#fecha-hasta option:selected').val();
-                var periodo = $('#periodo').val();
-                var fecha = new Date(muestra.fechaIngreso);
-                var mes = fecha.getMonth() + 1;
-                var año = fecha.getFullYear();
-                console.log(fDesde);
-                console.log(fHasta);
-                console.log(año);
-                console.log(periodo);
-                console.log(fecha);
-                if ((mes == "1" && (mes >= fDesde && mes <= fHasta)) && año == periodo) {
-                  totEne++;
-                }else if ((mes == "2" && (mes >= fDesde && mes <= fHasta)) && año == periodo) {
-                  totFeb++;
-                }else if ((mes == "3" && (mes >= fDesde && mes <= fHasta)) && año == periodo) {
-                  totMar++;
-                }else if ((mes == "4" && (mes >= fDesde && mes <= fHasta)) & año == periodo) {
-                  totAbr++;
-                }else if ((mes == "5" && (mes >= fDesde && mes <= fHasta)) & año == periodo) {
-                  totMay++;
-                }else if ((mes == "6" && (mes >= fDesde && mes <= fHasta)) & año == periodo) {
-                  totJun++;
-                }else if ((mes == "7" && (mes >= fDesde && mes <= fHasta)) & año == periodo) {
-                  totJul++;
-                }else if ((mes == "8" && (mes >= fDesde && mes <= fHasta)) && año == periodo) {
-                  totAgo++;
-                }else if ((mes == "9" && (mes >= fDesde && mes <= fHasta)) && año == periodo) {
-                  totSep++;
-                }else if ((mes == "10" && (mes >= fDesde && mes <= fHasta)) && año == periodo) {
-                  totOct++;
-                }else if ((mes == "11" && (mes >= fDesde && mes <= fHasta)) && año == periodo) {
-                  totNov++;
-                }else if ((mes == "12" && (mes >= fDesde && mes <= fHasta)) && año == periodo) {
-                  totDic++;
+              if (muestra.lab_asignado == nombreLab) {                              
+                var fechaMuestra = new Date(muestra.fechaIngreso);                                
+                var mesMuestra = Number(fechaMuestra.getMonth() + 1);
+                var añoMuestra = Number(fechaMuestra.getFullYear());
+
+                if ((fechaMuestra >= fechaDesde) && (fechaMuestra <= fechaHasta )) {
+                  for(var pos = 0; pos < informacionXLaboratorio.length; pos++) {
+                    if (mesMuestra < 10) {
+                      if (informacionXLaboratorio[pos].fecha == String('0' + mesMuestra  + '-' + añoMuestra)) {
+                        informacionXLaboratorio[pos].valor++;
+                      }
+                    }else {
+                      if (informacionXLaboratorio[pos].fecha == String(mesMuestra  + '-' + añoMuestra)) {
+                        informacionXLaboratorio[pos].valor++;
+                      }
+                    }
+                  }
                 }
               }
             });
 
-            datos_secundarios = [totEne, totFeb, totMar, totAbr, totMay, totJun,
-              totJul, totAgo, totSep, totOct, totNov, totDic];
+            for(var pos = 0; pos < informacionXLaboratorio.length; pos++) {
+              console.log('Datos de ' + nombreLab + ': ' + informacionXLaboratorio[pos].valor);
+              datosXLaboratorio.push(informacionXLaboratorio[pos].valor);
+            }
 
-            totEne = 0;
-            totFeb = 0;
-            totMar = 0;
-            totAbr = 0;
-            totMay = 0;
-            totJun = 0;
-            totJul = 0;
-            totAgo = 0;
-            totSep = 0;
-            totOct = 0;
-            totNov = 0;
-            totDic = 0;
+            var listaColores = listaColoresAleatorios(datosXLaboratorio.length);
 
             datasets.push({
               label: nombreLab,
-              data: datos_secundarios,
-              backgroundColor: [color, color, color, color, color, color, color, color, color, color, color, color],
-              borderColor: [color, color, color, color, color, color, color, color, color, color, color, color],
+              data: datosXLaboratorio,
+              backgroundColor: listaColores,
+              borderColor: listaColores,
               borderWidth: 1
-              /*
-              fillColor: color,
-              strokeColor: color,
-              highlightFill: 'rgba(66,196,156,0.7)', //COLOR "HOVER" DE LAS BARRAS
-              highlightStroke: 'rgba(69,199,159,0.9)', //COLOR "HOVER" DEL BORDE 
-              pointColor: colorAleatorio(),
-              pointStrokeColor: "#fff"*/
             });
-          });
 
+          });          
           datos_principales = {              
-            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            labels: rangoFechas,
             datasets: datasets
           }
 
@@ -214,73 +250,10 @@ function reporteEstadisticoBarra() {
           }
 
           var contexto = document.getElementById('grafico').getContext('2d');
-          var chart = new Chart(contexto, datos);
-          
+          var chart = new Chart(contexto, datos);         
         }
       });
     }
-  });  
-}
-
-function pruebaBarra() {
-  var ctx = document.getElementById("grafico");
-  var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-          datasets: [{
-              label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255,99,132,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-          },
-          {
-              label: '# of articles',
-              data: [12, 19, 3, 5, 2, 3],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255,99,132,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-          }          
-        ]
-      },
-      options: {
-          scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero:true
-                  }
-              }]
-          }
-      }
   });  
 }
 
@@ -288,15 +261,32 @@ $("#boton").click(function() {
   var rep = document.getElementById("grafico");
   rep.parentNode.removeChild(rep);
   var pri_reporte = document.getElementById("pri-reporte");
-  var graph = document.getElementById("graph");  
-  rep = document.createElement("canvas");  
+  var graph = document.getElementById("graph");
+  rep = document.createElement("canvas");
   rep.id = "grafico";
   graph.appendChild(rep);
+
   if (pri_reporte.checked) {
     reporteEstadisticoPastel();
   }else {
     reporteEstadisticoBarra();
-    //pruebaBarra();
+  }
+  return false;
+});
+
+$(document).ready(function() {
+  var rep = document.getElementById("grafico");
+  rep.parentNode.removeChild(rep);
+  var pri_reporte = document.getElementById("pri-reporte");
+  var graph = document.getElementById("graph");
+  rep = document.createElement("canvas");
+  rep.id = "grafico";
+  graph.appendChild(rep);
+
+  if (pri_reporte.checked) {
+    reporteEstadisticoPastel();
+  }else {
+    reporteEstadisticoBarra();
   }
   return false;
 });
