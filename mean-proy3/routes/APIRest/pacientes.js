@@ -1,27 +1,37 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
-var Muestra = require('../models/Muestra.js');
-var Usuario = require('../models/Usuario.js');
+var Muestra = require('../../models/Muestra.js');
+var Usuario = require('../../models/Usuario.js');
 var generator = require('generate-password');
 var nodemailer = require('nodemailer');
 
+//lista los usuarios pacientes
 router.get('/enlistarPacientes', function(req, res) {
     console.log('I received a get request');
     Usuario.find({ rol: "paciente" }, function(err, docs) {
-
         res.json(docs);
     });
 });
-/*router.get('/examenPorPaciente/:id', function(req, res) {
-
-    var id = req.params["id"];
-    Muestra.findById(id, function(err, docs) {
-
+//obtiene todas las muestras por cedula
+router.get('/cedula', function(req, res) {
+    console.log('I received a get request');
+    Muestra.find({
+        cedula: req.session["cedula"]
+    }, function(err, docs) {
+        req.session.idMuestra = docs._id;
         res.json(docs);
     });
-});*/
-
+});
+//obtiene una muestra para imprimir los resultados de los examenes
+router.get('/examen/:id', function(req, res) {
+    var id = req.params["id"];
+    console.log('I received a get request');
+    Muestra.findById(id, function(err, docs) {
+        // req.session.idMuestra=docs._id;
+        res.json(docs);
+    });
+});
+//borra un usuario paciente
 router.delete('/:id', function(req, res) {
     console.log('I received a delete request');
     Usuario.findOneAndRemove({ cedula: req.param("id") }, function(err) {
@@ -31,6 +41,7 @@ router.delete('/:id', function(req, res) {
     });
 });
 
+//crear paciente
 router.post('/', function(req, res) {
     var password = generator.generate({
         length: 8,
@@ -82,6 +93,7 @@ router.post('/', function(req, res) {
     })
 });
 
+//modificar UN usuario paciente
 router.put('/modificar/:id', function(req, res) {
 
     var cedula = req.body.cedula;
@@ -89,11 +101,7 @@ router.put('/modificar/:id', function(req, res) {
     var correo = req.body.correo;
     var dir = req.body.direccion1;
     var ape = req.body.apellidos;
-    console.log(cedula);
-    console.log(nombres);
-    console.log(correo);
-    console.log(ape);
-    console.log(dir);
+
     Usuario.findOneAndUpdate({
         cedula: req.param("id")
     }, {
@@ -109,32 +117,34 @@ router.put('/modificar/:id', function(req, res) {
     });
 });
 
+//lista UN usuarios pacientes por cedula
 router.get('/', function(req, res) {
     console.log('I received a get request');
-    Usuario.find({ cedula: req.session["cedula"] }, function(err, docs) {
+    Usuario.find({
+        cedula: req.session["cedula"]
+    }, function(err, docs) {
         console.log(docs);
         res.json(docs);
     });
 });
 
+//modificar UN usuario paciente con SESSION
 router.put('/', function(req, res) {
 
-    var cedula = req.body.cedula;
+
     var nombres = req.body.nombres;
     var correo = req.body.correo;
     var dir = req.body.direccion1;
     var ape = req.body.apellidos;
-    console.log(cedula);
-    console.log(nombres);
-    console.log(correo);
-    console.log(ape);
-    console.log(dir);
+    var tel=req.body.telefono;
+    
     Usuario.findByIdAndUpdate(req.session["idPaciente"], {
         $set: {
-            nombres: req.body.nombres,
-            apellidos: req.body.apellidos,
-            correo: req.body.correo,
-            direccion: req.body.direccion1
+            nombres: nombres,
+            apellidos: ape,
+            correo: correo,
+            direccion: dir,
+            telefonos: tel
         }
     }, function(err, doc) {
         if (err) {
@@ -145,10 +155,5 @@ router.put('/', function(req, res) {
     });
 });
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    console.log("query get de mis datos con exito");
-});
 
 module.exports = router;

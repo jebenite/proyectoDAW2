@@ -4,7 +4,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>Salud Primero</title>
+      <title>{{title}}</title>
       <!-- Google font -->
       <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
       <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
@@ -20,17 +20,17 @@
         <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-        <script src="javascripts/angular-datatables.min.js"></script>
+        <script src="/javascripts/angular-datatables.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 
         <link rel="stylesheet" href="http://cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
 
-        <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
-        <link href="stylesheets/barraDeEstado.css" rel="stylesheet">
+        <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+        <link href="/stylesheets/barraDeEstado.css" rel="stylesheet">
         <!-- Font-awesome -->
-        <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
-        <link href="stylesheets/master.css" rel="stylesheet">
+        <link rel="stylesheet" href="/stylesheets/font-awesome.min.css">
+        <link href="/stylesheets/master.css" rel="stylesheet">
     </head>
     <body>
       <header>
@@ -136,11 +136,11 @@
                   </div>
               </section>
           </footer>
-          <script src="javascripts/main.js" charset="utf-8"></script>
-          <script src="javascripts/master.js" charset="utf-8"></script>
+          <script src="/javascripts/main.js" charset="utf-8"></script>
+          <script src="/javascripts/master.js" charset="utf-8"></script>
 
-          <script type="text/javascript" src="javascripts/pdfmake.js"></script>
-          <script type="text/javascript" src="javascripts/vfs_fonts.js"></script>
+          <script type="text/javascript" src="/javascripts/pdfmake.js"></script>
+          <script type="text/javascript" src="/javascripts/vfs_fonts.js"></script>
             <script>
 
                 var app = angular.module('misExamenes', ['datatables']);
@@ -150,7 +150,7 @@
                 });
                 app.controller('misExamenesCtrl',function($scope, $http, DTColumnDefBuilder,DTOptionsBuilder)
                 {
-                    $http.get("/muestras/cedula").success(function (response)
+                    $http.get("/pacientes/cedula").success(function (response)
                     {
                         $scope.examenes = response;
                     });
@@ -249,7 +249,7 @@
                   }
 
                   function descargar(id) {
-                    $.getJSON("/muestras/"+id, function(item) {
+                    $.getJSON("/pacientes/examen/"+id, function(item) {
                       var docDefinition = {
                       content:generando(item)
                       };

@@ -21,7 +21,7 @@ $(document).ready(function() {
 
 
 
-  
+
     var listaTelefonos = $('<ul class="list-inline"></ul>');
 
     $.getJSON("/pacientes", function(jsonResp) {
@@ -31,7 +31,7 @@ $(document).ready(function() {
             $('input#apellido.form-control').attr("value", item.apellidos);
             $('input#ced.form-control').attr("value", item.cedula);
             item.telefonos.forEach(function(item) {
-                var telefono = $('<input type="number" class="form-control" id="telf" placeholder="Teléfono"></input>');
+                var telefono = $('<input type="text" onkeypress="return valida(event)" maxlength="10"  minlength="7" name="telefono" class="form-control" id="telf" placeholder="Teléfono"></input>');
                 telefono.attr("value", item);
                 listaTelefonos.append(telefono);
             })

@@ -3,90 +3,111 @@ var router = express.Router();
 var muestraSeeder = require('../controllers/MuestraSeeder.js');
 var laboratorista = require('./laboratorista.js');
 
-// seders
-/* GET llena de datos la collecion Muestras. */
+/* GET home page. */
+router.get('/', function(req, res, next) {
+    res.render('index', {
+        title: 'Salud Primero'
+    });
+});
+
+router.get('/logout',function(req,res){
+	req.session.destroy();
+
+  res.redirect("/");
+});
+var authOperarioRuta = function(req, res, next) {
+    //console.log("este es un middleware");
+    if (req.session["rol"] != "operario") {
+      res.sendStatus(401);
+      return;
+    }
+    next();
+};
+var authOperarioVista = function(req, res, next) {
+    //console.log("este es un middleware");
+    if (req.session["rol"] != "operario") {
+      res.redirect("/");
+      return;
+    }
+    next();
+};
+router.get('/', function(req, res, next) {
+    res.render('index', {
+        title: 'Salud Primero'
+    });
+});
+var authPacienteRuta = function(req, res, next) {
+    //console.log("este es un middleware");
+    if (req.session["rol"] != "paciente") {
+      res.sendStatus(401);
+      return;
+    }
+    next();
+};
+var authPacienteVista = function(req, res, next) {
+    //console.log("este es un middleware");
+    if (req.session["rol"] != "paciente") {
+      res.redirect("/");
+      return;
+    }
+    next();
+};
+router.get('/', function(req, res, next) {
+    res.render('index', {
+        title: 'Salud Primero'
+    });
+});
+var authLaboraRuta = function(req, res, next) {
+    //console.log("este es un middleware");
+    if (req.session["rol"] != "laboratorista") {
+      res.sendStatus(401);
+      return;
+    }
+    next();
+};
+var authLaboraVista = function(req, res, next) {
+    //console.log("este es un middleware");
+    if (req.session["rol"] != "laboratorista") {
+      res.redirect("/");
+      return;
+    }
+    next();
+};
+
+/*
+ * View Routes
+ */
+router.use('/login', require('./usuarios.js'));
+
+router.use('/laboratorista',authLaboraVista, require('./laboratorista.js'))
+router.use('/operario',authOperarioVista, require('./operario.js'))
+router.use('/paciente',authPacienteVista, require('./paciente.js'))
+
+/*
+ * APIRest Routes
+ */
+router.use('/centrosMed', require('./APIRest/centrosMed.js'));
+router.use('/laboratorios', require('./APIRest/laboratorios.js'));
+router.use('/pacientes', require('./APIRest/pacientes.js'));
+router.use('/muestras', require('./APIRest/muestras.js'));
+// router.use('/laboratorios',authLaboraRuta, require('./APIRest/laboratorios.js'));
+// router.use('/pacientes',authPacienteRuta, require('./APIRest/pacientes.js'));
+// router.use('/muestras',authOperarioRuta, require('./APIRest/muestras.js'));
+
+
+// llena de datos la collecion Muestras.
 router.get('/seed', function(req, res, next) {
     muestraSeeder.seed(req, res);
 });
-/* GET limpia la tabla muestras. */
+// limpia la tabla muestras.
 router.get('/dbreset', function(req, res, next) {
     muestraSeeder.dbreset(req, res);
 });
 
-
-
-/* GET home page. */
-router.get('/index.ejs', function(req, res, next) {
-    res.render('index', {
-        title: 'Express', layout: false
-    });
-});
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('index', {
-        title: 'Express', layout: false
-    });
-});
-
-
-
-
-//paciente
-router.get('/sucursal.ejs', function(req, res, next) {
-    res.render('sucursal', {
-        title: 'Express', layout: false
-    });
-});
-
-router.get('/sucursales.ejs', function(req, res, next) {
-    res.render('sucursales', {
-        title: 'Express', layout: false
-    });
-});
-router.get('/misdatos.ejs', function(req, res, next) {
-    res.render('misdatos', {
-        title: 'Express', layout: false
-    });
-});
-router.get('/misexamenes.ejs', function(req, res, next) {
-    res.render('misexamenes', {
-        title: 'Express', layout: false
-    });
-});
-
-
-
-
-//operario
-router.get('/pacientes.ejs', function(req, res, next) {
-    res.render('pacientes', {
-        title: 'Pacientes', layout: false
-    });
-});
-router.get('/paciente-crear.ejs', function(req, res, next) {
-    res.render('paciente-crear', {
-        title: 'Crear Paciente', layout: false
-    });
-});
-router.get('/muestras-index.ejs', function(req, res, next) {
-    res.render('muestras-index', {
-        title: 'Muestras', layout: false
-    });
-});
-router.get('/muestra-crear.ejs', function(req, res, next) {
-    res.render('muestra-crear', {
-        title: 'Crear Muestra', layout: false
-    });
-});
-
-router.get('/estadisticas', function(req, res, next) {
-    res.render('estadisticas', {
-        title: 'Estadisticas', layout: false
-    });
-});
-
+<<<<<<< HEAD
 //laboratorista
 router.use('/laboratorista', require('./laboratorista.js'))
 
+=======
+>>>>>>> 9cf16ea46cd4be8cf642115fb2e5978ba6d7d93b
 module.exports = router;
