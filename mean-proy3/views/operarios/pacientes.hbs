@@ -175,14 +175,15 @@
                 success: function(respuesta) {
                     console.log(respuesta);
                     respuesta.forEach(function(item) {
-                        var $btn = $('<a class="btn btn-primary btn-sm">Modificar</a>');
+                        //var $btn = $('<a class="btn btn-primary btn-sm">Modificar</a>');
+                        var $btn = $('<button type="button" class="btn btn-default btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn btn-danger btn-xs" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button>');
                     $btn.attr('href', '#');
                     var $tr = $("<tr>");
-                    $tr.append($('<td>').text(item.cedula).attr('id', 'cedula'))
-                        .append($('<td>').text(item.nombres).attr('id', 'nombres'))
-                        .append($('<td>').text(item.apellidos).attr('id', 'apellidos'))
-                        .append($('<td>').text(item.direccion).attr('id', 'direccion'))
-                        .append($('<td>').text(item.correo).attr('id', 'email'))
+                    $tr.append($('<td>').text(item.cedula).attr('class', 'cedula'))
+                        .append($('<td>').text(item.nombres).attr('class', 'nombres'))
+                        .append($('<td>').text(item.apellidos).attr('class', 'apellidos'))
+                        .append($('<td>').text(item.direccion).attr('class', 'direccion'))
+                        .append($('<td>').text(item.correo).attr('class', 'email'))
                         .append($('<td>').html($btn));
 
                     $("#tabla").append($tr);
@@ -267,6 +268,29 @@
             });
             window.location = "/operario/pacientes";
         });
+
+         $("#tabla").on("click", ".btn.btn-danger.btn-xs", function (e) {
+            //$(this).parent().parent().remove();
+            var id = $(this).parent().parent().children('td.cedula').text();
+            //alert(cedula);
+            e.preventDefault();
+            //var id = $("#inputcedula").val();
+            console.log(id);
+            //var url = "/pacientes/:"+id;
+            var url = "/pacientes/" + id;
+            //var data = $("#formPaciente").serialize();
+
+            $.ajax({
+                type: 'DELETE',
+                url: url,
+                //data: data,
+                success: function(respuesta) {
+                    window.location = "/operario/pacientes";
+                }
+            });
+            window.location = "/operario/pacientes";
+        });
+
 
         $("#botonEliminar").click(function(e) {
 
