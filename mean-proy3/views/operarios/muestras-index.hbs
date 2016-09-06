@@ -1,94 +1,51 @@
-<!DOCTYPE html>
-<html lang="es">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Salud Primero</title>
-
-    <!-- stylesheets -->
-    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
-    <link href="stylesheets/master.css" rel="stylesheet">
-
-    <!-- Google font -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-    <link href="stylesheets/operario.css" rel="stylesheet">
-    <!-- Font-awesome -->
-    <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
-
-</head>
-
-<body>
-    <header>
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.ejs">
-                        S<span class="fa fa-flask fa-lg" aria-hidden="true"></span>P
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class=""><a href="pacientes.ejs">Pacientes</a></li>
-                        <li class="action"><a href="muestras-index.ejs">Muestras</a></li>
-                        <li class=""><a href="estadisticas">Estadísticas</a></li>
-                        <li class=""><a href="index.ejs">Cerrar sesión</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <section class="container containerMin">
-        <div class="row" id="create-search">
-            <div class="col-md-6" id="muestra-create">
-                <a href="muestra-crear.ejs">
-                    <span class="fa fa-plus-circle fa-3x"></span>
-                    <span id="text" class="fa">Registrar nueva muestra</span>
+<header>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/operario/pacientes">
+                    S<span class="fa fa-flask fa-lg" aria-hidden="true"></span>P
                 </a>
             </div>
-            <div class="col-md-6" id="muestra-search">
-                <input class="form-control" type="text" name="search" value="" placeholder="buscar">
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class=""><a href="/operario/pacientes">Pacientes</a></li>
+                    <li class="action"><a href="#">Muestras</a></li>
+                    <li class=""><a href="/operario/estadisticas">Estadísticas</a></li>
+                    <li class=""><a href="/">Cerrar sesión</a></li>
+                </ul>
             </div>
         </div>
-    </section>
-    <section class="container containerMin" id="content">
-        <table class="table table-hover" id="tableMuestras">
+    </nav>
+</header>
 
-        </table>
-    </section>
+<section class="container containerMin">
+    <div class="row" id="create-search">
+        <div class="col-md-6" id="muestra-create">
+            <a href="/operario/muestra-crear">
+                <span class="fa fa-plus-circle fa-3x"></span>
+                <span id="text" class="fa">Registrar nueva muestra</span>
+            </a>
+        </div>
+        <div class="col-md-6" id="muestra-search">
+            <input class="form-control" type="text" name="search" value="" placeholder="buscar">
+        </div>
+    </div>
+</section>
+<section class="container containerMin" id="content">
+    <table class="table table-hover" id="tableMuestras">
 
-    <footer>
-        <section class="container">
-            <div class="row">
-                <nav class="nav-footer">
-                    <ul>
-                        <li><a href="#"><span class="fa fa-facebook-f fa-lg" aria-hidden="true"></span></a></li>
-                        <li><a href="#"><span class="fa fa-twitter fa-lg" aria-hidden="true"></span></a></li>
-                        <li><a href="#"><span class="fa fa-google-plus fa-lg" aria-hidden="true"></span></a></li>
-                        <li><a href="#"><span class="fa fa-instagram fa-lg" aria-hidden="true"></span></a></li>
-                    </ul>
-                </nav>
-            </div>
-        </section>
-    </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="javascripts/bootstrap.min.js"></script>
-    <script src="javascripts/main.js" charset="utf-8"></script>
-    <script src="javascripts/master.js" charset="utf-8"></script>
+    </table>
+</section>
+
+{{#extend "scripts"}}
     <script src="javascripts/operario.js" charset="utf-8"></script>
     <script>
         $().ready(function() {
@@ -126,6 +83,4 @@
             });
         });
     </script>
-</body>
-
-</html>
+{{/extend}}
