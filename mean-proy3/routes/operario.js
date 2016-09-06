@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 //operario
-router.get('/pacientes.ejs', function(req, res, next) {
+router.get('/', function(req, res, next) {
     res.render('operarios/pacientes', {
         title: 'Pacientes', layout: false
     });
