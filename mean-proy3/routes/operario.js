@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var MuestraController = require('../controllers/MuestraController.js');
+
 var MuestraModel = require('../models/Muestra.js');
 //operario
 router.get('/', function(req, res, next) {

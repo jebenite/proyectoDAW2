@@ -64,46 +64,65 @@
             </table>
         </div>
     </div>
-<section class="container containerMin" id="content">
-    <table class="table table-hover" id="tableMuestras">
-
-    </table>
-</section>
 
 {{#extend "scripts"}}
-    <script src="javascripts/operario.js" charset="utf-8"></script>
-    <script>
-        $().ready(function() {
-            //Carga todas las muetras de los Pacientes.
-            var url = "/muestras";
-            var data = $("#table").serialize();
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var url = "/pacientes/enlistarPacientes";
+            var data = $("#inputcedula").serialize();
             $.ajax({
                 type: 'GET',
                 url: url,
                 data: data,
 
                 success: function(respuesta) {
-                    /*respuesta.forEach(function(item){
-                    var $option = $("<option></option>");
-                    $option.text(item.cedula);
-                    $("#inputcedula").append($option);
-                    })
-                    $("#inputcedula").change(function(){
-                        respuesta.forEach(function(item){
-                            if($("#inputcedula").val()==item.cedula){
-                                $("#inputPaciente").val(item.nombres);
+                    var nombres = " ";
+                    var apellidos = " ";
+                    
+                    $.getJSON("/muestras", function(data) {
+                        // console.log(data);
+                        $(data).each(function(key, muestra) {
+                            respuesta.forEach(function(item) {
+                                if (muestra.cedula == item.cedula) {
+                                    nombres = item.nombres;
+                                }
+                            })
+                            respuesta.forEach(function(item) {
+                                if (muestra.cedula == item.cedula) {
+                                    apellidos = item.apellidos;
+                                }
+                            })
+                            console.log(nombres);
+                            var $btn = $('<a class="btn btn-primary btn-sm">Ver Examenes</a>');
+                            $btn.attr('href', '/operario/muestras/' + muestra._id);
+                            $btn.css('background-color', '#89bf00');
+                            var $tr = $("<tr>");
+                            $tr.append($('<td>').text(muestra.cedula).attr('id', 'cedula'))
+                                .append($('<td>').text(nombres).attr('id', 'nombres'))
+                                .append($('<td>').text(apellidos).attr('id', 'apellidos'))
+                                .append($('<td>').text(muestra.centro_medico).attr('id', 'centro_medico'))
+                                .append($('<td>').html($btn))
+                                .append('<td><button type="button" class="btn btn-default btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn btn-danger btn-xs" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button></td>');
+                            $("#tabla").append($tr);
+                        });
+                        $("#tabla").on("click", ".btn.btn-danger.btn-xs", function () {
+                            $(this).parent().parent().remove();
+                        });
+                        $("#table").DataTable({
+                            aoColumnDefs: [{
+                                "aTargets": [0],
+                                "bSortable": true
+                            }, {
+                                "aTargets": [2],
+                                "asSorting": ["asc"],
+                                "bSortable": true
+                            }, ],
+                            "language": {
+                                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
                             }
-                        })
+                        });
 
-                    })
-                    $("#inputcedula").change(function(){
-                        respuesta.forEach(function(item){
-                            if($("#inputcedula").val()==item.cedula){
-                                $("#inputPacienteap").val(item.apellidos);
-                            }
-                        })
-
-                    })*/
+                    });
                 }
             });
         });
