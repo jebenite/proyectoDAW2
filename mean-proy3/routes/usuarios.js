@@ -15,8 +15,7 @@ router.post('/', function(req, res) {
             res.send("mal");
         } else {
             if (usuario) {
-                req.session.user = user;
-                req.session.pass = password;
+                
                 req.session.cedula = usuario.cedula;
                 req.session.rol = usuario.rol;
                 req.session.idPaciente = usuario._id;
