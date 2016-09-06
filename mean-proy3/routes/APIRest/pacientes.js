@@ -101,11 +101,7 @@ router.put('/modificar/:id', function(req, res) {
     var correo = req.body.correo;
     var dir = req.body.direccion1;
     var ape = req.body.apellidos;
-    console.log(cedula);
-    console.log(nombres);
-    console.log(correo);
-    console.log(ape);
-    console.log(dir);
+
     Usuario.findOneAndUpdate({
         cedula: req.param("id")
     }, {
@@ -135,22 +131,20 @@ router.get('/', function(req, res) {
 //modificar UN usuario paciente con SESSION
 router.put('/', function(req, res) {
 
-    var cedula = req.body.cedula;
+
     var nombres = req.body.nombres;
     var correo = req.body.correo;
     var dir = req.body.direccion1;
     var ape = req.body.apellidos;
-    console.log(cedula);
-    console.log(nombres);
-    console.log(correo);
-    console.log(ape);
-    console.log(dir);
+    var tel=req.body.telefono;
+    
     Usuario.findByIdAndUpdate(req.session["idPaciente"], {
         $set: {
-            nombres: req.body.nombres,
-            apellidos: req.body.apellidos,
-            correo: req.body.correo,
-            direccion: req.body.direccion1
+            nombres: nombres,
+            apellidos: ape,
+            correo: correo,
+            direccion: dir,
+            telefonos: tel
         }
     }, function(err, doc) {
         if (err) {
