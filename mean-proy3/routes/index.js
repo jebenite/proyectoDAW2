@@ -87,9 +87,12 @@ router.use('/paciente',authPacienteVista, require('./paciente.js'))
  * APIRest Routes
  */
 router.use('/centrosMed', require('./APIRest/centrosMed.js'));
-router.use('/laboratorios',authLaboraRuta, require('./APIRest/laboratorios.js'));
-router.use('/pacientes',authPacienteRuta, require('./APIRest/pacientes.js'));
-router.use('/muestras',authOperarioRuta, require('./APIRest/muestras.js'));
+router.use('/laboratorios', require('./APIRest/laboratorios.js'));
+router.use('/pacientes', require('./APIRest/pacientes.js'));
+router.use('/muestras', require('./APIRest/muestras.js'));
+// router.use('/laboratorios',authLaboraRuta, require('./APIRest/laboratorios.js'));
+// router.use('/pacientes',authPacienteRuta, require('./APIRest/pacientes.js'));
+// router.use('/muestras',authOperarioRuta, require('./APIRest/muestras.js'));
 
 
 // llena de datos la collecion Muestras.
