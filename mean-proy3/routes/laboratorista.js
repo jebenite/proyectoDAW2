@@ -45,10 +45,22 @@ router.get('/muestras/:id', function (req, res) {
                 layout: false
             });
         }
+        // verificar si hay que ingresar resultados
+        var ingresar = true;
+        var examenes = Muestra.examenes;
+        examenes.forEach(function(examen){
+            var resultados_i = examen.resultados;
+            console.log("examen");
+            console.log(examen);
+            if (resultados_i.length > 0) {
+                ingresar = false;
+            }
+        });
         res.render('laboratorista/muestra', {
             title: 'Detalle de examenes',
             muestra_id: id,
-            examenes: Muestra.examenes
+            examenes: examenes,
+            flagIngresar: ingresar
         });
     });
 });

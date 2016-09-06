@@ -1,27 +1,19 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
-var Muestra = require('../models/Muestra.js');
-var Usuario = require('../models/Usuario.js');
+var Muestra = require('../../models/Muestra.js');
+var Usuario = require('../../models/Usuario.js');
 var generator = require('generate-password');
 var nodemailer = require('nodemailer');
 
+//lista los usuarios pacientes
 router.get('/enlistarPacientes', function(req, res) {
     console.log('I received a get request');
     Usuario.find({ rol: "paciente" }, function(err, docs) {
-
         res.json(docs);
     });
 });
-/*router.get('/examenPorPaciente/:id', function(req, res) {
 
-    var id = req.params["id"];
-    Muestra.findById(id, function(err, docs) {
-
-        res.json(docs);
-    });
-});*/
-
+//borra un usuario paciente
 router.delete('/:id', function(req, res) {
     console.log('I received a delete request');
     Usuario.findOneAndRemove({ cedula: req.param("id") }, function(err) {
@@ -31,6 +23,7 @@ router.delete('/:id', function(req, res) {
     });
 });
 
+//crear paciente
 router.post('/', function(req, res) {
     var password = generator.generate({
         length: 8,
@@ -82,6 +75,7 @@ router.post('/', function(req, res) {
     })
 });
 
+//modificar UN usuario paciente
 router.put('/modificar/:id', function(req, res) {
 
     var cedula = req.body.cedula;
@@ -109,14 +103,18 @@ router.put('/modificar/:id', function(req, res) {
     });
 });
 
+//lista UN usuarios pacientes por cedula
 router.get('/', function(req, res) {
     console.log('I received a get request');
-    Usuario.find({ cedula: req.session["cedula"] }, function(err, docs) {
+    Usuario.find({
+        cedula: req.session["cedula"]
+    }, function(err, docs) {
         console.log(docs);
         res.json(docs);
     });
 });
 
+//modificar UN usuario paciente con SESSION
 router.put('/', function(req, res) {
 
     var cedula = req.body.cedula;
@@ -145,10 +143,5 @@ router.put('/', function(req, res) {
     });
 });
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    console.log("query get de mis datos con exito");
-});
 
 module.exports = router;

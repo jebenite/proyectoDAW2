@@ -52,11 +52,12 @@
 {{#extend "scripts"}}
     <script type="text/javascript">
         $(document).ready(function() {
-            $.getJSON("/muestrase", function(data) {
+            $.getJSON("/muestras", function(data) {
                 // console.log(data);
                 $(data).each(function(key, muestra) {
                     var $btn = $('<a class="btn btn-primary btn-sm">Ver Examenes</a>');
                     $btn.attr('href', '/laboratorista/muestras/' + muestra._id);
+                    $btn.css('background-color', '#89bf00');
                     var $tr = $("<tr>");
                     $tr.append($('<td>').text(muestra.cod_barras).attr('id', 'cod_barras'))
                         .append($('<td>').text(muestra.estado).attr('id', 'estado'))

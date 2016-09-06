@@ -1,3 +1,7 @@
+/*
+ * Este es un APIRest de muestra, igual q muestras.js pero con las 5 operaciones
+ */
+
 var express = require('express');
 var router = express.Router();
 var MuestraController = require('../controllers/MuestraController.js');

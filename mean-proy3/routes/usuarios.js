@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
 var Usuario = require('../models/Usuario.js');
 
 router.post('/', function(req, res) {
@@ -32,9 +32,9 @@ router.post('/', function(req, res) {
         }
     });
 })
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    console.log("query get de usuarios con exito");
-});
+// var db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//     console.log("query get de usuarios con exito");
+// });
 module.exports = router;
