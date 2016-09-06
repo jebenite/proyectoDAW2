@@ -1,38 +1,12 @@
-<html>
-    <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+{{#extend "stylesheets"}}
+  <style>
+      #lista {
+          padding-left: 0;
+      }
+  </style>
+  <link href="/stylesheets/barraDeEstado.css" rel="stylesheet">
+{{/extend}}
 
-      <title>{{title}}</title>
-      <!-- Google font -->
-      <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-      <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-      <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-      <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-
-
-      <style>
-          #lista {
-              padding-left: 0;
-          }
-      </style>
-        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-        <script src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-        <script src="/javascripts/angular-datatables.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-
-        <link rel="stylesheet" href="http://cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
-
-        <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
-        <link href="/stylesheets/barraDeEstado.css" rel="stylesheet">
-        <!-- Font-awesome -->
-        <link rel="stylesheet" href="/stylesheets/font-awesome.min.css">
-        <link href="/stylesheets/master.css" rel="stylesheet">
-    </head>
-    <body>
       <header>
           <nav class="navbar navbar-default navbar-fixed-top">
               <div class="container">
@@ -50,10 +24,10 @@
 
                   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                       <ul class="nav navbar-nav navbar-right">
-                          <li class=""><a href="sucursales.ejs">Cambiar de centro</a></li>
+                          <li class=""><a href="/paciente">Cambiar de centro</a></li>
                           <li class="action"><a href="#">Mis exámenes</a></li>
-                          <li class=""><a href="misdatos.ejs">Mis datos</a></li>
-                          <li class=""><a href="index.ejs">Cerrar sesión</a></li>
+                          <li class=""><a href="/paciente/misdatos.ejs">Mis datos</a></li>
+                          <li class=""><a href="/logout">Cerrar sesión</a></li>
                       </ul>
                   </div>
               </div>
@@ -66,7 +40,7 @@
               </section>
           </div>
       </header>
-        <section class="container table-responsive">
+      <section class="container table-responsive">
         <div ng-app="misExamenes" ng-controller="misExamenesCtrl" >
             <table  dt-column-defs="dtColumnDefs" datatable="ng" dt-options="dtOptions" class="row-border hover" >
                 <thead>
@@ -121,24 +95,12 @@
 
                 </tbody>
             </table>
+            </div>
           </section>
-          <footer>
-              <section class="container">
-                  <div class="row">
-                      <nav class="nav-footer">
-                          <ul>
-                              <li ><a href="#"><span class="fa fa-facebook-f fa-lg" aria-hidden="true"></span></a></li>
-                              <li><a href="#"><span class="fa fa-twitter fa-lg" aria-hidden="true"></span></a></li>
-                              <li><a href="#"><span class="fa fa-google-plus fa-lg" aria-hidden="true"></span></a></li>
-                              <li><a href="#"><span class="fa fa-instagram fa-lg" aria-hidden="true"></span></a></li>
-                          </ul>
-                      </nav>
-                  </div>
-              </section>
-          </footer>
-          <script src="/javascripts/main.js" charset="utf-8"></script>
-          <script src="/javascripts/master.js" charset="utf-8"></script>
 
+    {{#extend "scripts"}}
+          <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+          <script src="/javascripts/angular-datatables.min.js"></script>
           <script type="text/javascript" src="/javascripts/pdfmake.js"></script>
           <script type="text/javascript" src="/javascripts/vfs_fonts.js"></script>
             <script>
@@ -260,6 +222,5 @@
                 });
 
             </script>
-        </div>
-    </body>
-</html>
+
+  {{/extend}}

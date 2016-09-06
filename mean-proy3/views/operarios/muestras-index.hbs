@@ -21,7 +21,7 @@
                     <li class=""><a href="/operario/pacientes">Pacientes</a></li>
                     <li class="action"><a href="/operario/muestras">Muestras</a></li>
                     <li class=""><a href="/operario/estadisticas">Estadísticas</a></li>
-                    <li class=""><a href="/">Cerrar sesión</a></li>
+                    <li class=""><a href="/logout">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>
@@ -79,7 +79,7 @@
                 success: function(respuesta) {
                     var nombres = " ";
                     var apellidos = " ";
-                    
+
                     $.getJSON("/muestras", function(data) {
                         // console.log(data);
                         $(data).each(function(key, muestra) {
@@ -93,7 +93,7 @@
                                     apellidos = item.apellidos;
                                 }
                             })
-    
+
                             var $btn = $('<a class="btn btn-primary btn-sm">Ver Examenes</a>');
                             $btn.attr('href', '/operario/muestras/' + muestra._id);
                             $btn.css('background-color', '#89bf00');
@@ -116,7 +116,7 @@
                                 //var url = "/pacientes/:"+id;
                                 var url = "/muestras/" + id;
                                 //var data = $("#formPaciente").serialize();
-                                
+
                                 $.ajax({
                                     type: 'DELETE',
                                     url: url,
