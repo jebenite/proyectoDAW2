@@ -9,6 +9,7 @@ router.get('/', function(req, res, next) {
         title: 'Salud Primero'
     });
 });
+
 router.get('/logout',function(req,res){
 	req.session.destroy();
 
@@ -72,6 +73,7 @@ var authLaboraVista = function(req, res, next) {
     }
     next();
 };
+
 /*
  * View Routes
  */
