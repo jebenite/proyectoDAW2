@@ -3,6 +3,12 @@
       #lista {
           padding-left: 0;
       }
+      body{
+        background-color:#F3F6E9 ;
+      }
+      #botonDescarga{
+        background-color: yellowgreen;
+      }
   </style>
   <link href="/stylesheets/barraDeEstado.css" rel="stylesheet">
 {{/extend}}
@@ -44,7 +50,7 @@
         <div ng-app="misExamenes" ng-controller="misExamenesCtrl" >
             <table  dt-column-defs="dtColumnDefs" datatable="ng" dt-options="dtOptions" class="row-border hover" >
                 <thead>
-                  <tr id="listaEncabezado">
+                  <tr>
                       <td>Muestra</td>
                       <td>Examenes </td>
                       <td>Fecha </td>
@@ -52,7 +58,7 @@
                       <td>Descarga</td>
                   </tr>
                 </thead>
-                <tbody id="cuerpoTabla">
+                <tbody>
                     <tr ng-repeat="examen in examenes">
                         <td>{[{examen.tipo}]}</td>
                         <td>
@@ -83,7 +89,7 @@
                             </ol>
                         </td>
                         <td ng-if="examen.estado == 'terminado'">
-                            <button class="btn " ng-click="PdfExam(examen._id)">Descargar</button>
+                            <button class="btn btn-default" id="botonDescarga" ng-click="PdfExam(examen._id)">Descargar</button>
                         </td>
                         <td ng-if="examen.estado == 'enviado'">
                             <p>Ingresado</p>

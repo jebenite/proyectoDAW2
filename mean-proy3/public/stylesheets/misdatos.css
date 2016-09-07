@@ -1,14 +1,14 @@
 
 #formulario{
 	padding-top: 1%;
-	width:65%; 
+	width:65%;
 }
 input#disabledTextInput.form-control{
 background-color:white;
 }
 #preview {
     background-color:#fff;
-    
+
     margin-left:15%;
 	height:200px;
     width:200px;
@@ -17,7 +17,9 @@ background-color:white;
 input#image_file{
 	padding-top:2%;
 }
-
+body{
+	background-color:#F3F6E9 ;
+}
 button.btn.btn-default{
 	margin-top:3%;
 	background-color:yellowgreen;
@@ -25,6 +27,3 @@ button.btn.btn-default{
 section#cabecera{
 	font-family:"PT Sans"
 }
-
-
-
