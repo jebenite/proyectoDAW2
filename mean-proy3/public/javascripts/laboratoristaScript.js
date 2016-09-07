@@ -94,8 +94,9 @@ $(document).ready(function() {
     //actualiza la muestra->stado en el backend
     $("#guardar-notif").click(function(event) {
         var inputEstado = $('input[name=optionsRadios]:checked').val();
+        var muestra_id = $("#muestra_id").val();
         $.ajax({
-            url: '/muestrase/{{muestra_id}}',
+            url: "/muestras/resultados/"+muestra_id,
             type: 'PUT',
             data: {
                 estado: inputEstado
@@ -147,8 +148,9 @@ $(document).ready(function() {
     // Button guardar resultados ingresados
     $("#guardarResults").click(function(event) {
         var mResultados = getJsonFromPanelExams();
+        var muestra_id = $("#muestra_id").val();
         var ajaxRequest = $.ajax({
-            url: "/test",
+            url: "/muestras/resultados/"+muestra_id,
             type: 'PUT',
             data: {muestraResults: mResultados},
             dataType: 'json',

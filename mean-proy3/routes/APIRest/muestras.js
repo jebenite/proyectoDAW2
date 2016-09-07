@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Muestra = require('../../models/Muestra.js');
+var MuestraController = require('../../controllers/MuestraController.js');
 
 router.get('/', function(req, res) {
     console.log('I received a get request');
@@ -94,6 +95,13 @@ router.post('/', function(req, res) {
         res.json(docs);
 
     });
+});
+
+/*
+ * PUT Actualiza muestra
+ */
+router.put('/resultados/:id', function (req, res) {
+    MuestraController.update(req, res);
 });
 
 module.exports = router;
