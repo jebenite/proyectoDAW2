@@ -1,4 +1,25 @@
+/**
+ * Conmuta la visibilidad del contenido, oculta un div y muestra el otro, y
+ * viceversa.
+ *
+ * @param {div, div} ul elemento que contiene a los list-group-item.
+ */
+function toggleBtns($div1, $div2){
+    if ($div1.css('display') == "none") {
+        $div1.show();
+        $div2.hide();
+    } else if ($div2.css('display') == "none") {
+        $div2.show();
+        $div1.hide();
+    }
+}
 
+/**
+ * Inserta una fila de de input text envueltos en un li.list-group-item para
+ * que sean ingresado los resultados de cada examen.
+ *
+ * @param {Element} ul elemento que contiene a los list-group-item.
+ */
 function insertTextInputs($ul) {
     var $listItem = $('<li class="list-group-item inputs">');
     $listItem.append(`
@@ -20,23 +41,42 @@ function insertTextInputs($ul) {
     var $btnRemove = $('<a href="#" class="btnRemove">');
     $btnRemove.css({
         "position": "absolute",
-        "right": "10px",
-        "top": "13px",
+        "right": "12px",
+        "top": "19px",
         "color": "#d9534f"
     });;
-    $btnRemove.append('<span class="fa fa-times fa-2x"/>');
+    $btnRemove.append('<span class="fa fa-times fa-lg"/>');
     $listItem.append($btnRemove);
     $ul.append($listItem);
 };
 
-function toggleBtns($div1, $div2){
-    if ($div1.css('display') == "none") {
-        $div1.show();
-        $div2.hide();
-    } else if ($div2.css('display') == "none") {
-        $div2.show();
-        $div1.hide();
-    }
+/**
+ * Recorre todos los panels de examenes para generar un json con los resultados
+ * de cada examen de la muestra.
+ *
+ * @return JSON con los valores de los resultados.
+ */
+function getJsonFromPanelExams(){
+    var examenesResults = [];
+    $(".examenes.panel").each(function(index, examenPanel) {
+        var resultados = $(examenPanel).find('.list-group-item.inputs');
+        var examenResults = []
+        $(resultados).each(function(index, liGroupItemInput) {
+            var param = $(liGroupItemInput).find('[name="parametro"]').val();
+            var unidad = $(liGroupItemInput).find('[name="unidad"]').val();
+            var resultado = $(liGroupItemInput).find('[name="resultado"]').val();
+            var val_ref = $(liGroupItemInput).find('[name="val_ref"]').val();
+            var paramResults = {
+                parametro: param,
+                unidad: unidad,
+                resultado: resultado,
+                val_ref: val_ref
+            }
+            examenResults.push(paramResults);
+        });
+        examenesResults.push({resultados: examenResults});
+    });
+    return examenesResults;
 }
 
 $(document).ready(function() {
@@ -85,7 +125,6 @@ $(document).ready(function() {
             $examenHead.append($btnAdd);
             var $ulGroup = $(examenPanel).children('.list-group');
             insertTextInputs($ulGroup);
-            insertTextInputs($ulGroup);
         });
         // cambia el boton ingresar por cancelar&guardar
         toggleBtns($("#ingResults-group1"), $("#ingResults-group2"));
@@ -107,28 +146,15 @@ $(document).ready(function() {
 
     // Button guardar resultados ingresados
     $("#guardarResults").click(function(event) {
-        var reqjson =[
-            {
-                parametro: "aaa",
-                ref: "34-45",
-                valor: "11",
-                escala: "%"
-            },
-            {
-                parametro: "bbb",
-                ref: "34-45",
-                valor: "22",
-                escala: "%"
-            }
-        ]
-        var ex1 = {results: reqjson}
-        var ex2 = {results: reqjson}
-
+        var mResultados = getJsonFromPanelExams();
         var ajaxRequest = $.ajax({
             url: "/test",
             type: 'PUT',
-            data: {mRes: [ex1, ex2]},
+            data: {muestraResults: mResultados},
             dataType: 'json',
+            success: function(data){
+                location.reload();
+            },
             error: function (xhr) {
                 var alMjs = xhr.responseJSON;
                 console.log(alMjs);
@@ -141,8 +167,9 @@ $(document).ready(function() {
     //agregar una fila de resultados
     $(document).on('click', 'a.btnAdd', function(event) {
         event.preventDefault();
-        var $ulGroupParent = $(this).parent().parent();
-        insertTextInputs($ulGroupParent);
+        var $examenPanel = $(this).parent().parent();
+        var $ulGroupSibling = $examenPanel.children('.list-group');
+        insertTextInputs($ulGroupSibling);
     });
 
     //remover una fila de parametros

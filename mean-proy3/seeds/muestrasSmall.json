@@ -1,12 +1,12 @@
 [
     {
+        "fechaIngreso": "2016-03-02",
         "estado": "terminado",
         "tipo": "sangre",
         "lab_asignado": "CanoMED",
         "cod_barras": "abc001",
         "cedula": "0953653417",
         "centro_medico": "Centro Caridad Del Cobre",
-	"fecha": "11-12-2016",
         "examenes": [
             {
                 "nombre": "hemerograma",
@@ -24,13 +24,13 @@
         ]
     },
     {
+        "fechaIngreso": "2016-05-03",
         "estado": "terminado",
         "tipo": "sangre",
         "lab_asignado": "BernaLab",
         "cod_barras": "abc002",
         "cedula": "1234500002",
         "centro_medico": "Centro Sotomayor",
-	"fecha": "10-11-2016",
         "examenes":[
             {
                 "nombre": "Bioquimica",
@@ -43,13 +43,13 @@
         ]
     },
     {
+        "fechaIngreso": "2016-07-01",
         "estado": "terminado",
         "tipo": "sangre",
         "lab_asignado": "EcuaLab",
         "cod_barras": "abc333",
         "cedula": "1234500003",
         "centro_medico": "Centro Shalom",
-	"fecha": "28-02-2016",
         "examenes":[
             {
                 "nombre": "hemerograma",
@@ -75,13 +75,13 @@
         ]
     },
     {
+        "fechaIngreso": "2016-08-01",
         "estado": "terminado",
         "tipo": "orina",
         "lab_asignado": "EcuaLab",
         "cod_barras": "abc444",
         "cedula": "1234500004",
         "centro_medico": "Centro Shalom",
-	"fecha": "14-03-2016",
         "examenes":[
             {
                 "nombre": "Uroanalisis",
@@ -100,7 +100,6 @@
         "cod_barras": "abc555",
         "cedula": "1234500005",
         "centro_medico": "Centro Salud Gratis",
-	"fecha": "03-08-2016",
         "examenes":[
             {
                 "nombre": "Coprocultivo",
@@ -113,13 +112,13 @@
         ]
     },
     {
+        "fechaIngreso": "2016-04-10",
         "estado": "enviado",
         "tipo": "sangre",
         "lab_asignado": "BernaLab",
         "cod_barras": "abc007",
         "cedula": "1234500006",
         "centro_medico": "Centro Sotomayor",
-	"fecha": "05-10-2016",
         "examenes":[
             {
                 "nombre": "hemerograma",
@@ -136,13 +135,13 @@
         ]
     },
     {
+        "fechaIngreso": "2016-02-21",
         "estado": "enviado",
         "tipo": "sangre",
         "lab_asignado": "BernaLab",
         "cod_barras": "abc008",
         "cedula": "1234500007",
         "centro_medico": "Centro Salud Gratis",
-	"fecha": "01-12-2016",
         "examenes":[
             {
                 "nombre": "hemerograma",
@@ -155,13 +154,13 @@
         ]
     },
     {
+        "fechaIngreso": "2016-02-13",
         "estado": "recibido",
         "tipo": "sangre",
         "lab_asignado": "EcuaLab",
         "cod_barras": "abc009",
         "cedula": "1234500008",
         "centro_medico": "Centro Salud Gratis",
-	"fecha": "21-02-2016",
         "examenes":[
             {
                 "nombre": "hemerograma",
@@ -174,13 +173,13 @@
         ]
     },
     {
+        "fechaIngreso": "2016-06-11",
         "estado": "recibido",
         "tipo": "sangre",
         "lab_asignado": "EcuaLab",
         "cod_barras": "abc010",
         "cedula": "1234500009",
         "centro_medico": "Centro Sotomayor",
-	"fecha": "05-05-2016",
         "examenes":[
             {
                 "nombre": "hemerograma",
@@ -189,13 +188,13 @@
         ]
     },
     {
+        "fechaIngreso": "2016-05-05",
         "estado": "enviado",
         "tipo": "heces",
         "lab_asignado": "BernaLab",
         "cod_barras": "abc011",
         "cedula": "1234500004",
         "centro_medico": "Centro Sotomayor",
-	"fecha": "14-04-2016",
         "examenes":[
             {
                 "nombre": "Coprocultivo",
@@ -204,13 +203,13 @@
         ]
     },
     {
+        "fechaIngreso": "2016-04-11",
         "estado": "enviado",
         "tipo": "heces",
         "lab_asignado": "BernaLab",
         "cod_barras": "abc012",
         "cedula": "1234500006",
         "centro_medico": "Centro Sotomayor",
-	"fecha": "03-09-2016",
         "examenes":[
             {
                 "nombre": "Coprocultivo",
@@ -219,13 +218,13 @@
         ]
     },
     {
+        "fechaIngreso": "2016-03-11",
         "estado": "enviado",
         "tipo": "heces",
         "lab_asignado": "BernaLab",
         "cod_barras": "abc013",
         "cedula": "1234500002",
         "centro_medico": "Centro Sotomayor",
-	"fecha": "20-12-2016",
         "examenes":[
             {
                 "nombre": "Coprocultivo",
@@ -234,13 +233,13 @@
         ]
     },
     {
+        "fechaIngreso": "2016-02-01",
         "estado": "enviado",
         "tipo": "heces",
         "lab_asignado": "BernaLab",
         "cod_barras": "abc014",
         "cedula": "1234500006",
         "centro_medico": "Centro Sotomayor",
-	"fecha": "13-07-2016",
         "examenes":[
             {
                 "nombre": "Coprocultivo",
@@ -249,6 +248,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-03-01",
         "estado": "enviado",
         "tipo": "orina",
         "lab_asignado": "BernaLab",
@@ -263,6 +263,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-02-11",
         "estado": "enviado",
         "tipo": "orina",
         "lab_asignado": "BernaLab",
@@ -277,6 +278,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-07-07",
         "estado": "enviado",
         "tipo": "orina",
         "lab_asignado": "BernaLab",
@@ -291,6 +293,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-03-11",
         "estado": "enviado",
         "tipo": "sangre",
         "lab_asignado": "BernaLab",
@@ -309,6 +312,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-03-04",
         "estado": "enviado",
         "tipo": "sangre",
         "lab_asignado": "BernaLab",
@@ -327,6 +331,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-03-03",
         "estado": "enviado",
         "tipo": "sangre",
         "lab_asignado": "BernaLab",
@@ -345,6 +350,7 @@
         ]
     },
     {
+        "fechaIngreso": "2016-04-04",
         "estado": "enviado",
         "tipo": "sangre",
         "lab_asignado": "CanoMED",
