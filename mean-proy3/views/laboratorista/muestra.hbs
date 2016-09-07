@@ -1,6 +1,19 @@
 {{#extend "stylesheets"}}
     <link href="/stylesheets/sucursal.css" rel="stylesheet">
     <link href="/stylesheets/listaDeResultados.css" rel="stylesheet">
+    <style media="screen">
+        .inputResutlts {
+            width: 80%;
+        };
+        /*que raro no aplica*/
+        /*.btn-btnAdd {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            border: 1px solid red;
+        }*/
+
+    </style>
 {{/extend}}
 
 <header>
@@ -88,15 +101,15 @@
             </div>
             <h2>Examenes</h2>
             {{#each examenes}}
-                <div class="panel panel-success">
+                <div class="examenes panel panel-success">
                     <!-- Default panel contents -->
-                    <div class="panel-heading">
+                    <div class="panel-heading" style="position: relative">
                         {{this.nombre}}
                     </div>
                     <!-- List group -->
                     <ul class="list-group">
                         <li class="list-group-item">
-                            <div class="row" >
+                            <div class="row">
                                 <div class="col-xs-3">
                                     <strong>Parametro</strong>
                                 </div>
@@ -133,58 +146,16 @@
                 </div>
             {{/each}}
             {{#if flagIngresar}}
-                <button class="btn btn-success" type="button" name="button">Ingresar Resultados</button>
+                <button class="btn btn-success" type="button" name="button" id="ingresarResults">
+                    Ingresar Resultados
+                </button>
             {{/if}}
         </div>
     </div>
 </div>
 
+
+
 {{#extend "scripts"}}
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var path = '/muestrase/{{muestra_id}}'
-            $.getJSON(path, function(muestra) {
-                console.log(muestra);
-                $("#codBarras").val(muestra.cod_barras);
-                $("#estado").val(muestra.estado);
-                $("#tipo").val(muestra.tipo);
-                $("#lab").val(muestra.lab_asignado);
-                if (muestra.estado == "terminado") {
-                    $("#notificar").hover(function() {
-                        $(this).text('Examenes terminados');
-                        $(this).click(function(event) {
-                            event.preventDefault()
-                        });
-                    }, function() {
-                        $(this).text('Notificar Envio');
-                        $("#estado-group").show();
-                        $("#estadoRadios").hide();
-                    });
-                }
-                console.log("cant extamenes: "+muestra.examenes.length);
-            })
-            $(document).on('click', '#notificar', function(event) {
-                event.preventDefault();
-                $("#estado-group").hide();
-                $("#estadoRadios").show();
-            });
-            $("#cancelar").click(function(event) {
-                $("#estado-group").show();
-                $("#estadoRadios").hide();
-            });
-            $("#guardar-notif").click(function(event) {
-                var inputEstado = $('input[name=optionsRadios]:checked').val();
-                $.ajax({
-                    url: '/muestrase/{{muestra_id}}',
-                    type: 'PUT',
-                    data: {estado: inputEstado},
-                    success: function(response) {
-                        $("#estado").val(response.estado);
-                        $("#estado-group").show();
-                        $("#estadoRadios").hide();
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="/javascripts/laboratoristaScript.js" charset="utf-8"></script>
 {{/extend}}
