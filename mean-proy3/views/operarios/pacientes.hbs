@@ -307,7 +307,7 @@
 
                                 item.telefonos.forEach(function(item) {
 
-                                    var telefono = $('<input type="number" name="telefono" class="form-control" id="telf" placeholder="Teléfono"></input>');
+                                    var telefono = $('<input type="text" onkeypress="return valida(event)" maxlength="10"  minlength="7" name="telefono" class="form-control" id="telf" placeholder="Teléfono"></input>');
                                     telefono.attr("value", item);
                                     listaTelefonos.append(telefono);
                                 })
