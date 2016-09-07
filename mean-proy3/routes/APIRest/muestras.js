@@ -27,6 +27,30 @@ router.get('/:id', function(req, res) {
     });
 });
 
+
+//modificar UN usuario paciente
+router.put('/:id', function(req, res) {
+
+    var cedula = req.body.cedula;
+    var nombres = req.body.nombres;
+    var cent = req.body.centromedico;
+    var ape = req.body.apellidos;
+
+    Muestra.findOneAndUpdate({
+        _id: req.param("id")
+    }, {
+        cedula: req.body.cedula,
+        nombres: req.body.nombres,
+        apellidos: req.body.apellidos,
+        centro_medico: req.body.centromedico,
+    }, function(err, docs) {
+        if (err) throw err;
+
+        // we have the updated user returned to us
+        console.log(docs);
+    });
+});
+
 router.delete('/:id', function(req, res) {
     console.log('I received a delete request');
     Muestra.findOneAndRemove({ _id: req.param("id") }, function(err) {
