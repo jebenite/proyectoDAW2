@@ -4,7 +4,7 @@ var Muestra = require('../../models/Muestra.js');
 var Usuario = require('../../models/Usuario.js');
 var generator = require('generate-password');
 var nodemailer = require('nodemailer');
-
+var CentroMed = require('../../models/CentroMed.js');
 //lista los usuarios pacientes
 router.get('/enlistarPacientes', function(req, res) {
     console.log('I received a get request');
@@ -12,6 +12,14 @@ router.get('/enlistarPacientes', function(req, res) {
         res.json(docs);
     });
 });
+router.get('/centrosMed', function(req, res) {
+    console.log('I received a get request');
+    CentroMed.find({}, function(err, docs) {
+        console.log(docs);
+        res.json(docs);
+    });
+});
+
 //obtiene todas las muestras por cedula
 router.get('/cedula', function(req, res) {
     console.log('I received a get request');
@@ -93,7 +101,7 @@ router.post('/', function(req, res) {
     })
 });
 
-//Get de UN usuario paciente 
+//Get de UN usuario paciente
 router.get('/:id', function(req, res) {
     console.log('I received a get request');
     Usuario.find({
@@ -148,7 +156,7 @@ router.put('/', function(req, res) {
     var dir = req.body.direccion1;
     var ape = req.body.apellidos;
     var tel=req.body.telefono;
-    
+
     Usuario.findByIdAndUpdate(req.session["idPaciente"], {
         $set: {
             nombres: nombres,

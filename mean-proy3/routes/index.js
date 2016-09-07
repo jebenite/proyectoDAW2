@@ -71,18 +71,16 @@ var authLaboraVista = function(req, res, next) {
  */
 router.use('/login', require('./usuarios.js'));
 
-router.use('/laboratorista', require('./laboratorista.js'))
-router.use('/operario', require('./operario.js'))
-router.use('/paciente', require('./paciente.js'))
-// router.use('/laboratorista',authLaboraVista, require('./laboratorista.js'))
-// router.use('/operario',authOperarioVista, require('./operario.js'))
-// router.use('/paciente',authPacienteVista, require('./paciente.js'))
+
+router.use('/laboratorista',authLaboraVista, require('./laboratorista.js'))
+router.use('/operario',authOperarioVista, require('./operario.js'))
+router.use('/paciente',authPacienteVista, require('./paciente.js'))
 
 /*
  * APIRest Routes
  */
-router.use('/centrosMed', require('./APIRest/centrosMed.js'));
-router.use('/laboratorios', require('./APIRest/laboratorios.js'));
+
+router.use('/laboratorios',authLaboraRuta, require('./APIRest/laboratorios.js'));
 router.use('/pacientes', require('./APIRest/pacientes.js'));
 router.use('/muestras', require('./APIRest/muestras.js'));
 
