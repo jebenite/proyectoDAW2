@@ -2,15 +2,6 @@ var express = require('express');
 var router = express.Router();
 var muestraSeeder = require('../controllers/MuestraSeeder.js');
 var laboratorista = require('./laboratorista.js');
-var sesiones=require('./APIRest/sesiones.js');
-module.exports = function(app){
-  app.route('/sesionesOPerario')
-    .get(sesiones.operario);
-  app.route('/sesionesPaciente')
-    .get(sesiones.authPacienteRuta);
-
-
-}
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -24,7 +15,14 @@ router.get('/logout',function(req,res){
 
   res.redirect("/");
 });
-
+var authOperarioRuta = function(req, res, next) {
+    //console.log("este es un middleware");
+    if (req.session["rol"] != "operario") {
+      res.sendStatus(401);
+      return;
+    }
+    next();
+};
 var authOperarioVista = function(req, res, next) {
     //console.log("este es un middleware");
     if (req.session["rol"] != "operario") {
@@ -34,7 +32,14 @@ var authOperarioVista = function(req, res, next) {
     next();
 };
 
-
+var authPacienteRuta = function(req, res, next) {
+    //console.log("este es un middleware");
+    if (req.session["rol"] != "paciente") {
+      res.sendStatus(401);
+      return;
+    }
+    next();
+};
 var authPacienteVista = function(req, res, next) {
     //console.log("este es un middleware");
     if (req.session["rol"] != "paciente") {
@@ -73,14 +78,11 @@ router.use('/paciente',authPacienteVista, require('./paciente.js'))
 /*
  * APIRest Routes
  */
-
 router.use('/centrosMed', require('./APIRest/centrosMed.js'));
 router.use('/laboratorios', require('./APIRest/laboratorios.js'));
 router.use('/pacientes', require('./APIRest/pacientes.js'));
 router.use('/muestras', require('./APIRest/muestras.js'));
-// router.use('/laboratorios',authLaboraRuta, require('./APIRest/laboratorios.js'));
-// router.use('/pacientes',authPacienteRuta, require('./APIRest/pacientes.js'));
-// router.use('/muestras',authOperarioRuta, require('./APIRest/muestras.js'));
+
 
 
 // llena de datos la collecion Muestras.
