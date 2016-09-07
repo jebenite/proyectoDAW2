@@ -1,7 +1,15 @@
 var express = require('express');
 var router = express.Router();
+var MuestraController = require('../controllers/MuestraController.js');
 
+
+var MuestraModel = require('../models/Muestra.js');
 //operario
+router.get('/', function(req, res, next) {
+    res.render('operarios/pacientes', {
+        title: 'Pacientes'
+    });
+});
 router.get('/pacientes', function(req, res, next) {
     res.render('operarios/pacientes', {
         title: 'Pacientes'
@@ -12,7 +20,7 @@ router.get('/paciente-crear', function(req, res, next) {
         title: 'Crear Paciente'
     });
 });
-router.get('/muestras-index', function(req, res, next) {
+router.get('/muestras', function(req, res, next) {
     res.render('operarios/muestras-index', {
         title: 'Muestras'
     });

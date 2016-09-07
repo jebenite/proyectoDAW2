@@ -1,4 +1,6 @@
-
+{{#extend "stylesheets"}}
+    <link href="/stylesheets/operario.css" rel="stylesheet">
+{{/extend}}
 <header>
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -17,9 +19,9 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li class=""><a href="/operario/pacientes">Pacientes</a></li>
-                    <li class="action"><a href="#">Muestras</a></li>
+                    <li class="action"><a href="/operario/muestras">Muestras</a></li>
                     <li class=""><a href="/operario/estadisticas">Estadísticas</a></li>
-                    <li class=""><a href="/">Cerrar sesión</a></li>
+                    <li class=""><a href="/logout">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>
@@ -34,51 +36,114 @@
                 <span id="text" class="fa">Registrar nueva muestra</span>
             </a>
         </div>
-        <div class="col-md-6" id="muestra-search">
+        <!--div class="col-md-6" id="muestra-search">
             <input class="form-control" type="text" name="search" value="" placeholder="buscar">
-        </div>
+        </div-->
     </div>
 </section>
-<section class="container containerMin" id="content">
-    <table class="table table-hover" id="tableMuestras">
+<div class="container" id="tabla1">
+        <section align="center">
+            <h3>Lista de Muestras</h3><br>
+        </section>
 
-    </table>
-</section>
+        <div class="table-responsive">
+            <table class="table table-striped" id="table">
+                <thead>
+                    <tr id="listaEncabezado">
+                        <td hidden>id</td>
+                        <td>Cédula</td>
+                        <td>Nombres</td>
+                        <td>Apellidos</td>
+                        <td>Centro Médico</td>
+                        <td>Exámenes</td>
+                        <td>Acción</td>
+                    </tr>
+                </thead>
+                <tbody id="tabla">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 {{#extend "scripts"}}
-    <script src="javascripts/operario.js" charset="utf-8"></script>
-    <script>
-        $().ready(function() {
-            //Carga todas las muetras de los Pacientes.
-            var url = "/muestras";
-            var data = $("#tableMuestras").serialize();
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var url = "/pacientes/enlistarPacientes";
+            var data = $("#inputcedula").serialize();
             $.ajax({
                 type: 'GET',
                 url: url,
                 data: data,
 
                 success: function(respuesta) {
-                    /*respuesta.forEach(function(item){
-                    var $option = $("<option></option>");
-                    $option.text(item.cedula);
-                    $("#inputcedula").append($option);
-                    })
-                    $("#inputcedula").change(function(){
-                        respuesta.forEach(function(item){
-                            if($("#inputcedula").val()==item.cedula){
-                                $("#inputPaciente").val(item.nombres);
-                            }
-                        })
+                    var nombres = " ";
+                    var apellidos = " ";
 
-                    })
-                    $("#inputcedula").change(function(){
-                        respuesta.forEach(function(item){
-                            if($("#inputcedula").val()==item.cedula){
-                                $("#inputPacienteap").val(item.apellidos);
-                            }
-                        })
+                    $.getJSON("/muestras", function(data) {
+                        // console.log(data);
+                        $(data).each(function(key, muestra) {
+                            respuesta.forEach(function(item) {
+                                if (muestra.cedula == item.cedula) {
+                                    nombres = item.nombres;
+                                }
+                            })
+                            respuesta.forEach(function(item) {
+                                if (muestra.cedula == item.cedula) {
+                                    apellidos = item.apellidos;
+                                }
+                            })
 
-                    })*/
+                            var $btn = $('<a class="btn btn-primary btn-sm">Ver Examenes</a>');
+                            $btn.attr('href', '/laboratorista/muestras/' + muestra._id);
+                            $btn.css('background-color', '#89bf00');
+                            var $tr = $("<tr>");
+                            $tr.append($('<td hidden>').text(muestra._id).attr('class', '_id'))
+                                .append($('<td>').text(muestra.cedula).attr('id', 'cedula'))
+                                .append($('<td>').text(nombres).attr('id', 'nombres'))
+                                .append($('<td>').text(apellidos).attr('id', 'apellidos'))
+                                .append($('<td>').text(muestra.centro_medico).attr('id', 'centro_medico'))
+                                .append($('<td>').html($btn))
+                                .append('<td><button type="button" class="btn btn-default btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn btn-danger btn-xs" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button></td>');
+                            $("#tabla").append($tr);
+                        });
+                        //Requerimiento ajax para eliminar muestras
+                            $("#tabla").on("click", ".btn.btn-danger.btn-xs", function (e) {
+                                if(!confirm("Está seguro de eliminar la muestra!")){
+                                    return;
+                                }
+                                e.preventDefault();
+                                var id = $(this).parent().parent().children('td._id').text();
+                                
+                                //var url = "/pacientes/:"+id;
+                                var url = "/muestras/" + id;
+                                //var data = $("#formPaciente").serialize();
+
+                                $.ajax({
+                                    type: 'DELETE',
+                                    url: url,
+                                    data: data,
+                                    success: function(respuesta) {
+                                        window.location = "/operario/muestras";
+                                    }
+                                });
+                                window.location = "/operario/muestras";
+                            });
+                        $("#table").DataTable({
+                            aoColumnDefs: [{
+                                "aTargets": [0],
+                                "bSortable": true
+                            }, {
+                                "aTargets": [2],
+                                "asSorting": ["asc"],
+                                "bSortable": true
+                            }, ],
+                            "language": {
+                                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                            }
+                        });
+
+                    });
                 }
             });
         });

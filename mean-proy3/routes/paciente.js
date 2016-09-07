@@ -10,12 +10,12 @@ router.get('/', function(req, res, next) {
 });
 router.get('/misdatos.ejs', function(req, res, next) {
     res.render('pacientes/misdatos', {
-        title: 'Express', layout: false
+        title: 'Mis Datos'
     });
 });
 router.get('/misexamenes.ejs', function(req, res, next) {
     res.render('pacientes/misexamenes', {
-        title: 'Express', layout: false
+        title: 'Mis Examenes'
     });
 });
 

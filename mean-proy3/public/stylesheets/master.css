@@ -249,6 +249,19 @@ section.jumbotron {
     margin-top: 10px;
 
 }
+#new_paciente {
+    margin-top: 100px;
+    margin-right: 150px;
+    float: right;
+    font-weight: bold;
+}
+
+#table td{
+    text-align: center;
+}
+.btn-xs {
+  margin-left: 15px;
+}
 
 /* ---------------------------------------------------------
    Section Pacientes

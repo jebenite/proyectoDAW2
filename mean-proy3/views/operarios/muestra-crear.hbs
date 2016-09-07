@@ -19,7 +19,7 @@
                     <li class=""><a href="/operario/pacientes">Pacientes</a></li>
                     <li class="action"><a href="/operario/muestras-index">Muestras</a></li>
                     <li class=""><a href="/operario/estadisticas">Estadísticas</a></li>
-                    <li class=""><a href="/">Cerrar sesión</a></li>
+                    <li class=""><a href="/logout">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>
@@ -28,8 +28,9 @@
 
 <section class="container containerMin">
     <h1>Registro de Muestra</h1>
-    <button id="btnNuevoPaciente" class="btn btn-success" onclick="location='/operario/paciente-crear'">Nuevo Paciente</button>
+    <!--button id="btnNuevoPaciente" class="btn btn-success" onclick="location='/operario/paciente-crear'">Nuevo Paciente</button-->
 </section>
+<p id="new_paciente"><a href="/operario/paciente-crear">Nuevo Paciente</a></p>
 <section class="container containerMin" id="content">
     <div class="col-md-2"></div>
     <div class="col-md-8">
@@ -89,7 +90,7 @@
                     </tr>
                 </table>
             </div>
-            <button class="btn btn-default" onclick="location='/operario/muestras-index'">Cancelar</button>
+            <button class="btn btn-default" onclick="location='/operario/muestras'">Cancelar</button>
             <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
     </div>
@@ -256,7 +257,7 @@
 
                     success: function(respuesta) {
 
-                        window.location = "/operario/muestras-index";
+                        window.location = "/operario/muestras";
                     }
                 });
             }

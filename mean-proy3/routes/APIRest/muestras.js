@@ -27,6 +27,15 @@ router.get('/:id', function(req, res) {
     });
 });
 
+router.delete('/:id', function(req, res) {
+    console.log('I received a delete request');
+    Muestra.findOneAndRemove({ _id: req.param("id") }, function(err) {
+        if (err) throw err;
+        // we have deleted the user
+        console.log('Muestra borrada!');
+    });
+});
+
 function ArrayExams(req) {
     var arreglo = [];
     var i = 0;

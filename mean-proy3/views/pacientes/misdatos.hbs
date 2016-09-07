@@ -1,30 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Salud Primero</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <!-- Bootstrap -->
-    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
-    <link href="/stylesheets/master.css" rel="stylesheet">
-    <link rel="/stylesheet" href="stylesheets/misdatos.css" media="screen" title="no title" charset="utf-8">
-
-    <!-- Google font -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-
-    <!-- Font-awesome -->
-    <link rel="stylesheet" href="/stylesheets/font-awesome.min.css">
-</head>
-
-<body>
-    <header>
+{{#extend "stylesheets"}}
+    <link rel="stylesheet" href="/stylesheets/misdatos.css" media="screen" title="no title" charset="utf-8">
+{{/extend}}
+  <header>
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -41,10 +18,10 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class=""><a href="sucursales.ejs">Cambiar de centro</a></li>
-                        <li class=""><a href="misexamenes.ejs">Mis exámenes</a></li>
+                        <li class=""><a href="/paciente">Cambiar de centro</a></li>
+                        <li class=""><a href="/paciente/misexamenes.ejs">Mis exámenes</a></li>
                         <li class="action"><a href="#">Mis datos</a></li>
-                        <li class=""><a href="index.ejs">Cerrar sesión</a></li>
+                        <li class=""><a href="/logout">Cerrar sesión</a></li>
                     </ul>
                 </div>
             </div>
@@ -60,10 +37,10 @@
         <form id="formPaciente">
             <div class="row">
                 <fieldset>
-                    <div class="col-sm-6" align="left">
-                        <img id="preview" align="left"> </img>
+                    <div align="center" class="col-sm-6" align="left">
+                        <img align="center"  id="preview" align="left"> </img>
                         <div>
-                            <input type="file" id="image_file" onchange="fileSelected();" value="" />
+                            <input type="file" name="fotoDePerfil" id="image_file" onchange="fileSelected();" value="" />
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -108,25 +85,9 @@
         </form>
 
     </section>
-    <footer>
-        <section class="container">
-            <div class="row">
-                <nav class="nav-footer">
-                    <ul>
-                        <li><a href="#"><span class="fa fa-facebook-f fa-lg" aria-hidden="true"></span></a></li>
-                        <li><a href="#"><span class="fa fa-twitter fa-lg" aria-hidden="true"></span></a></li>
-                        <li><a href="#"><span class="fa fa-google-plus fa-lg" aria-hidden="true"></span></a></li>
-                        <li><a href="#"><span class="fa fa-instagram fa-lg" aria-hidden="true"></span></a></li>
-                    </ul>
-                </nav>
-            </div>
-        </section>
-    </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/javascripts/bootstrap.min.js"></script>
-    <script src="/javascripts/misdatos.js" charset="utf-8"></script>
-    <script src="/javascripts/master.js" charset="utf-8"></script>
+
+{{#extend "scripts"}}
+    <script src="/javascripts/misdatos.js"></script>
     <script>
         $(".letras").keypress(function(key) {
             window.console.log(key.charCode)
@@ -178,6 +139,4 @@
             });
         });
     </script>
-</body>
-
-</html>
+  {{/extend}}
