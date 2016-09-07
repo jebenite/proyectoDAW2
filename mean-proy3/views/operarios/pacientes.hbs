@@ -85,7 +85,7 @@
             </tbody>
         </table-->
 
-        <!--form id="formPaciente">
+        <form id="formPaciente">
             <div class="row">
                 <fieldset>
                     <div class="col-sm-6" align="left">
@@ -134,7 +134,7 @@
                 </fieldset>
             </div>
             <button class="btn btn-default" type="submit" id="botonGuardar">Guardar</button>
-        </form-->
+        </form>
         <!--div class="col-sm-offset-3 col-sm-3">
             <button class="btn btn-default" type="submit" name="button" id="botonEditar">Editar</button>
         </div>
@@ -147,11 +147,13 @@
     <script src="/javascripts/operario.js" charset="utf-8"></script>
     <script>
         $(document).ready(function() {
-            /*
+            
             $("#formPaciente").hide();
-            $("#botonEditar").hide();
-            $("#botonEliminar").hide();
+            $("#tabla1").show();
+            //$("#botonEditar").hide();
+            //$("#botonEliminar").hide();
             $("#botonGuardar").hide();
+            /*
             $("#botonEditar").click(function() {
 
                 $('fieldset').attr('disabled', false);
@@ -254,7 +256,7 @@
         $("#formPaciente").submit(function(e) {
 
             e.preventDefault();
-            var id = $("#inputcedula").val();
+            var id = $("#ced").val();
             var url = "/pacientes/modificar/" + id;
             var data = $("#formPaciente").serialize();
 
@@ -269,7 +271,61 @@
             window.location = "/operario/pacientes";
         });
 
+        //MODIFICAR PACIENTE
+         $("#tabla").on("click", ".btn.btn-default.btn-xs", function (e) {
+            var listaTelefonos = $('<ul class="list-inline"></ul>');
+            console.log("hola");
+            //$(this).parent().parent().remove();
+            var id = $(this).parent().parent().children('td.cedula').text();
+            //alert(cedula);
+            e.preventDefault();
+            //var id = $("#inputcedula").val();
+            //console.log(id);
+            //var url = "/pacientes/:"+id;
+            var url = "/pacientes/" + id;
+            //var data = $("#formPaciente").serialize();
+
+            $.ajax({
+                type: 'GET',
+                url: url,
+                //data: data,
+                success: function(respuesta) {
+                    console.log(respuesta);
+                    listaTelefonos.empty();
+                    respuesta.forEach(function(item) { 
+                                $("#formPaciente").show();
+                                $("#tabla1").hide();
+                                $('fieldset').attr('disabled', false);
+                                $('input#ced.form-control').attr('disabled', true);
+                                $('img#preview').attr('disabled', true);
+                                $("#botonGuardar").show();
+                                $("#nombre").val(item.nombres);
+                                $("#apellido").val(item.apellidos);
+                                $("#ced").val(item.cedula);
+                                $("#dir").val(item.direccion);
+                                $('img#preview').attr("src", item.foto);
+
+                                item.telefonos.forEach(function(item) {
+
+                                    var telefono = $('<input type="number" class="form-control" id="telf" placeholder="Teléfono"></input>');
+                                    telefono.attr("value", item);
+                                    listaTelefonos.append(telefono);
+                                })
+
+                                $("#telefonos").append(listaTelefonos);
+                                $("#inputEmail3").val(item.correo);
+                                //$("#inputPaciente").val(item.nombres);
+                            
+                        })
+                }
+            });
+            //window.location = "/operario/pacientes";
+        });
+
+
+        //ELIMINAR PACIENTE
          $("#tabla").on("click", ".btn.btn-danger.btn-xs", function (e) {
+
             //$(this).parent().parent().remove();
             var id = $(this).parent().parent().children('td.cedula').text();
             //alert(cedula);
@@ -292,23 +348,5 @@
         });
 
 
-        $("#botonEliminar").click(function(e) {
-
-            e.preventDefault();
-            var id = $("#inputcedula").val();
-            //var url = "/pacientes/:"+id;
-            var url = "/pacientes/" + id;
-            //var data = $("#formPaciente").serialize();
-
-            $.ajax({
-                type: 'DELETE',
-                url: url,
-                //data: data,
-                success: function(respuesta) {
-                    window.location = "/operario/pacientes";
-                }
-            });
-            window.location = "/operario/pacientes";
-        });
     </script>
 {{/extend}}
