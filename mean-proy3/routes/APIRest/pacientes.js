@@ -6,12 +6,22 @@ var generator = require('generate-password');
 var nodemailer = require('nodemailer');
 var CentroMed = require('../../models/CentroMed.js');
 var authOperarioRuta = function(req, res, next) {
-    //console.log("este es un middleware");
+
     if (req.session["rol"] != "operario") {
       res.sendStatus(401);
       return;
     }
     next();
+};
+//middleware centros medicos por que esta disponible tanto para operario como paciente
+var authCentrosMed = function(req, res, next) {
+  if ((req.session["rol"] == "paciente")||(req.session["rol"] == "operario")) {
+    next();
+
+  }else{
+    res.sendStatus(401);
+    return;
+  }
 };
 var authPacienteRuta = function(req, res, next) {
     //console.log("este es un middleware");
@@ -28,7 +38,7 @@ router.get('/enlistarPacientes',authOperarioRuta, function(req, res) {
         res.json(docs);
     });
 });
-router.get('/centrosMed',authPacienteRuta, function(req, res) {
+router.get('/centrosMed',authCentrosMed, function(req, res) {
     console.log('I received a get request');
     CentroMed.find({}, function(err, docs) {
         console.log(docs);
@@ -36,9 +46,18 @@ router.get('/centrosMed',authPacienteRuta, function(req, res) {
     });
 });
 
-
+//obtiene todas las muestras por cedula
+router.get('/muestrasPorPaciente',authPacienteRuta, function(req, res) {
+    console.log('I received a get request');
+    Muestra.find({
+        cedula: req.session["cedula"]
+    }, function(err, docs) {
+        req.session.idMuestra = docs._id;
+        res.json(docs);
+    });
+});
 //obtiene una muestra para imprimir los resultados de los examenes
-router.get('/examen/:id',authOperarioRuta, function(req, res) {
+router.get('/examen/:id',authPacienteRuta, function(req, res) {
     var id = req.params["id"];
     console.log('I received a get request');
     Muestra.findById(id, function(err, docs) {
@@ -127,14 +146,15 @@ router.put('/modificar/:id',authOperarioRuta, function(req, res) {
     var correo = req.body.correo;
     var dir = req.body.direccion1;
     var ape = req.body.apellidos;
-
+    var telefonos = req.body.telefono;
     Usuario.findOneAndUpdate({
         cedula: req.param("id")
     }, {
         nombres: req.body.nombres,
         apellidos: req.body.apellidos,
         correo: req.body.correo,
-        direccion: req.body.direccion1
+        direccion: req.body.direccion1,
+        telefonos:telefonos
     }, function(err, docs) {
         if (err) throw err;
 

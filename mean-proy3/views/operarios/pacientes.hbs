@@ -147,7 +147,7 @@
     <script src="/javascripts/operario.js" charset="utf-8"></script>
     <script>
         $(document).ready(function() {
-            
+
             $("#formPaciente").hide();
             $("#tabla1").show();
             //$("#botonEditar").hide();
@@ -292,7 +292,7 @@
                 success: function(respuesta) {
                     console.log(respuesta);
                     listaTelefonos.empty();
-                    respuesta.forEach(function(item) { 
+                    respuesta.forEach(function(item) {
                                 $("#formPaciente").show();
                                 $("#tabla1").hide();
                                 $('fieldset').attr('disabled', false);
@@ -307,7 +307,7 @@
 
                                 item.telefonos.forEach(function(item) {
 
-                                    var telefono = $('<input type="number" class="form-control" id="telf" placeholder="Teléfono"></input>');
+                                    var telefono = $('<input type="number" name="telefono" class="form-control" id="telf" placeholder="Teléfono"></input>');
                                     telefono.attr("value", item);
                                     listaTelefonos.append(telefono);
                                 })
@@ -315,7 +315,7 @@
                                 $("#telefonos").append(listaTelefonos);
                                 $("#inputEmail3").val(item.correo);
                                 //$("#inputPaciente").val(item.nombres);
-                            
+
                         })
                 }
             });

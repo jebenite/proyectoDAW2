@@ -41,14 +41,17 @@ var authPacienteVista = function(req, res, next) {
     }
     next();
 };
-
-var authLaboraRuta = function(req, res, next) {
+//middleware para q este disponible la ruta muestras tanto para operario y laboratorista
+var authMuestrasRuta = function(req, res, next) {
     //console.log("este es un middleware");
-    if (req.session["rol"] != "laboratorista") {
+    if ((req.session["rol"] == "laboratorista")||(req.session["rol"] == "operario")) {
+      next();
+
+    }else{
       res.sendStatus(401);
       return;
     }
-    next();
+
 };
 var authLaboraVista = function(req, res, next) {
     //console.log("este es un middleware");
@@ -73,9 +76,9 @@ router.use('/paciente',authPacienteVista, require('./paciente.js'))
  * APIRest Routes
  */
 
-router.use('/laboratorios',require('./APIRest/laboratorios.js'));
+router.use('/laboratorios',authMuestrasRuta,require('./APIRest/laboratorios.js'));
 router.use('/pacientes', require('./APIRest/pacientes.js'));
-router.use('/muestras',authOperarioRuta, require('./APIRest/muestras.js'));
+router.use('/muestras',authMuestrasRuta, require('./APIRest/muestras.js'));
 
 
 
