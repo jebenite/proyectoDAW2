@@ -93,6 +93,17 @@ router.post('/', function(req, res) {
     })
 });
 
+//Get de UN usuario paciente 
+router.get('/:id', function(req, res) {
+    console.log('I received a get request');
+    Usuario.find({
+        cedula: req.param("id")
+    }, function(err, docs) {
+        console.log(docs);
+        res.json(docs);
+    });
+});
+
 //modificar UN usuario paciente
 router.put('/modificar/:id', function(req, res) {
 
