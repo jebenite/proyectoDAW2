@@ -166,8 +166,8 @@
                                 }
                             })
 
-                            var $btn = $('<a class="btn btn-primary btn-sm">Ver Examenes</a>');
-                            $btn.attr('href', '/laboratorista/muestras/' + muestra._id);
+                            var $btn = $('<a class="btn btn-primary btn-sm">Ver Detalles</a>');
+                            $btn.attr('href', '/operario/muestras/' + muestra._id);
                             $btn.css('background-color', '#89bf00');
                             var $tr = $("<tr>");
                             $tr.append($('<td hidden>').text(muestra._id).attr('class', '_id'))
@@ -362,7 +362,7 @@
                             }
                             e.preventDefault();
                             var id = $(this).parent().parent().children('td._id').text();
-                            
+
                             //var url = "/pacientes/:"+id;
                             var url = "/muestras/" + id;
                             //var data = $("#formPaciente").serialize();

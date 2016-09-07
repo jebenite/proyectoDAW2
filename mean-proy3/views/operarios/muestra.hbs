@@ -28,14 +28,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.ejs">
-                    SaludPrimero<span class="fa fa-flask fa-lg" aria-hidden="true"></span>
+                <a class="navbar-brand" href="/operario/pacientes">
+                    S<span class="fa fa-flask fa-lg" aria-hidden="true"></span>P
                 </a>
             </div>
+
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class=""><a href="/laboratorista">Lista de resultados</a></li>
-                    <li class="action"><a href="#">Ingresar resultados</a></li>
+                    <li class=""><a href="/operario/pacientes">Pacientes</a></li>
+                    <li class="action"><a href="/operario/muestras">Muestras</a></li>
+                    <li class=""><a href="/operario/estadisticas">Estadísticas</a></li>
                     <li class=""><a href="/logout">Cerrar sesión</a></li>
                 </ul>
             </div>
@@ -62,36 +64,6 @@
             <div id="estado-group" class="form-group">
                 <label for="codBarras">Estado</label>
                 <input type="text" class="form-control" id="estado" disabled>
-                <button class="form-control btn btn-success" type="button" name="button" style="display: none" id="notificar">
-                    Notificar Envio
-                </button>
-            </div>
-            <div id="estadoRadios" class="form-group" style="display: none">
-                <label for="codBarras">Estado</label>
-                <div class="row">
-                    <div class="col-xs-6" style="padding-rigth: 4px">
-                        <button class="form-control btn btn-success" type="button" name="button" id="cancelar">
-                            Cancelar
-                        </button>
-                    </div>
-                    <div class="col-xs-6" style="padding-left: 4px">
-                        <button class="form-control btn btn-success" type="button" name="button" id="guardar-notif">
-                            Guardar
-                        </button>
-                    </div>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" id="optRecibido" value="recibido" >
-                        Recibido
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" id="optInconveniente" value="inconveniente" >
-                        Hubo un inconveniente
-                    </label>
-                </div>
             </div>
             <div class="form-group">
                 <label for="codBarras">Tipo De Muestra</label>
@@ -101,7 +73,7 @@
                 <label for="codBarras">Laboratorio Destino</label>
                 <input type="text" class="form-control" id="lab" disabled>
             </div>
-            <h2>Examenes</h2>
+            <h2>Examenes a Realizar</h2>
             {{#each examenes}}
                 <div class="examenes panel panel-success">
                     <!-- Default panel contents -->
@@ -147,29 +119,24 @@
                     </ul>
                 </div>
             {{/each}}
-            {{#if flagIngresar}}
-                <div id="ingResults-group1" class="form-group ingresarResults" >
-                    <button class="form-control btn btn-success" type="button" name="button" id="ingresarResults">
-                        Ingresar Resultados
-                    </button>
-                </div>
-                <div id="ingResults-group2" class="form-group ingresarResults" style="display:none">
-                    <button class="form-control btn btn-success" type="button" name="button" id="cancelarResults">
-                        cancelar
-                    </button>
-                    <button class="form-control btn btn-success" type="button" name="button" id="guardarResults">
-                        Guardar
-                    </button> `
-                </div>
-            {{/if}}
+
+            <div id="ingResults-group1" class="form-group ingresarResults" >
+                {{!-- este boton es opcional, si desde qui se quiere editar esta muestra
+                      en ese caso deberia estar aqui el evento de dar clic para editar
+                      que esta en muestras-index, se separas el js de muestras-index
+                      en un archivo se podria llamar desde esta vista y tb funcionaria aqui --}}
+                <button type="button" class="btn btn-default btn-xs" title="Editar">
+                    Editar <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+            </div>
+
         </div>
     </div>
 </div>
 
 
-
 {{#extend "scripts"}}
-    <script src="/javascripts/laboratoristaScript.js" charset="utf-8"></script>
+    {{!-- <script src="/javascripts/laboratoristaScript.js" charset="utf-8"></script> --}}
     <script type="text/javascript">
         $(document).ready(function() {
             var muestra_id = $("#muestra_id").val();
@@ -180,11 +147,7 @@
                 $("#estado").val(muestra.estado);
                 $("#tipo").val(muestra.tipo);
                 $("#lab").val(muestra.lab_asignado);
-                if (muestra.estado == "terminado") {
-                    $("#notificar").hide();
-                } else {
-                    $("#notificar").show();
-                }
+
                 console.log("cant extamenes: " + muestra.examenes.length);
             })
         });
