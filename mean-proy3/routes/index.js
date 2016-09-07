@@ -71,9 +71,12 @@ var authLaboraVista = function(req, res, next) {
  */
 router.use('/login', require('./usuarios.js'));
 
-router.use('/laboratorista',authLaboraVista, require('./laboratorista.js'))
-router.use('/operario',authOperarioVista, require('./operario.js'))
-router.use('/paciente',authPacienteVista, require('./paciente.js'))
+router.use('/laboratorista', require('./laboratorista.js'))
+router.use('/operario', require('./operario.js'))
+router.use('/paciente', require('./paciente.js'))
+// router.use('/laboratorista',authLaboraVista, require('./laboratorista.js'))
+// router.use('/operario',authOperarioVista, require('./operario.js'))
+// router.use('/paciente',authPacienteVista, require('./paciente.js'))
 
 /*
  * APIRest Routes

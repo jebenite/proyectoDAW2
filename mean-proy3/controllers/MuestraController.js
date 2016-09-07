@@ -74,6 +74,7 @@ module.exports = {
      * MuestraController.update()
      */
     update: function(req, res) {
+        console.log("req para actualizar muestras");
         var id = req.params.id;
         MuestraModel.findOne({ _id: id }, function(err, Muestra) {
             if (err) {
@@ -95,7 +96,23 @@ module.exports = {
             Muestra.cod_barras = req.body.cod_barras ? req.body.cod_barras : Muestra.cod_barras;
             Muestra.cedula = req.body.cedula ? req.body.cedula : Muestra.cedula;
             Muestra.centro_medico = req.body.centro_medico ? req.body.centro_medico : Muestra.centro_medico;
-            Muestra.examenes = req.body.examenes ? req.body.examenes : Muestra.examenes;
+
+            var resultadosExamenes = req.body.muestraResults;
+
+            if (resultadosExamenes === undefined || resultadosExamenes === null) {
+                Muestra.examenes = req.body.examenes ? req.body.examenes : Muestra.examenes;
+            } else {
+                console.log("se puede acualzar los resultados");
+                var examenes = Muestra.examenes;
+                var i = 0;
+                examenes.forEach(function(examen){
+                    resultadosExamen = resultadosExamenes[i].resultados;
+                    examen.resultados = resultadosExamen;
+                    i = i + 1;
+                });
+                // si ya se ingresan los resultados actualiza estado
+                Muestra.estado = 'terminado'
+            }
 
             Muestra.save(function(err, Muestra) {
                 if (err) {
