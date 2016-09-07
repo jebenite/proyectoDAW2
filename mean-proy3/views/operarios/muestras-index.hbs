@@ -95,7 +95,7 @@
                             })
     
                             var $btn = $('<a class="btn btn-primary btn-sm">Ver Examenes</a>');
-                            $btn.attr('href', '/operario/muestras/' + muestra._id);
+                            $btn.attr('href', '/laboratorista/muestras/' + muestra._id);
                             $btn.css('background-color', '#89bf00');
                             var $tr = $("<tr>");
                             $tr.append($('<td hidden>').text(muestra._id).attr('class', '_id'))
@@ -109,10 +109,12 @@
                         });
                         //Requerimiento ajax para eliminar muestras
                             $("#tabla").on("click", ".btn.btn-danger.btn-xs", function (e) {
-                                $(this).parent().parent().remove();
-                                var id = $(this).parent().parent().children('td._id').text();
+                                if(!confirm("Está seguro de eliminar la muestra!")){
+                                    return;
+                                }
                                 e.preventDefault();
-                                console.log(id);
+                                var id = $(this).parent().parent().children('td._id').text();
+                                
                                 //var url = "/pacientes/:"+id;
                                 var url = "/muestras/" + id;
                                 //var data = $("#formPaciente").serialize();
@@ -122,10 +124,10 @@
                                     url: url,
                                     data: data,
                                     success: function(respuesta) {
-                                        //window.location = "/operario/muestras";
+                                        window.location = "/operario/muestras";
                                     }
                                 });
-                                //window.location = "/operario/muestras";
+                                window.location = "/operario/muestras";
                             });
                         $("#table").DataTable({
                             aoColumnDefs: [{
