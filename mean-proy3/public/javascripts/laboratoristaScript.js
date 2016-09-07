@@ -1,6 +1,6 @@
 
 function insertTextInputs($ul) {
-    var $listItem = $('<li class="list-group-item">');
+    var $listItem = $('<li class="list-group-item inputs">');
     $listItem.append(`
         <div class="row">
             <div class="col-xs-3">
@@ -29,29 +29,18 @@ function insertTextInputs($ul) {
     $ul.append($listItem);
 };
 
+function toggleBtns($div1, $div2){
+    if ($div1.css('display') == "none") {
+        $div1.show();
+        $div2.hide();
+    } else if ($div2.css('display') == "none") {
+        $div2.show();
+        $div1.hide();
+    }
+}
 
 $(document).ready(function() {
-    var path = '/muestras/{{muestra_id}}'
-    $.getJSON(path, function(muestra) {
-        console.log(muestra);
-        $("#codBarras").val(muestra.cod_barras);
-        $("#estado").val(muestra.estado);
-        $("#tipo").val(muestra.tipo);
-        $("#lab").val(muestra.lab_asignado);
-        if (muestra.estado == "terminado") {
-            $("#notificar").hover(function() {
-                $(this).text('Examenes terminados');
-                $(this).click(function(event) {
-                    event.preventDefault()
-                });
-            }, function() {
-                $(this).text('Notificar Envio');
-                $("#estado-group").show();
-                $("#estadoRadios").hide();
-            });
-        }
-        console.log("cant extamenes: " + muestra.examenes.length);
-    })
+
     $(document).on('click', '#notificar', function(event) {
         event.preventDefault();
         $("#estado-group").hide();
@@ -61,7 +50,8 @@ $(document).ready(function() {
         $("#estado-group").show();
         $("#estadoRadios").hide();
     });
-    //actualiza la muestra en el backend
+
+    //actualiza la muestra->stado en el backend
     $("#guardar-notif").click(function(event) {
         var inputEstado = $('input[name=optionsRadios]:checked').val();
         $.ajax({
@@ -78,9 +68,10 @@ $(document).ready(function() {
         });
     });
 
-    // ingresar resultados de examenes
+    // Button ingresar resultados de examenes
     $("#ingresarResults").click(function(event) {
         event.preventDefault();
+        //llena con text inputs
         $(".examenes.panel").each(function(index, examenPanel) {
             var $examenHead = $(examenPanel).children('.panel-heading');
             var $btnAdd = $('<a href="#" class="btnAdd"/>').css({
@@ -96,12 +87,65 @@ $(document).ready(function() {
             insertTextInputs($ulGroup);
             insertTextInputs($ulGroup);
         });
+        // cambia el boton ingresar por cancelar&guardar
+        toggleBtns($("#ingResults-group1"), $("#ingResults-group2"));
     });
+
+    // Button cancelar ingreso de resultados
+    $("#cancelarResults").click(function(event) {
+        $(".examenes.panel").each(function(index, examenPanel) {
+            var $examenHead = $(examenPanel).children('.panel-heading');
+            $examenHead.children('a.btnAdd').remove();
+            // Remueve los inputs
+            $('.list-group-item.inputs').each(function(index, listItem) {
+                $(listItem).remove();
+            });
+        });
+        // cambia botones cancelar&guardar por button ingresar
+        toggleBtns($("#ingResults-group1"), $("#ingResults-group2"));
+    });
+
+    // Button guardar resultados ingresados
+    $("#guardarResults").click(function(event) {
+        var reqjson =[
+            {
+                parametro: "aaa",
+                ref: "34-45",
+                valor: "11",
+                escala: "%"
+            },
+            {
+                parametro: "bbb",
+                ref: "34-45",
+                valor: "22",
+                escala: "%"
+            }
+        ]
+        var ex1 = {results: reqjson}
+        var ex2 = {results: reqjson}
+
+        var ajaxRequest = $.ajax({
+            url: "/test",
+            type: 'PUT',
+            data: {mRes: [ex1, ex2]},
+            dataType: 'json',
+            error: function (xhr) {
+                var alMjs = xhr.responseJSON;
+                console.log(alMjs);
+                // alert(alMjs);
+                window.location = "#";
+            }
+        });
+    });
+
+    //agregar una fila de resultados
     $(document).on('click', 'a.btnAdd', function(event) {
         event.preventDefault();
         var $ulGroupParent = $(this).parent().parent();
         insertTextInputs($ulGroupParent);
     });
+
+    //remover una fila de parametros
     $(document).on('click', 'a.btnRemove', function(event) {
         event.preventDefault();
         $(this).parent().remove();

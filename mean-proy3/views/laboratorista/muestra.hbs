@@ -4,14 +4,20 @@
     <style media="screen">
         .inputResutlts {
             width: 80%;
-        };
-        /*que raro no aplica*/
-        /*.btn-btnAdd {
-            position: absolute;
-            right: 10px;
-            top: 5px;
-            border: 1px solid red;
-        }*/
+        }
+        .form-group.ingresarResults{
+            /*width: 30%;*/
+        }
+        .form-group.ingresarResults button{
+            display: inline-block;
+            width: 25%;
+        }
+        @media screen and (max-width: 600px) {
+            .form-group.ingresarResults button{
+                display: block;
+                width: 50%;
+            }
+        }
 
     </style>
 {{/extend}}
@@ -108,7 +114,7 @@
                     </div>
                     <!-- List group -->
                     <ul class="list-group">
-                        <li class="list-group-item">
+                        <li class="list-group-item" >
                             <div class="row">
                                 <div class="col-xs-3">
                                     <strong>Parametro</strong>
@@ -146,9 +152,19 @@
                 </div>
             {{/each}}
             {{#if flagIngresar}}
-                <button class="btn btn-success" type="button" name="button" id="ingresarResults">
-                    Ingresar Resultados
-                </button>
+                <div id="ingResults-group1" class="form-group ingresarResults" >
+                    <button class="form-control btn btn-success" type="button" name="button" id="ingresarResults">
+                        Ingresar Resultados
+                    </button>
+                </div>
+                <div id="ingResults-group2" class="form-group ingresarResults" style="display:none">
+                    <button class="form-control btn btn-success" type="button" name="button" id="cancelarResults">
+                        cancelar
+                    </button>
+                    <button class="form-control btn btn-success" type="button" name="button" id="guardarResults">
+                        Guardar
+                    </button> `
+                </div>
             {{/if}}
         </div>
     </div>
@@ -158,4 +174,29 @@
 
 {{#extend "scripts"}}
     <script src="/javascripts/laboratoristaScript.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var path = '/muestras/{{muestra_id}}'
+            $.getJSON(path, function(muestra) {
+                console.log(muestra);
+                $("#codBarras").val(muestra.cod_barras);
+                $("#estado").val(muestra.estado);
+                $("#tipo").val(muestra.tipo);
+                $("#lab").val(muestra.lab_asignado);
+                if (muestra.estado == "terminado") {
+                    $("#notificar").hover(function() {
+                        $(this).text('Examenes terminados');
+                        $(this).click(function(event) {
+                            event.preventDefault()
+                        });
+                    }, function() {
+                        $(this).text('Notificar Envio');
+                        $("#estado-group").show();
+                        $("#estadoRadios").hide();
+                    });
+                }
+                console.log("cant extamenes: " + muestra.examenes.length);
+            })
+        });
+    </script>
 {{/extend}}
