@@ -1,5 +1,11 @@
 {{#extend "stylesheets"}}
     <link href="/stylesheets/operario.css" rel="stylesheet">
+    <link href="/stylesheets/misdatos.css" rel="stylesheet">
+    <style>
+    section.container.containerMin{
+      padding-bottom: 0;
+    }
+  </style>
 {{/extend}}
     <header>
         <nav class="navbar navbar-default navbar-fixed-top">
@@ -88,8 +94,8 @@
         <form id="formPaciente">
             <div class="row">
                 <fieldset>
-                    <div class="col-sm-6" align="left">
-                        <img id="preview" align="left"> </img>
+                    <div class="col-sm-6" align="center">
+                        <img id="preview" align="center"> </img>
                         <div>
                             <input type="file"  id="image_file" onchange="fileSelected();" value=""/ >
                         </div>

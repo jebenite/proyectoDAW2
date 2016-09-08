@@ -1,4 +1,17 @@
+{{#extend "stylesheets"}}
+  <style>
+    #content{
+      padding-top: 0%;
+    }
+    body{
+      background-color:#F3F6E9 ;
+    }
+    section.container.containerMin{
+      padding-top: 1%;
 
+    }
+  </style>
+{{/extend}}
 <header>
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -27,7 +40,7 @@
 </header>
 
 <section class="container containerMin">
-    <h1>Registro de Muestra</h1>
+    <h2>Registro de Muestra</h2>
     <!--button id="btnNuevoPaciente" class="btn btn-success" onclick="location='/operario/paciente-crear'">Nuevo Paciente</button-->
 </section>
 <p id="new_paciente"><a href="/operario/paciente-crear">Nuevo Paciente</a></p>

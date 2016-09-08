@@ -1,21 +1,19 @@
 i.fa.fa-plus-square-o.fa-2x{
 	color:yellowgreen;
-	
+
 }
 a#enlaceIcono{
 	margin-top: 100x;
 }
 div#tabla1.container{
 	margin-top:4%;
-	width:70%;
 	
+
 }
-thead{
-	background-color:yellowgreen;
-}
+
 #listaEncabezado td{
 	font-weight: 900;
-	
+
 }
 
 .modal {
