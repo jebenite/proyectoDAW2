@@ -93,7 +93,7 @@ router.post('/',authOperarioRuta,function(req, res) {
         nombres: req.body.nombres,
         apellidos: req.body.apellidos,
         correo: req.body.correo,
-        direccion: "",
+        direccion: req.body.direccion,
         telefonos: [" "]
     }, function(err, docs) {
         console.log(docs);

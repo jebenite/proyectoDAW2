@@ -178,7 +178,7 @@
                     console.log(respuesta);
                     respuesta.forEach(function(item) {
                         //var $btn = $('<a class="btn btn-primary btn-sm">Modificar</a>');
-                        var $btn = $('<button type="button" class="btn btn-default btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn btn-danger btn-xs" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button>');
+                        var $btn = $('<button type="button" class="btn btn-default btn-xs edit" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn btn-default btn-xs delete" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button>');
                     $btn.attr('href', '#');
                     var $tr = $("<tr>");
                     $tr.append($('<td>').text(item.cedula).attr('class', 'cedula'))
@@ -272,7 +272,7 @@
         });
 
         //MODIFICAR PACIENTE
-         $("#tabla").on("click", ".btn.btn-default.btn-xs", function (e) {
+         $("#tabla").on("click", ".btn.btn-default.btn-xs.edit", function (e) {
             var listaTelefonos = $('<ul class="list-inline"></ul>');
             console.log("hola");
             //$(this).parent().parent().remove();
@@ -324,7 +324,7 @@
 
 
         //ELIMINAR PACIENTE
-         $("#tabla").on("click", ".btn.btn-danger.btn-xs", function (e) {
+         $("#tabla").on("click", ".btn.btn-default.btn-xs.delete", function (e) {
 
             //$(this).parent().parent().remove();
             var id = $(this).parent().parent().children('td.cedula').text();
