@@ -3,7 +3,14 @@
     <link href="/stylesheets/estadisticas.css" rel="stylesheet">
     <link href="/stylesheets/histogram.css" rel="stylesheet">
     <link href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css" rel="stylesheet">
-    <link href="/resources/demos/style.css" rel="stylesheet">
+    <style>
+    body{
+      background-color:#F3F6E9 ;
+    }
+    #acordeon{
+      margin: 0 auto;
+    }
+  </style>
 {{/extend}}
 
 <header>
@@ -34,15 +41,13 @@
     <!-- ************** cabecera************* -->
     <div class="container">
         <section id="cabecera" align="center">
-            <h1>Salud Primero S.A.</h1>
-            <p>Gestión de Resultados de Exámenes Médicos.</p>
+            <h2>Estadísticas</h2>
+
         </section>
     </div>
 </header>
 
-<article class="col-sm-3" align="center">
-    <h4>Estadísticas de:</h4>
-</article><br>
+
 
 <br>
 
@@ -56,16 +61,16 @@
                 <input type="radio" id="seg-reporte" name="radio" onclick="definirRangosBusqueda();"> Muestras medicas mensuales
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-3">
+
+            <div >
                 <canvas id="grafico" height="500" weight="500"></canvas>
             </div>
-            <div class="col-sm-6">
-                <aside id="acordeon">
+            <div >
+                <aside  style="width:20em;height:9em;" id="acordeon" >
                     <div class="panel panel-primary" id="borde" role="tablist" aria-multiselectable="true">
                         <div class="panel-heading" role="tab" id="headingTwo">
                             <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="jebenite.github.io/proyecto/sucursales.ejs#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Indique el rango de fechas                        
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="jebenite.github.io/proyecto/sucursales.ejs#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Indique el rango de fechas
                         </a>
                     </h4>
                         </div>
@@ -81,7 +86,7 @@
                         </div>
                 </aside>
                 </div>
-                <div class="col-sm-3"></div>
+
             </div>
 
             <br>

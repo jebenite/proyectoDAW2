@@ -5,7 +5,8 @@ var CentroMedSchema=new mongoose.Schema({
     descipcion: Array, //examenes q se pueden realizar
     horario: Array,
     galeria : Array,
-    mapa: Array
+    mapa: Array,
+    foto:String
 }, { versionKey: false, collection: 'sucursal'});
 
 module.exports = mongoose.model("centroMed",CentroMedSchema);

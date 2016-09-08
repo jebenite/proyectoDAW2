@@ -77,6 +77,7 @@ function ArrayExams(req) {
     }
     return arreglo;
 }
+
 router.post('/', function(req, res) {
 
     console.log('I received a post request');

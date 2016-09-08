@@ -1,5 +1,11 @@
 {{#extend "stylesheets"}}
     <link href="/stylesheets/operario.css" rel="stylesheet">
+    <link href="/stylesheets/misdatos.css" rel="stylesheet">
+    <style>
+    section.container.containerMin{
+      padding-bottom: 0;
+    }
+  </style>
 {{/extend}}
 <header>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -55,8 +61,10 @@
                             <td>Nombres</td>
                             <td>Apellidos</td>
                             <td>Centro Médico</td>
+                            <td>Laboratorio</td>
+                            <td>Código de Barras</td>
                             <td>Exámenes</td>
-                            <td>Acción</td>
+                            <td>Modificar/Eliminar</td>
                         </tr>
                     </thead>
                     <tbody id="tabla">
@@ -131,8 +139,10 @@
                         </tr>
                     </table>
                 </div-->
-                <button class="btn btn-default" onclick="location='/operario/muestras'">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <div class="seleccion">
+                    <button class="btn btn-default" onclick="location='/operario/muestras'">Cancelar</button>
+                    <button type="submit" class="btn btn-default">Guardar</button>
+                </div>
             </form>
         </div>
         <div class="col-md-2"> </div>
@@ -175,13 +185,15 @@
                                 .append($('<td>').text(nombres).attr('class', 'nombres'))
                                 .append($('<td>').text(apellidos).attr('class', 'apellidos'))
                                 .append($('<td>').text(muestra.centro_medico).attr('class', 'centro_medico'))
+                                .append($('<td>').text(muestra.lab_asignado).attr('class', 'lab_asignado'))
+                                .append($('<td>').text(muestra.cod_barras).attr('class', 'cod_barras'))
                                 .append($('<td>').html($btn))
-                                .append('<td><button type="button" class="btn btn-default btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn btn-danger btn-xs" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button></td>');
+                                .append('<td><button type="button" class="btn btn-default btn-xs edit" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn btn-default btn-xs delete" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button></td>');
                             $("#tabla").append($tr);
                         });
 
                         //Requerimiento ajax para modificar muestras
-                         $("#tabla").on("click", ".btn.btn-default.btn-xs", function (e) {
+                         $("#tabla").on("click", ".btn.btn-default.btn-xs.edit", function (e) {
                             e.preventDefault();
                             $("#contenedor1").hide();
                             $("#contenedor2").show();
@@ -223,7 +235,7 @@
                             });
 
                             //Cargar los Centros Medicos.
-                            var url = "/centrosMed";
+                            var url = "/pacientes/centrosMed";
                             var data = $("#inputCentroMedico").serialize();
                             $.ajax({
                                 type: 'GET',
@@ -337,8 +349,6 @@
                             $("#inputCentroMedico option").text($(this).parent().parent().children('td.centro_medico').text());
                             $("#centroPaciente").val($(this).parent().parent().children('td.centro_medico').text());
 
-                            console.log($("#cedulaPaciente").val());
-                            console.log($("#centroPaciente").val());
 
 
                             $("#muestraCreateForm").submit(function(e) {
@@ -358,8 +368,8 @@
                         });
 
                         //Requerimiento ajax para eliminar muestras
-                         $("#tabla").on("click", ".btn.btn-danger.btn-xs", function (e) {
-                            if(!confirm("Está seguro de eliminar la muestra!")){
+                         $("#tabla").on("click", ".btn.btn-default.btn-xs.delete", function (e) {
+                            if(!confirm("Está seguro de eliminar la muestra?")){
                                 return;
                             }
                             e.preventDefault();

@@ -1,5 +1,11 @@
 {{#extend "stylesheets"}}
     <link href="/stylesheets/operario.css" rel="stylesheet">
+    <link href="/stylesheets/misdatos.css" rel="stylesheet">
+    <style>
+    section.container.containerMin{
+      padding-bottom: 0;
+    }
+  </style>
 {{/extend}}
     <header>
         <nav class="navbar navbar-default navbar-fixed-top">
@@ -88,8 +94,8 @@
         <form id="formPaciente">
             <div class="row">
                 <fieldset>
-                    <div class="col-sm-6" align="left">
-                        <img id="preview" align="left"> </img>
+                    <div class="col-sm-6" align="center">
+                        <img id="preview" align="center"> </img>
                         <div>
                             <input type="file"  id="image_file" onchange="fileSelected();" value=""/ >
                         </div>
@@ -147,7 +153,7 @@
     <script src="/javascripts/operario.js" charset="utf-8"></script>
     <script>
         $(document).ready(function() {
-            
+
             $("#formPaciente").hide();
             $("#tabla1").show();
             //$("#botonEditar").hide();
@@ -178,7 +184,7 @@
                     console.log(respuesta);
                     respuesta.forEach(function(item) {
                         //var $btn = $('<a class="btn btn-primary btn-sm">Modificar</a>');
-                        var $btn = $('<button type="button" class="btn btn-default btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn btn-danger btn-xs" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button>');
+                        var $btn = $('<button type="button" class="btn btn-default btn-xs edit" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn btn-default btn-xs delete" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button>');
                     $btn.attr('href', '#');
                     var $tr = $("<tr>");
                     $tr.append($('<td>').text(item.cedula).attr('class', 'cedula'))
@@ -272,7 +278,7 @@
         });
 
         //MODIFICAR PACIENTE
-         $("#tabla").on("click", ".btn.btn-default.btn-xs", function (e) {
+         $("#tabla").on("click", ".btn.btn-default.btn-xs.edit", function (e) {
             var listaTelefonos = $('<ul class="list-inline"></ul>');
             console.log("hola");
             //$(this).parent().parent().remove();
@@ -292,7 +298,7 @@
                 success: function(respuesta) {
                     console.log(respuesta);
                     listaTelefonos.empty();
-                    respuesta.forEach(function(item) { 
+                    respuesta.forEach(function(item) {
                                 $("#formPaciente").show();
                                 $("#tabla1").hide();
                                 $('fieldset').attr('disabled', false);
@@ -307,7 +313,7 @@
 
                                 item.telefonos.forEach(function(item) {
 
-                                    var telefono = $('<input type="number" class="form-control" id="telf" placeholder="Teléfono"></input>');
+                                    var telefono = $('<input type="text" onkeypress="return valida(event)" maxlength="10"  minlength="7" name="telefono" class="form-control" id="telf" placeholder="Teléfono"></input>');
                                     telefono.attr("value", item);
                                     listaTelefonos.append(telefono);
                                 })
@@ -315,7 +321,7 @@
                                 $("#telefonos").append(listaTelefonos);
                                 $("#inputEmail3").val(item.correo);
                                 //$("#inputPaciente").val(item.nombres);
-                            
+
                         })
                 }
             });
@@ -324,8 +330,10 @@
 
 
         //ELIMINAR PACIENTE
-         $("#tabla").on("click", ".btn.btn-danger.btn-xs", function (e) {
-
+         $("#tabla").on("click", ".btn.btn-default.btn-xs.delete", function (e) {
+            if(!confirm("Está seguro de eliminar el paciente?")){
+                return;
+            }
             //$(this).parent().parent().remove();
             var id = $(this).parent().parent().children('td.cedula').text();
             //alert(cedula);

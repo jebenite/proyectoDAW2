@@ -4,16 +4,50 @@ var Muestra = require('../../models/Muestra.js');
 var Usuario = require('../../models/Usuario.js');
 var generator = require('generate-password');
 var nodemailer = require('nodemailer');
+var CentroMed = require('../../models/CentroMed.js');
+var authOperarioRuta = function(req, res, next) {
 
+    if (req.session["rol"] != "operario") {
+      res.sendStatus(401);
+      return;
+    }
+    next();
+};
+//middleware centros medicos por que esta disponible tanto para operario como paciente
+var authCentrosMed = function(req, res, next) {
+  if ((req.session["rol"] == "paciente")||(req.session["rol"] == "operario")) {
+    next();
+
+  }else{
+    res.sendStatus(401);
+    return;
+  }
+};
+var authPacienteRuta = function(req, res, next) {
+    //console.log("este es un middleware");
+    if (req.session["rol"] != "paciente") {
+      res.sendStatus(401);
+      return;
+    }
+    next();
+};
 //lista los usuarios pacientes
-router.get('/enlistarPacientes', function(req, res) {
+router.get('/enlistarPacientes',authOperarioRuta, function(req, res) {
     console.log('I received a get request');
     Usuario.find({ rol: "paciente" }, function(err, docs) {
         res.json(docs);
     });
 });
+router.get('/centrosMed',authCentrosMed, function(req, res) {
+    console.log('I received a get request');
+    CentroMed.find({}, function(err, docs) {
+        console.log(docs);
+        res.json(docs);
+    });
+});
+
 //obtiene todas las muestras por cedula
-router.get('/cedula', function(req, res) {
+router.get('/muestrasPorPaciente',authPacienteRuta, function(req, res) {
     console.log('I received a get request');
     Muestra.find({
         cedula: req.session["cedula"]
@@ -23,7 +57,7 @@ router.get('/cedula', function(req, res) {
     });
 });
 //obtiene una muestra para imprimir los resultados de los examenes
-router.get('/examen/:id', function(req, res) {
+router.get('/examen/:id',authPacienteRuta, function(req, res) {
     var id = req.params["id"];
     console.log('I received a get request');
     Muestra.findById(id, function(err, docs) {
@@ -32,7 +66,7 @@ router.get('/examen/:id', function(req, res) {
     });
 });
 //borra un usuario paciente
-router.delete('/:id', function(req, res) {
+router.delete('/:id',authOperarioRuta, function(req, res) {
     console.log('I received a delete request');
     Usuario.findOneAndRemove({ cedula: req.param("id") }, function(err) {
         if (err) throw err;
@@ -42,7 +76,7 @@ router.delete('/:id', function(req, res) {
 });
 
 //crear paciente
-router.post('/', function(req, res) {
+router.post('/',authOperarioRuta,function(req, res) {
     var password = generator.generate({
         length: 8,
         numbers: true
@@ -59,7 +93,7 @@ router.post('/', function(req, res) {
         nombres: req.body.nombres,
         apellidos: req.body.apellidos,
         correo: req.body.correo,
-        direccion: "",
+        direccion: req.body.direccion,
         telefonos: [" "]
     }, function(err, docs) {
         console.log(docs);
@@ -94,7 +128,7 @@ router.post('/', function(req, res) {
 });
 
 //Get de UN usuario paciente
-router.get('/:id', function(req, res) {
+router.get('/:id',authOperarioRuta, function(req, res) {
     console.log('I received a get request');
     Usuario.find({
         cedula: req.param("id")
@@ -105,21 +139,22 @@ router.get('/:id', function(req, res) {
 });
 
 //modificar UN usuario paciente
-router.put('/modificar/:id', function(req, res) {
+router.put('/modificar/:id',authOperarioRuta, function(req, res) {
 
     var cedula = req.body.cedula;
     var nombres = req.body.nombres;
     var correo = req.body.correo;
     var dir = req.body.direccion1;
     var ape = req.body.apellidos;
-
+    var telefonos = req.body.telefono;
     Usuario.findOneAndUpdate({
         cedula: req.param("id")
     }, {
         nombres: req.body.nombres,
         apellidos: req.body.apellidos,
         correo: req.body.correo,
-        direccion: req.body.direccion1
+        direccion: req.body.direccion1,
+        telefonos:telefonos
     }, function(err, docs) {
         if (err) throw err;
 
@@ -129,7 +164,7 @@ router.put('/modificar/:id', function(req, res) {
 });
 
 //lista UN usuarios pacientes por cedula
-router.get('/', function(req, res) {
+router.get('/',authPacienteRuta, function(req, res) {
     console.log('I received a get request');
     Usuario.find({
         cedula: req.session["cedula"]
@@ -140,8 +175,8 @@ router.get('/', function(req, res) {
 });
 
 //modificar UN usuario paciente con SESSION
-router.put('/', function(req, res) {
-    console.log(req.body);
+router.put('/',authPacienteRuta, function(req, res) {
+
     var nombres = req.body.nombres;
     var correo = req.body.correo;
     var dir = req.body.direccion1;

@@ -259,8 +259,14 @@ section.jumbotron {
 #table td{
     text-align: center;
 }
-.btn-xs {
+.btn.btn-default.btn-xs {
   margin-left: 15px;
+}
+.btn.btn-default {
+    margin-left: 10px;
+}
+.seleccion {
+    margin-left: 270px;
 }
 
 /* ---------------------------------------------------------

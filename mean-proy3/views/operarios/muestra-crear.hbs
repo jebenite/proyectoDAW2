@@ -1,4 +1,17 @@
+{{#extend "stylesheets"}}
+  <style>
+    #content{
+      padding-top: 0%;
+    }
+    body{
+      background-color:#F3F6E9 ;
+    }
+    section.container.containerMin{
+      padding-top: 1%;
 
+    }
+  </style>
+{{/extend}}
 <header>
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -27,7 +40,7 @@
 </header>
 
 <section class="container containerMin">
-    <h1>Registro de Muestra</h1>
+    <h2>Registro de Muestra</h2>
     <!--button id="btnNuevoPaciente" class="btn btn-success" onclick="location='/operario/paciente-crear'">Nuevo Paciente</button-->
 </section>
 <p id="new_paciente"><a href="/operario/paciente-crear">Nuevo Paciente</a></p>
@@ -90,8 +103,8 @@
                     </tr>
                 </table>
             </div>
-            <button class="btn btn-default" onclick="location='/operario/muestras'">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-default" onclick="location='/operario/muestras'">Cancelar</button>
+            <button type="submit" class="btn btn-default">Guardar</button>
         </form>
     </div>
     <div class="col-md-2"> </div>
@@ -135,7 +148,7 @@
             });
 
             //Cargar los Centros Medicos.
-            var url = "/centrosMed";
+            var url = "/pacientes/centrosMed";
             var data = $("#inputCentroMedico").serialize();
             $.ajax({
                 type: 'GET',
@@ -148,7 +161,7 @@
                             $option.text(item.nombre);
                             $("#inputCentroMedico").append($option);
                         })
-                        //Cuando cambio un Centro Medico.
+                    //Cuando cambio un Centro Medico.
                     $("#inputCentroMedico").change(function() {
                         respuesta.forEach(function(item) {
                             if ($("#inputCentroMedico").val() == item.nombre) {
@@ -180,7 +193,7 @@
                             }
                         })
                     })
-                        //Cuando cambio el tipo de Muestra.
+                    //Cuando cambio el tipo de Muestra.
                     $("#inputmuestra").change(function() {
                         respuesta.forEach(function(item) {
                             if ($("#inputCentroMedico").val() == item.nombre) {
@@ -260,6 +273,7 @@
                         window.location = "/operario/muestras";
                     }
                 });
+                window.location = "/operario/muestras";
             }
         });
     </script>

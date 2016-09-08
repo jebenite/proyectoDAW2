@@ -118,7 +118,7 @@
                 });
                 app.controller('misExamenesCtrl',function($scope, $http, DTColumnDefBuilder,DTOptionsBuilder)
                 {
-                    $http.get("/pacientes/cedula").success(function (response)
+                    $http.get("/pacientes/muestrasPorPaciente").success(function (response)
                     {
                         $scope.examenes = response;
                     });
@@ -174,7 +174,7 @@
                   function cuerpoTabla(item){
                     var arrayPDF=[];
                     var cedula=[];
-                    var fecha=[];
+                    var fecha=[];var tipo=[];
                     cedula.push({
                             colSpan: 2,
                             text: 'Cédula del Paciente:'
@@ -193,8 +193,18 @@
                             text: item.fechaIngreso
                         },
                         '');
+                        tipo.push({
+                                colSpan: 2,
+                                text: 'Tipo de Muestra:'
+                            },
+                            '', {
+                                colSpan: 2,
+                                text: item.tipo
+                            },
+                            '');
                     arrayPDF.push(cedula);
                     arrayPDF.push(fecha);
+                    arrayPDF.push(tipo);
                     for(var i=0;i<item.examenes.length;i++){
                       var nombreExam=[];
                       var headers=[];

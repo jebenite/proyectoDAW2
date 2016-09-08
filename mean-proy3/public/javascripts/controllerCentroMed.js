@@ -11,7 +11,7 @@ myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
     console.log("Hello World from AppCtrl");
 
     var refresh = function() {
-        $http.get('/centrosMed').success(function(response) {
+        $http.get('/pacientes/centrosMed').success(function(response) {
             console.log('i got the data i requested');
             $scope.sucursales = response;
         });
