@@ -66,6 +66,10 @@
                 <label for="inputEmail">E-mail</label>
                 <input name="correo" type="email" class="form-control" id="inputEmail" required="">
             </div>
+            <div class="form-group">
+                <label for="telefono">Telefono</label>
+                <input name="telefono" onkeypress="return valida(event)" maxlength="10"  minlength="7"  type="text" class="form-control" id="telefono" required="">
+            </div>
             <button type="submit" class="btn btn-default">Guardar</button>
         </form>
     </div>
