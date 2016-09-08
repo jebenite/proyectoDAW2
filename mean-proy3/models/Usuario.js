@@ -12,7 +12,7 @@ var UsuarioSchema=new mongoose.Schema({
   correo :String,
   direccion :String,//(Opcional)
   telefonos:Array,//(Opcional)
-  foto:Array //(Opcional)
+  foto:String //(Opcional)
 }, { versionKey: false, collection: 'usuario'});
 
 module.exports = mongoose.model("Usuario",UsuarioSchema);

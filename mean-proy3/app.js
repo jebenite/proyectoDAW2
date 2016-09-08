@@ -9,6 +9,8 @@ var exphbs = require('express-handlebars');
 var hbsExtend = require('express-handlebars-extend');
 var session = require('express-session');
 
+var fileUpload = require('express-fileupload');
+
 var app = express();
 
 mongoose.connect('mongodb://jebenite:180895@ds139665.mlab.com:39665/tareasdaw1');
@@ -56,6 +58,9 @@ var auth = function(req, res, next) {
     }
     next();
 };
+
+// default options para subir archivos
+app.use(fileUpload());
 
 // Routes
 app.use('/', require('./routes/index.js'));

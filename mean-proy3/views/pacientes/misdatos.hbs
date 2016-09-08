@@ -125,17 +125,25 @@
             )
                 return false;
         });
-        $("#formPaciente").submit(function(e) {
-            e.preventDefault();
-            var url = "/pacientes";
-            var data = $("#formPaciente").serialize();
-            $.ajax({
-                type: 'PUT',
-                url: url,
-                data: data,
-                success: function(respuesta) {
-                    window.location = "misdatos.ejs";
-                }
+        $(document).ready(function() {
+            $("#formPaciente").submit(function(e) {
+                e.preventDefault();
+                var path = $(this).find('img#preview').attr('src');;
+                var url = "/pacientes";
+                // var data = $("#formPaciente").serialize();
+                // FormData en vez de serialize cuando hay archivos
+                var formData = new FormData($(this)[0]);
+                formData.append('foto', ''+path)
+                $.ajax({
+                    type: 'PUT',
+                    url: url,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(respuesta) {
+                        window.location = "misdatos.ejs";
+                    }
+                });
             });
         });
     </script>

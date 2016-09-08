@@ -11,6 +11,7 @@
     "debug": "~2.2.0",
     "ejs": "~2.4.1",
     "express": "~4.13.4",
+    "express-fileupload": "0.0.5",
     "express-handlebars": "^3.0.0",
     "express-handlebars-extend": "^1.1.0",
     "generate-password": "^1.1.1",

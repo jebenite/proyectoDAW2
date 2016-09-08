@@ -93,7 +93,7 @@ router.post('/', function(req, res) {
     })
 });
 
-//Get de UN usuario paciente 
+//Get de UN usuario paciente
 router.get('/:id', function(req, res) {
     console.log('I received a get request');
     Usuario.find({
@@ -141,21 +141,51 @@ router.get('/', function(req, res) {
 
 //modificar UN usuario paciente con SESSION
 router.put('/', function(req, res) {
-
-
+    console.log(req.body);
     var nombres = req.body.nombres;
     var correo = req.body.correo;
     var dir = req.body.direccion1;
     var ape = req.body.apellidos;
     var tel=req.body.telefono;
-    
+
+    var path;
+
+    // store upload image
+    if (!req.files || req.files.fotoDePerfil.name === '') {
+        // si no se cambio el path imagne
+        console.log('paciente no cargo foto');
+        path = req.body.foto;
+    } else {
+        var sampleFile = req.files.fotoDePerfil;
+        console.log('FOTO UPLOAD');
+        console.log(sampleFile);
+        //para que sea unico defino como nombre de foto idPaciente.ext
+        var filename = ''+sampleFile.name;
+        var extname = filename.split('.').pop();
+
+        var fileNameStored = ''+req.session["idPaciente"] + '.' + extname;
+
+        path = '/images/users/'+fileNameStored;
+        console.log(path);
+        sampleFile.mv('./public'+path, function(err) {
+            if (err) {
+                console.log('no se movio a public');
+                path = req.body.path;
+            }
+            else {
+                console.log('uploaded in dir public');
+            }
+        });
+    }
+
     Usuario.findByIdAndUpdate(req.session["idPaciente"], {
         $set: {
             nombres: nombres,
             apellidos: ape,
             correo: correo,
             direccion: dir,
-            telefonos: tel
+            telefonos: tel,
+            foto: path
         }
     }, function(err, doc) {
         if (err) {
