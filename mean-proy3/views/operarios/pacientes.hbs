@@ -331,7 +331,9 @@
 
         //ELIMINAR PACIENTE
          $("#tabla").on("click", ".btn.btn-default.btn-xs.delete", function (e) {
-
+            if(!confirm("Está seguro de eliminar el paciente?")){
+                return;
+            }
             //$(this).parent().parent().remove();
             var id = $(this).parent().parent().children('td.cedula').text();
             //alert(cedula);
