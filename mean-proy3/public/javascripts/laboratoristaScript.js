@@ -25,16 +25,16 @@ function insertTextInputs($ul) {
     $listItem.append(`
         <div class="row">
             <div class="col-xs-3">
-                <input type="text" name="parametro" placeholder="ingrese datos" class="inputResutlts">
+                <input type="text" name="parametro" placeholder="ingrese datos" class="inputResutlts" required="">
             </div>
             <div class="col-xs-3">
-                <input type="text" name="unidad" placeholder="ingrese datos" class="inputResutlts">
+                <input type="text" name="unidad" placeholder="ingrese datos" value="%" class="inputResutlts" required="">
             </div>
             <div class="col-xs-3">
-                <input type="text" name="resultado" placeholder="ingrese datos" class="inputResutlts">
+                <input type="text" name="resultado" placeholder="ingrese datos" class="inputResutlts" required="">
             </div>
             <div class="col-xs-3">
-                <input type="text" name="val_ref" placeholder="ingrese datos" class="inputResutlts">
+                <input type="text" name="val_ref" placeholder="ingrese datos" class="inputResutlts" required="">
             </div>
         </div> `)
     var btnRemove = $(this)
@@ -66,6 +66,10 @@ function getJsonFromPanelExams(){
             var unidad = $(liGroupItemInput).find('[name="unidad"]').val();
             var resultado = $(liGroupItemInput).find('[name="resultado"]').val();
             var val_ref = $(liGroupItemInput).find('[name="val_ref"]').val();
+            if (param==="" || unidad==="" || resultado==="" || val_ref==="") {
+                // alert('alguno sin ingresar');
+                return "incompleto";
+            }
             var paramResults = {
                 parametro: param,
                 unidad: unidad,
@@ -148,22 +152,29 @@ $(document).ready(function() {
     // Button guardar resultados ingresados
     $("#guardarResults").click(function(event) {
         var mResultados = getJsonFromPanelExams();
-        var muestra_id = $("#muestra_id").val();
-        var ajaxRequest = $.ajax({
-            url: "/muestras/resultados/"+muestra_id,
-            type: 'PUT',
-            data: {muestraResults: mResultados},
-            dataType: 'json',
-            success: function(data){
-                location.reload();
-            },
-            error: function (xhr) {
-                var alMjs = xhr.responseJSON;
-                console.log(alMjs);
-                // alert(alMjs);
-                window.location = "#";
-            }
-        });
+        if (mResultados === "incompleto") {
+            // algun campo no fue llenado
+            // alert('algun campo no fue llenado');
+        } else {
+            console.log(mResultados);
+            // alert('todos ingresados');
+            var muestra_id = $("#muestra_id").val();
+            var ajaxRequest = $.ajax({
+                url: "/muestras/resultados/"+muestra_id,
+                type: 'PUT',
+                data: {muestraResults: mResultados},
+                dataType: 'json',
+                success: function(data){
+                    location.reload();
+                },
+                error: function (xhr) {
+                    var alMjs = xhr.responseJSON;
+                    console.log(alMjs);
+                    // alert(alMjs);
+                    window.location = "#";
+                }
+            });
+        }
     });
 
     //agregar una fila de resultados
