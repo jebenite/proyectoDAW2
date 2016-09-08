@@ -94,6 +94,7 @@ router.post('/',authOperarioRuta,function(req, res) {
         apellidos: req.body.apellidos,
         correo: req.body.correo,
         direccion: req.body.direccion,
+        foto: "/images/users/user-default.png",
         telefonos: [" "]
     }, function(err, docs) {
         console.log(docs);

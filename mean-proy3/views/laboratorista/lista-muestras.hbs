@@ -42,6 +42,7 @@
                 <tr id="listaEncabezado">
                     <td>Código de Barras </td>
                     <td>Estado</td>
+                    <td>Paciente C.I.</td>
                     <td>Tipo</td>
                     <td>Laboratorio</td>
                     <td>Acción</td>
@@ -66,6 +67,7 @@
                     var $tr = $("<tr>");
                     $tr.append($('<td>').text(muestra.cod_barras).attr('id', 'cod_barras'))
                         .append($('<td>').text(muestra.estado).attr('id', 'estado'))
+                        .append($('<td>').text(muestra.cedula).attr('id', 'cedula'))
                         .append($('<td>').text(muestra.tipo).attr('id', 'tipo'))
                         .append($('<td>').text(muestra.lab_asignado).attr('id', 'lab_asignado'))
                         .append($('<td>').html($btn));
